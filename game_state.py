@@ -195,7 +195,9 @@ class MkddGameState():
             self.print_ingame(304, 180, "This mode is not supported!", 0)
             self.print_ingame(304, 200, "Return to main menu.", 0)
             return False
-        if self.human_players > 2:
+        # Only check the player count in grand prix: in time trials the
+        # field counts ghost karts as well.
+        if self.mode == game_data.Modes.GRANDPRIX and self.human_players > 2:
             self.print_ingame(304, 180, "3-4 players are not supported!", 0)
             self.print_ingame(304, 200, "Return to main menu.", 0)
             return False
