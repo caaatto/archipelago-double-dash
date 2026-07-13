@@ -305,10 +305,12 @@ def calculate_player_level(state: CollectionState, player: int,
 
 def estimate_time_difficulty(time: float, course: game_data.Course) -> int:
     """Estimates logic difficulty for a custom time trial time by interpolating
-    between the good time (difficulty 70) and the staff ghost time (difficulty 120)."""
+    between the good time (difficulty 70) and the staff ghost time (difficulty 120).
+    Capped at 120 so that a custom time can never be harder to reach in logic
+    than the staff ghost checks are."""
     span = course.good_time - course.staff_time
     difficulty = 70 + (course.good_time - time) / span * 50
-    return int(max(0, min(130, difficulty)))
+    return int(max(0, min(120, difficulty)))
 
 
 def has_boost_item(state: CollectionState, player: int) -> bool:
