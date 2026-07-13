@@ -622,8 +622,11 @@ class MkddGameState():
 
     def apply_shuffled_courses(self) -> None:
         """Changes what courses are in what cups."""
-        # Apply shuffled courses only upon selecting vehicle class.
-        if self.vehicle_class == self.last_selected_vehicle_class:
+        # Apply shuffled courses upon selecting vehicle class or entering the menu.
+        # The menu trigger is needed because the vehicle class may never change
+        # (e.g. fresh boot with only 50cc unlocked), leaving the vanilla course table in place.
+        entered_menu: bool = self.course_changed and self.current_course.type == game_data.CourseType.MENU
+        if self.vehicle_class == self.last_selected_vehicle_class and not entered_menu:
             return
         
         offset = self.memory_addresses.cup_contents_wx
@@ -758,6 +761,16 @@ class MkddGameState():
 
             for i_cup in range(len(game_data.CUPS)):
                 dolphin.write_byte(self.memory_addresses.available_cups_bx + i_cup, int(i_cup in available_cups_courses))
+
+            # Availability table for the course cursor, so the game can skip locked courses
+            # natively and keep course previews in sync.
+            for i_cup in range(len(game_data.CUPS)):
+                courses_in_cup = available_cups_courses.get(i_cup, ())
+                for i_course in range(4):
+                    dolphin.write_byte(
+                        self.memory_addresses.available_courses_bx + i_cup * 4 + i_course,
+                        int(i_course in courses_in_cup)
+                    )
 
             if self.selected_course not in available_cups_courses[self.selected_cup]:
                 direction: int = self.selected_course - self.last_selected_course

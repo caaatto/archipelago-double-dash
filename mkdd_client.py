@@ -204,6 +204,7 @@ def apply_patch():
     apply_dict_patch(patches.kart_selection)
     apply_dict_patch(patches.update_menu_pointer)
     apply_dict_patch(patches.cup_selection)
+    apply_dict_patch(patches.course_selection)
     apply_dict_patch(patches.vehicle_class_selector)
     apply_dict_patch(patches.time_trial_items)
     apply_dict_patch(patches.item_shuffle)

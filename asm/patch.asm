@@ -533,6 +533,8 @@ Invalidate code_car_box_update_stack_2
 Invalidate code_car_box_update
 Invalidate code_disable_start_pos_shuffle
 Invalidate code_no_triple_shell_swap
+Invalidate 0x8016af84   # Course selection up (course_selection region below)
+Invalidate 0x8016afdc   # Course selection down (course_selection region below)
 Invalidate 0x80005420   # Lap modifier 1 (AR CODES)
 Invalidate 0x80187BA0   # Lap modifier 2
 Invalidate 0x801CD680   # Unlock everything
@@ -541,3 +543,54 @@ Invalidate 0x80251CB0   # Disable reverse Lakitu
 Write 2
     isync
     blr                         # Default code (all the entry points are from end of function).
+
+
+REGION course_selection
+# Skip locked courses when moving the course cursor, like cup selection above.
+# Doing this in game code (instead of moving the cursor from the client afterwards)
+# keeps the course previews in sync (issue #19).
+# This region is placed after invalidate_cache on purpose: its cache invalidation is
+# done with raw addresses above, so the invalidate block address stays unchanged.
+.set available_courses_bx, 0x80001088 # Size 20 (5 cups x 4 courses)
+
+# Move up.
+.set code_course_up, 0x8016af84
+InsertAt code_course_up, 16
+    lwz     r3, -0x5c74 (r13)   # Current course.
+    lwz     r4, -0x5c78 (r13)   # Current cup.
+    slwi    r4, r4, 2
+    lis     r5, available_courses_bx@ha
+    addi    r5, r5, available_courses_bx@l
+    add     r4, r5, r4
+    li      r5, 4               # Loop guard, give up after full wrap-around.
+    addi    r3, r3, 3           # Move cursor.
+    rlwinm  r3, r3, 0, 30, 31   # Wrap around.
+    lbzx    r0, r4, r3          # Check course availability, loops if =0.
+    cmplwi  r0, 0
+    bne     0xc
+    addic.  r5, r5, -1
+    bgt     -0x18
+    stw     r3, -0x5c74 (r13)
+    lfs     f0, -0x5FF4 (rtoc)  # Default code.
+ReturnAt 0x8016afa8
+
+# Move down.
+.set code_course_down, 0x8016afdc
+InsertAt code_course_down, 16
+    lwz     r3, -0x5c74 (r13)   # Current course.
+    lwz     r4, -0x5c78 (r13)   # Current cup.
+    slwi    r4, r4, 2
+    lis     r5, available_courses_bx@ha
+    addi    r5, r5, available_courses_bx@l
+    add     r4, r5, r4
+    li      r5, 4               # Loop guard, give up after full wrap-around.
+    addi    r3, r3, 1           # Move cursor.
+    rlwinm  r3, r3, 0, 30, 31   # Wrap around.
+    lbzx    r0, r4, r3          # Check course availability, loops if =0.
+    cmplwi  r0, 0
+    bne     0xc
+    addic.  r5, r5, -1
+    bgt     -0x18
+    stw     r3, -0x5c74 (r13)
+    lfs     f0, -0x5FF4 (rtoc)  # Default code.
+ReturnAt 0x8016b000
