@@ -108,7 +108,10 @@ Mario Kart Double Dash:
 
   course_shuffle: shuffle_once
     # How the courses are shuffled in cups.
-    # Possible values: vanilla, shuffle_once
+    # Shuffle Per Class shuffles the courses separately for each vehicle class,
+    # so a new class can grant access to new courses before all cups are open.
+    # In that case finishing a cup only counts for the played vehicle class.
+    # Possible values: vanilla, shuffle_once, shuffle_per_class
 
   #########
   # Items #

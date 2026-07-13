@@ -70,6 +70,14 @@ class MkddRules:
         for cup in game_data.CUPS:
             self.set_ent_rule(f"Menu -> {cup}",
                     lambda state, cup = cup: state.has(cup, self.player))
+
+        # With course shuffle per class, a course inside a cup may only be raced
+        # once a high enough vehicle class is unlocked.
+        for cup, course_classes in self.world.cup_course_classes.items():
+            for course_id, min_class in course_classes.items():
+                if min_class > 0:
+                    self.set_ent_rule(f"{cup} -> {game_data.RACE_COURSES[course_id].name} GP",
+                            lambda state, min_class = min_class: state.has(items.PROGRESSIVE_CLASS, self.player, min_class))
         
         self.set_loc_rule(locations.TROPHY_GOAL,
                 lambda state: state.has(items.TROPHY, self.player, self.world.trophy_requirement))

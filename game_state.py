@@ -21,7 +21,7 @@ class MkddGameState():
         self.unlocked_cup_skips: int = 0
         self.unlocked_courses: list[int] = []
         self.time_trial_items: int = 0
-        self.cups_courses: list[list[int]]
+        self.cups_courses: list[list[list[int]]]
         self.character_item_total_weights: dict[str, list[int]] = {}
         self.global_items_total_weights: list[int] = []
         self.character_items: dict[game_data.Character, list[game_data.Item]] = {character:[] for character in game_data.CHARACTERS}
@@ -395,8 +395,14 @@ class MkddGameState():
 
         # Bronze or better. Add all variants that are considered easier than current (ie. 50 bronze for 150 gold finish).
         if self.total_ranking <= 2:
+            played_class: int = min(3, max(0, self.vehicle_class))
+            played_courses: list[int] = self.cups_courses[played_class][self.selected_cup]
             for r in range(2, self.total_ranking - 1, -1):
                 for c in range(self.vehicle_class + 1):
+                    # With course shuffle per class, lower classes only count if the
+                    # cup holds the same courses there.
+                    if self.cups_courses[c][self.selected_cup] != played_courses:
+                        continue
                     new_locations.add(locations.get_loc_name_cup(cup_name, r, c))
                     if r == 0:
                         new_locations.add(locations.get_loc_name_trophy(cup_name, c))
@@ -632,6 +638,11 @@ class MkddGameState():
                 self.print_ingame(text_x, text_y + idx * 25, txt)
 
 
+    def get_cups_courses(self) -> list[list[int]]:
+        """Returns the course arrangement of the current vehicle class."""
+        return self.cups_courses[min(3, max(0, self.vehicle_class))]
+
+
     def apply_shuffled_courses(self) -> None:
         """Changes what courses are in what cups."""
         # Apply shuffled courses upon selecting vehicle class or entering the menu.
@@ -640,9 +651,9 @@ class MkddGameState():
         entered_menu: bool = self.course_changed and self.current_course.type == game_data.CourseType.MENU
         if self.vehicle_class == self.last_selected_vehicle_class and not entered_menu:
             return
-        
+
         offset = self.memory_addresses.cup_contents_wx
-        for i_cup in self.cups_courses:
+        for i_cup in self.get_cups_courses():
             for i_course in i_cup:
                 dolphin.write_word(offset, game_data.COURSES[i_course].id)
                 dolphin.write_word(offset + 4, self.memory_addresses.course_names_s[i_course])
@@ -730,7 +741,7 @@ class MkddGameState():
             course_order = list(range(1, 15)) # First is LC, last is RR - shuffle everything between.
             random.shuffle(course_order)
             course_order = [0, *course_order, 15]
-            flat_course_list = [i_course for i_cup in self.cups_courses for i_course in i_cup]
+            flat_course_list = [i_course for i_cup in self.get_cups_courses() for i_course in i_cup]
             offset = 0
             for i_course in course_order:
                 dolphin.write_word(
@@ -745,12 +756,13 @@ class MkddGameState():
         # Make a table of currently unlocked courses.
         available_cups_courses: dict[int, set[int]] = {} # Key: Cup (0-4), value: selectable courses in cup (0-3).
         if self.mode == game_data.Modes.TIMETRIAL:
+            cups_courses = self.get_cups_courses()
             for i_cup in range(4):
                 for i_course in self.unlocked_courses:
-                    if i_course in self.cups_courses[i_cup]:
+                    if i_course in cups_courses[i_cup]:
                         if i_cup not in available_cups_courses:
                             available_cups_courses[i_cup] = set()
-                        available_cups_courses[i_cup].add(self.cups_courses[i_cup].index(i_course))
+                        available_cups_courses[i_cup].add(cups_courses[i_cup].index(i_course))
         elif self.mode == game_data.Modes.GRANDPRIX:
             # Give option to skip x first courses.
             gp_selectable_courses = range(self.unlocked_cup_skips + 1)

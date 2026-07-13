@@ -57,7 +57,8 @@ class MkddWorld(World):
         self.current_regions: dict[str, MkddRegionData] = {}
         self.current_entrances: set[str] = set()
 
-        self.cups_courses: list[list[int]] = []
+        self.cups_courses: list[list[list[int]]] = []
+        self.cup_course_classes: dict[str, dict[int, int]] = {}
         self.character_item_total_weights: dict[str, list[int]] = {}
         self.global_items_total_weights: list[int] = []
 
@@ -85,22 +86,22 @@ class MkddWorld(World):
 
     def create_regions(self) -> None:
         # Course shuffle (entrance rando). If using Universal Tracker, get shuffled tracks from slot data.
-        # Course order is kept in a list[list[int]], where first index is cup, and second index points to a course inside that cup.
+        # Course order is kept in a list[list[list[int]]], where the first index is vehicle class,
+        # second index is cup, and third index points to a course inside that cup.
+        # Unless shuffling per class, all vehicle classes share the same arrangement.
         if hasattr(self.multiworld, "re_gen_passthrough"):
             slot_data = self.multiworld.re_gen_passthrough["Mario Kart Double Dash"]
-            self.cups_courses = slot_data["cups_courses"]
+            self.cups_courses = game_data.ensure_cups_courses_per_class(slot_data["cups_courses"])
         else:
+            self.cups_courses: list[list[list[int]]] = []
             all_courses: list[int] = list(range(16))
-            if self.options.course_shuffle == options.CourseShuffle.option_shuffle_once:
-                self.random.shuffle(all_courses)
-            self.cups_courses: list[list[int]] = []
-            for i in range(0, 16, 4):
-                self.cups_courses.append([
-                    all_courses[i],
-                    all_courses[i + 1],
-                    all_courses[i + 2],
-                    all_courses[i + 3],
-                ])
+            shuffle_count = 4 if self.options.course_shuffle == options.CourseShuffle.option_shuffle_per_class else 1
+            for _ in range(shuffle_count):
+                if self.options.course_shuffle != options.CourseShuffle.option_vanilla:
+                    self.random.shuffle(all_courses)
+                self.cups_courses.append([list(all_courses[i:i + 4]) for i in range(0, 16, 4)])
+            while len(self.cups_courses) < 4:
+                self.cups_courses.append([list(cup) for cup in self.cups_courses[0]])
 
         # Create regions.
         for region_name, region_data in regions.data_table.items():
@@ -118,7 +119,14 @@ class MkddWorld(World):
             region.add_exits([exit for exit in region_data.connecting_regions if exit in self.current_regions.keys()])
             if region_name in game_data.NORMAL_CUPS:
                 cup_no = game_data.CUPS.index(region_name)
-                region.add_exits([game_data.RACE_COURSES[self.cups_courses[cup_no][i]].name + " GP" for i in range(4)])
+                # A cup can contain different courses per vehicle class. Collect the minimum
+                # class needed for each course; the class requirements are set in rules.
+                course_classes: dict[int, int] = {}
+                for vehicle_class in range(3, -1, -1):
+                    for i_course in self.cups_courses[vehicle_class][cup_no]:
+                        course_classes[i_course] = vehicle_class
+                self.cup_course_classes[region_name] = course_classes
+                region.add_exits([game_data.RACE_COURSES[i].name + " GP" for i in course_classes])
             self.current_entrances.update([e.name for e in region.exits])
 
             # Create locations.
@@ -366,11 +374,13 @@ class MkddWorld(World):
     def extend_hint_information(self, hint_data: dict[int, dict[int, str]]):
         hints: dict[int, str] = {}
         for course_no, course in enumerate(game_data.RACE_COURSES):
-            entrance: str = ""
-            for cup_no, cup in enumerate(self.cups_courses):
-                if course_no in cup:
-                    entrance = game_data.CUPS[cup_no]
-                    break
+            # With course shuffle per class a course can be in different cups depending on class.
+            cup_names: list[str] = []
+            for arrangement in self.cups_courses:
+                for cup_no, cup in enumerate(arrangement):
+                    if course_no in cup and game_data.CUPS[cup_no] not in cup_names:
+                        cup_names.append(game_data.CUPS[cup_no])
+            entrance: str = ", ".join(cup_names)
             for loc in self.multiworld.get_locations(self.player):
                 if course.name in locations.data_table[loc.address].tags:
                     hints[loc.address] = entrance

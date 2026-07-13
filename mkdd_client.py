@@ -123,7 +123,7 @@ class MkddContext(CommonContext):
                 
                 self.options.update_from_slot_data(slot_data)
                 self.trophy_requirement = slot_data["trophy_requirement"]
-                self.game_state.cups_courses = slot_data["cups_courses"]
+                self.game_state.cups_courses = game_data.ensure_cups_courses_per_class(slot_data["cups_courses"])
 
                 self.game_state.character_item_total_weights = slot_data.get("character_item_total_weights")
                 self.game_state.global_items_total_weights = slot_data.get("global_items_total_weights")

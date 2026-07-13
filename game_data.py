@@ -167,6 +167,14 @@ class Modes(IntEnum):
 
 UNSUPPORTED_MODES = [Modes.VERSUS, Modes.BATTLE_BALLOON, Modes.BATTLE_ROBBERY, Modes.BATTLE_SHINE, Modes.BATTLE_BOMB]
 
+
+def ensure_cups_courses_per_class(cups_courses: list) -> list[list[list[int]]]:
+    """Expands course arrangements from slot data to the per vehicle class format.
+    Slot data from before course shuffle per class holds a single arrangement."""
+    if len(cups_courses) > 0 and len(cups_courses[0]) > 0 and isinstance(cups_courses[0][0], int):
+        return [[list(cup) for cup in cups_courses] for _ in range(4)]
+    return cups_courses
+
 class Item(NamedTuple):
     id: int
     name: str

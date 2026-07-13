@@ -100,11 +100,14 @@ class ShortcutsAsLocations(DefaultOnToggle):
     display_name = "Shortcuts as Locations"
 
 class CourseShuffle(Choice):
-    """How the courses are shuffled in cups."""
+    """How the courses are shuffled in cups.
+    Shuffle Per Class shuffles the courses separately for each vehicle class,
+    so a new class can grant access to new courses before all cups are open.
+    In that case finishing a cup only counts for the played vehicle class."""
     display_name = "Course Shuffle"
     option_vanilla = 0
     option_shuffle_once = 1
-    # TODO: option_shuffle_per_class = 2
+    option_shuffle_per_class = 2
     default = 1
 
 # Items
