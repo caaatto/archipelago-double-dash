@@ -210,6 +210,7 @@ def apply_patch():
     apply_dict_patch(patches.item_box)
     apply_dict_patch(patches.rolling_item_box)
     apply_dict_patch(patches.force_item_shuffle)
+    apply_dict_patch(patches.no_triple_shell_swap)
     apply_dict_patch(patches.item_box)
     apply_dict_patch(patches.car_item_box)
     apply_dict_patch(patches.disable_start_pos_shuffle)

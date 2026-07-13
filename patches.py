@@ -417,6 +417,11 @@ draw_string: dict[int, list[int]] = {
         0x481cf8bc,
     ],
 }
+no_triple_shell_swap: dict[int, list[int]] = {
+    0x8020b258: [
+        0x60000000,
+    ],
+}
 invalidate_cache: dict[int, list[int]] = {
     0x80159394: [
         0x4bea8f10,
@@ -550,6 +555,10 @@ invalidate_cache: dict[int, list[int]] = {
         0x398cc65c,
         0x7c00606c,
         0x7c0067ac,
+        0x3d808021,
+        0x398cb258,
+        0x7c00606c,
+        0x7c0067ac,
         0x3d808000,
         0x398c5420,
         0x7c00606c,
@@ -577,7 +586,7 @@ invalidate_cache: dict[int, list[int]] = {
     0x8011510c: [
         0x4beed198,
     ],
-    0x800024f4: [
+    0x80002504: [
         0x4c00012c,
         0x4e800020,
     ],

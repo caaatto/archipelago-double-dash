@@ -486,6 +486,16 @@ Write 8
 Return
 
 
+REGION no_triple_shell_swap
+# When a human player receives triple green shells (17) outside 1st place, the game
+# randomly converts them to triple red shells (19). This overrides the item rolled by
+# the client, potentially giving an item that isn't even unlocked (issue #46).
+# Skip the conversion so the rolled item is always the received item.
+.set code_no_triple_shell_swap, 0x8020b258
+WriteTo code_no_triple_shell_swap
+    nop
+
+
 REGION invalidate_cache
 InsertAt 0x80159394, 0          # Entering player count menu.
 InsertAt 0x80162308, 0          # Entering character selection screen.
@@ -522,6 +532,7 @@ Invalidate code_car_box_update_stack_1
 Invalidate code_car_box_update_stack_2
 Invalidate code_car_box_update
 Invalidate code_disable_start_pos_shuffle
+Invalidate code_no_triple_shell_swap
 Invalidate 0x80005420   # Lap modifier 1 (AR CODES)
 Invalidate 0x80187BA0   # Lap modifier 2
 Invalidate 0x801CD680   # Unlock everything
