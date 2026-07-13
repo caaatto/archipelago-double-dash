@@ -22,6 +22,7 @@ TAG_WIN_COMBO = "Win With Certain Characters"
 TAG_TT = "Time Trial"
 TAG_TT_GOOD = "Time Trial Good Time"
 TAG_TT_GHOST = "Time Trial Staff Ghost"
+TAG_TT_CUSTOM = "*Custom Time Trial Time"
 TAG_ITEM_BOX = "Item Box"
 TAG_SHORTCUT = "Shortcut"
 TAG_ITEM_BOX_INTERESTING = "*Interesting Item Box" # Tags starting with * are for gen purposes only, not user facing.
@@ -94,6 +95,9 @@ def get_loc_name_win_ghost_combo(course: game_data.Course) -> str:
     characters = [game_data.CHARACTERS[character].name for character in course.ghost_characters]
     kart = game_data.KARTS[course.ghost_kart].name
     return f"Win in {course.name} With {characters[0]}, {characters[1]} and {kart}"
+
+def get_loc_name_custom_time(course: str, number: int) -> str:
+    return f"{course} Custom Time {number + 1}"
 
 
 data_table: list[MkddLocationData] = [MkddLocationData("", 0)] # Id 0 is reserved.
@@ -192,6 +196,12 @@ for course in game_data.RACE_COURSES:
     required_items = {game_data.CHARACTERS[c].name: 1 for c in course.ghost_characters}
     required_items[game_data.KARTS[course.ghost_kart].name] = 1
     data_table.append(MkddLocationData(get_loc_name_win_ghost_combo(course), 40, course.name + " GP", required_items, {course.name, TAG_WIN_COMBO}))
+
+# Custom time trial times. Only as many locations get created as the player defines times,
+# the difficulty is estimated in rules from the actual time.
+for course in game_data.RACE_COURSES:
+    for i in range(5):
+        data_table.append(MkddLocationData(get_loc_name_custom_time(course.name, i), 0, course.name + " TT", tags = {course.name, TAG_TT, TAG_TT_CUSTOM}))
 
 name_to_id: dict[str, int] = {data.name:id for (id, data) in enumerate(data_table) if id > 0}
 

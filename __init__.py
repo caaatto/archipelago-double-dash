@@ -77,6 +77,10 @@ class MkddWorld(World):
             self.logger.warning(f"{self.player_name}: No trophies in the pool, adding 1.")
         self.trophy_requirement = max(1, int(max_requirement * self.options.trophy_requirement_percent / 100))
 
+        # Sort custom time trial times so that the first time of a course is the easiest.
+        for course, times in self.options.custom_time_trial_times.value.items():
+            self.options.custom_time_trial_times.value[course] = sorted(times, reverse = True)
+
         # Universal Tracker passthrough.
         if hasattr(self.multiworld, "re_gen_passthrough"):
             slot_data: dict = self.multiworld.re_gen_passthrough["Mario Kart Double Dash"]
@@ -154,6 +158,11 @@ class MkddWorld(World):
                                 continue
                 if not self.options.shortcuts_as_locations and locations.TAG_SHORTCUT in location_data.tags:
                     continue
+                if locations.TAG_TT_CUSTOM in location_data.tags:
+                    course_name = location_data.region.removesuffix(" TT")
+                    number = int(location_data.name.rsplit(" ", 1)[1]) - 1
+                    if number >= len(self.options.custom_time_trial_times.value.get(course_name, [])):
+                        continue
                 if id > 0 and location_data.region == region_name:
                     region.add_locations({location_data.name: id})
                     self.current_locations.append(location_data)

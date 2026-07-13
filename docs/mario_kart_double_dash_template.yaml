@@ -223,6 +223,13 @@ Mario Kart Double Dash:
     # Set custom amount of laps on each course.
     # Write each course on its own line, followed by : and number of laps(max 9).
 
+  custom_time_trial_times: {}
+    # Set custom time trial times to beat as additional checks.
+    # Write each course on its own line, followed by : and a list of up to 5 times in seconds.
+    # Example:
+    #   Luigi Circuit: [95, 90.5, 87]
+    # Logic difficulty of each time is estimated from how close it is to the staff ghost time.
+
   ###########################
   # Item & Location Options #
   ###########################

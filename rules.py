@@ -47,6 +47,12 @@ class MkddRules:
                                   or state.has_all_counts({tt_course: 1, items.PROGRESSIVE_TIME_TRIAL_ITEM: 3}, self.player))
             if locations.TAG_TT in location.tags:
                 tt_difficulty: int = location.difficulty
+                if locations.TAG_TT_CUSTOM in location.tags:
+                    course_name = location.region.removesuffix(" TT")
+                    course = next(c for c in game_data.RACE_COURSES if c.name == course_name)
+                    number = int(location.name.rsplit(" ", 1)[1]) - 1
+                    time = self.world.options.custom_time_trial_times.value[course_name][number]
+                    tt_difficulty = estimate_time_difficulty(time, course)
                 if not self.world.options.speed_upgrades and self.world.options.kart_upgrades < 2:
                     tt_difficulty -= 8 # Prevent generation failures if stupid settings.
                 self.add_loc_rule(location.name,
@@ -295,6 +301,14 @@ def calculate_player_level(state: CollectionState, player: int,
         state.count(items.PROGRESSIVE_ENGINE, player) * game_data.ENGINE_UPGRADE_USEFULNESS +
         state.count(items.SKIP_DIFFICULTY, player) * game_data.SKIP_DIFFICULTY_USEFULNESS
     )
+
+
+def estimate_time_difficulty(time: float, course: game_data.Course) -> int:
+    """Estimates logic difficulty for a custom time trial time by interpolating
+    between the good time (difficulty 70) and the staff ghost time (difficulty 120)."""
+    span = course.good_time - course.staff_time
+    difficulty = 70 + (course.good_time - time) / span * 50
+    return int(max(0, min(130, difficulty)))
 
 
 def has_boost_item(state: CollectionState, player: int) -> bool:

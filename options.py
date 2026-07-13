@@ -1,6 +1,6 @@
 from dataclasses import dataclass
-from Options import Choice, DefaultOnToggle, NamedRange, OptionCounter, OptionGroup, PerGameCommonOptions, Range, StartInventoryPool, Toggle
-from schema import Optional, Schema
+from Options import Choice, DefaultOnToggle, NamedRange, OptionCounter, OptionDict, OptionGroup, PerGameCommonOptions, Range, StartInventoryPool, Toggle
+from schema import And, Optional, Schema
 
 # Goal
 class Goal(Choice):
@@ -259,6 +259,36 @@ class CustomLapCounts(OptionCounter):
         Optional("Rainbow Road"): lambda n: 1 <= n <= 9,
     })
 
+def _time_list():
+    return And([lambda t: 10 <= t <= 600], lambda l: len(l) <= 5)
+
+class CustomTimeTrialTimes(OptionDict):
+    """Set custom time trial times to beat as additional checks.
+    Write each course on its own line, followed by : and a list of up to 5 times in seconds.
+    Example:
+        Luigi Circuit: [95, 90.5, 87]
+    Logic difficulty of each time is estimated from how close it is to the staff ghost time."""
+    display_name = "Custom Time Trial Times"
+    default = {}
+    schema = Schema({
+        Optional("Luigi Circuit"): _time_list(),
+        Optional("Peach Beach"): _time_list(),
+        Optional("Baby Park"): _time_list(),
+        Optional("Dry Dry Desert"): _time_list(),
+        Optional("Mushroom Bridge"): _time_list(),
+        Optional("Mario Circuit"): _time_list(),
+        Optional("Daisy Cruiser"): _time_list(),
+        Optional("Waluigi Stadium"): _time_list(),
+        Optional("Sherbet Land"): _time_list(),
+        Optional("Mushroom City"): _time_list(),
+        Optional("Yoshi Circuit"): _time_list(),
+        Optional("DK Mountain"): _time_list(),
+        Optional("Wario Colosseum"): _time_list(),
+        Optional("Dino Dino Jungle"): _time_list(),
+        Optional("Bowser's Castle"): _time_list(),
+        Optional("Rainbow Road"): _time_list(),
+    })
+
 
 @dataclass
 class MkddOptions(PerGameCommonOptions):
@@ -297,6 +327,7 @@ class MkddOptions(PerGameCommonOptions):
     all_cup_tour_length: AllCupTourLength
     shorter_courses: ShorterCourses
     custom_lap_counts: CustomLapCounts
+    custom_time_trial_times: CustomTimeTrialTimes
 
     start_inventory_from_pool: StartInventoryPool
 
@@ -316,6 +347,7 @@ class MkddOptions(PerGameCommonOptions):
             "mirror_200cc",
             "faster_50cc_100cc",
             "custom_lap_counts",
+            "custom_time_trial_times",
         )
 
     def update_from_slot_data(self, slot_data: dict[str, any]) -> None:
@@ -345,6 +377,7 @@ option_groups: list[OptionGroup] = [
         AddCustomItemBoxes,
         ShortcutsAsLocations,
         CourseShuffle,
+        CustomTimeTrialTimes,
     ]),
     OptionGroup("Items", [
         ItemsForEverybody,

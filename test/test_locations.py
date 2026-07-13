@@ -128,3 +128,29 @@ class TestGhostComboLocations(MkddTestBase):
         for course in game_data.RACE_COURSES:
             self.assertEqual(len(course.ghost_characters), 2)
             self.assertIn(course.ghost_kart, range(len(game_data.KARTS)))
+
+
+class TestCustomTimeTrialTimes(MkddTestBase):
+    options = {**BASE_OPTIONS, "time_trials": "basic",
+               "custom_time_trial_times": {"Luigi Circuit": [95, 87, 90.5]}}
+
+    def test_only_defined_time_locations_exist(self) -> None:
+        location_names = _location_names(self)
+        for i in range(3):
+            self.assertIn(mkdd_locs.get_loc_name_custom_time("Luigi Circuit", i), location_names)
+        for i in range(3, 5):
+            self.assertNotIn(mkdd_locs.get_loc_name_custom_time("Luigi Circuit", i), location_names)
+        self.assertNotIn(mkdd_locs.get_loc_name_custom_time("Peach Beach", 0), location_names)
+
+    def test_times_are_sorted_easiest_first(self) -> None:
+        times = self.world.options.custom_time_trial_times.value["Luigi Circuit"]
+        self.assertEqual(times, sorted(times, reverse = True))
+
+
+class TestCustomTimeTrialTimesDisabled(MkddTestBase):
+    options = {**BASE_OPTIONS, "time_trials": "disable",
+               "custom_time_trial_times": {"Luigi Circuit": [95]}}
+
+    def test_no_time_locations_without_time_trials(self) -> None:
+        location_names = _location_names(self)
+        self.assertNotIn(mkdd_locs.get_loc_name_custom_time("Luigi Circuit", 0), location_names)

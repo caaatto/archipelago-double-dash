@@ -455,6 +455,9 @@ class MkddGameState():
 
         if self.race_timer_s < self.current_course.good_time:
             new_locations.add(locations.get_loc_name_good_time(self.current_course))
+        for i, time in enumerate(self.options.custom_time_trial_times.get(self.current_course.name, [])):
+            if self.race_timer_s < time:
+                new_locations.add(locations.get_loc_name_custom_time(self.current_course.name, i))
         if self.race_timer_s < self.current_course.staff_time:
             new_locations.add(locations.get_loc_name_ghost(self.current_course.name))
         return new_locations
