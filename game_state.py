@@ -189,6 +189,14 @@ class MkddGameState():
     
 
     def check_state_validity(self) -> bool:
+        if self.mode in game_data.UNSUPPORTED_MODES:
+            self.print_ingame(304, 180, "This mode is not supported!", 0)
+            self.print_ingame(304, 200, "Return to main menu.", 0)
+            return False
+        if self.human_players > 2:
+            self.print_ingame(304, 180, "3-4 players are not supported!", 0)
+            self.print_ingame(304, 200, "Return to main menu.", 0)
+            return False
         if self.mode == game_data.Modes.TIMETRIAL and not self.options.time_trials and self.menu_pointer == 0:
             self.print_ingame(304, 180, "Time Trials are disabled!", 0)
             self.print_ingame(304, 200, "Change mode to Grand Prix.", 0)

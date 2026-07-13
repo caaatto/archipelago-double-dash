@@ -160,9 +160,12 @@ class Modes(IntEnum):
     GRANDPRIX = 2
     VERSUS = 3
     BATTLE_BALLOON = 4
+    BATTLE_ROBBERY = 5
     BATTLE_SHINE = 7
     BATTLE_BOMB = 6
     CEREMONY = 8
+
+UNSUPPORTED_MODES = [Modes.VERSUS, Modes.BATTLE_BALLOON, Modes.BATTLE_ROBBERY, Modes.BATTLE_SHINE, Modes.BATTLE_BOMB]
 
 class Item(NamedTuple):
     id: int
