@@ -216,6 +216,16 @@ class DriverSwitchTrapWeight(Range):
     default = 20
 
 # Quality of Life
+class MusicShuffle(Choice):
+    """Shuffles the course music.
+    Shuffle Once: every course plays another course's music, same for the whole seed.
+    Chaotic: the music is rerolled for every race."""
+    display_name = "Music Shuffle"
+    option_vanilla = 0
+    option_shuffle_once = 1
+    option_chaotic = 2
+    default = 0
+
 class Mirror200cc(Toggle):
     """Mirror mode is 200cc if enabled."""
     display_name = "Mirror is 200cc"
@@ -322,6 +332,7 @@ class MkddOptions(PerGameCommonOptions):
     overlapping_start_trap_weight: OverlappingStartTrapWeight
     driver_switch_trap_weight: DriverSwitchTrapWeight
 
+    music_shuffle: MusicShuffle
     mirror_200cc: Mirror200cc
     faster_50cc_100cc: Faster50cc100cc
     all_cup_tour_length: AllCupTourLength
@@ -344,6 +355,7 @@ class MkddOptions(PerGameCommonOptions):
             "frantic_items",
             "guaranteed_items",
             "all_cup_tour_length",
+            "music_shuffle",
             "mirror_200cc",
             "faster_50cc_100cc",
             "custom_lap_counts",
@@ -399,6 +411,7 @@ option_groups: list[OptionGroup] = [
         DriverSwitchTrapWeight,
     ]),
     OptionGroup("Quality of Life", [
+        MusicShuffle,
         Mirror200cc,
         Faster50cc100cc,
         AllCupTourLength,

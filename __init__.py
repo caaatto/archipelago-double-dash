@@ -407,9 +407,14 @@ class MkddWorld(World):
             else:
                 new_lap_counts[course.name] = course.laps
         self.options.custom_lap_counts.value = new_lap_counts
+        course_music: list[int] = []
+        if self.options.music_shuffle == options.MusicShuffle.option_shuffle_once:
+            course_music = [course.music for course in game_data.RACE_COURSES]
+            self.random.shuffle(course_music)
         return {
             "version": version.get_version(),
             "trophy_requirement": self.trophy_requirement,
+            "course_music": course_music,
             "cups_courses": self.cups_courses,
             "character_item_total_weights": self.character_item_total_weights,
             "global_items_total_weights": self.global_items_total_weights,

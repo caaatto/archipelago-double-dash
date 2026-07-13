@@ -660,6 +660,8 @@ Invalidate code_mode_pad_battle4     # Same cache line as code_mode_pad_vs4.
 Invalidate 0x8016af84   # Course selection up (course_selection region below)
 Invalidate 0x8016afdc   # Course selection down (course_selection region below)
 Invalidate 0x802ab000   # Driver switch (driver_switch region below)
+Invalidate 0x8017c3dc   # Course bgm (music_shuffle region below)
+Invalidate 0x8017c53c   # Final lap bgm (music_shuffle region below)
 Invalidate 0x80005420   # Lap modifier 1 (AR CODES)
 Invalidate 0x80187BA0   # Lap modifier 2
 Invalidate 0x801CD680   # Unlock everything
@@ -678,6 +680,7 @@ REGION course_selection
 # done with raw addresses above, so the invalidate block address stays unchanged.
 .set available_courses_bx, 0x80001088 # Size 20 (5 cups x 4 courses)
 .set driver_switch_w, 0x8000109c
+.set course_music_bx, 0x800010a0 # Size 19, indexed by course id - 0x21, 0xff = vanilla
 
 # Move up.
 .set code_course_up, 0x8016af84
@@ -741,4 +744,44 @@ InsertAt code_driver_switch, 12
     stw     r5, driver_switch_w@l (r6)
     b       0x8
     cmpw    r27, r27            # Not the player: set cr0 back to "equal".
+Return
+
+
+REGION music_shuffle
+# Overrides the course music from a table the client fills (issue #16).
+# Both hooks sit at the start of the bgm getters, where the course id was just
+# loaded. Table values are the low byte of the bgm sound id, the final lap
+# variant is always the normal one + 0x10.
+
+# Course::getCourseBGM
+.set code_course_bgm, 0x8017c3dc
+InsertAt code_course_bgm, 11
+    lwz     r6, 0 (r3)          # Default code (course id).
+    lis     r5, course_music_bx@ha
+    addi    r5, r5, course_music_bx@l
+    addi    r0, r6, -0x21
+    cmplwi  r0, 0x12            # Race courses only.
+    bgt     0x18
+    lbzx    r5, r5, r0
+    cmplwi  r5, 0xff            # 0xff = no override.
+    beq     0xc
+    oris    r3, r5, 0x200
+    blr
+Return
+
+# Course::getFinalLapBGM
+.set code_final_lap_bgm, 0x8017c53c
+InsertAt code_final_lap_bgm, 12
+    lwz     r4, 0 (r3)          # Default code (course id).
+    lis     r5, course_music_bx@ha
+    addi    r5, r5, course_music_bx@l
+    addi    r0, r4, -0x21
+    cmplwi  r0, 0x12            # Race courses only.
+    bgt     0x1c
+    lbzx    r5, r5, r0
+    cmplwi  r5, 0xff            # 0xff = no override.
+    beq     0x10
+    addi    r5, r5, 0x10        # Final lap variant.
+    oris    r3, r5, 0x200
+    blr
 Return

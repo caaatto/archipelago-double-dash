@@ -122,27 +122,29 @@ class Course(NamedTuple):
     laps: int = 3
     ghost_characters: list[int] = []
     ghost_kart: int = -1
+    music: int = -1
+    """Low byte of the course BGM sound id (0x2000000 | music). Final lap variant is music + 0x10."""
 
 
 # Staff ghost combos (ghost_characters, ghost_kart) are read from the StaffGhosts/*.ght file headers.
 RACE_COURSES = [
     # Race courses:
-    Course("Luigi Circuit",     0x24, staff_time =  86.277, good_time = 95, owners = [1], ghost_characters = [1, 0], ghost_kart = 8),
-    Course("Peach Beach",       0x22, staff_time =  80.404, good_time = 90, owners = [2], ghost_characters = [2, 3], ghost_kart = 10),
-    Course("Baby Park",         0x21, staff_time =  71.108, good_time = 80, owners = [6, 7], laps = 7, ghost_characters = [6, 7], ghost_kart = 0),
-    Course("Dry Dry Desert",    0x32, staff_time = 110.755, good_time = 120, ghost_characters = [5, 4], ghost_kart = 12),
-    Course("Mushroom Bridge",   0x28, staff_time =  91.458, good_time = 100, ghost_characters = [10, 11], ghost_kart = 2),
-    Course("Mario Circuit",     0x25, staff_time = 101.384, good_time = 115, owners = [0], ghost_characters = [0, 1], ghost_kart = 8),
-    Course("Daisy Cruiser",     0x23, staff_time = 112.207, good_time = 125, owners = [3], ghost_characters = [3, 2], ghost_kart = 10),
-    Course("Waluigi Stadium",   0x2a, staff_time = 119.658, good_time = 130, owners = [17], ghost_characters = [17, 16], ghost_kart = 15),
-    Course("Sherbet Land",      0x33, staff_time =  85.904, good_time = 100, ghost_characters = [7, 6], ghost_kart = 0),
-    Course("Mushroom City",     0x29, staff_time = 110.663, good_time = 120, ghost_characters = [11, 10], ghost_kart = 2),
-    Course("Yoshi Circuit",     0x26, staff_time = 119.886, good_time = 135, owners = [4], ghost_characters = [4, 5], ghost_kart = 12),
-    Course("DK Mountain",       0x2d, staff_time = 132.639, good_time = 145, owners = [12], ghost_characters = [12, 13], ghost_kart = 16),
-    Course("Wario Colosseum",   0x2b, staff_time = 141.106, good_time = 155, owners = [16], laps = 2, ghost_characters = [16, 17], ghost_kart = 15),
-    Course("Dino Dino Jungle",  0x2c, staff_time = 120.908, good_time = 140, ghost_characters = [13, 12], ghost_kart = 16),
-    Course("Bowser's Castle",   0x2f, staff_time = 164.690, good_time = 185, owners = [14], ghost_characters = [14, 15], ghost_kart = 17),
-    Course("Rainbow Road",      0x31, staff_time = 196.476, good_time = 210, ghost_characters = [0, 2], ghost_kart = 8),
+    Course("Luigi Circuit",     0x24, staff_time =  86.277, good_time = 95, owners = [1], ghost_characters = [1, 0], ghost_kart = 8, music = 0x03),
+    Course("Peach Beach",       0x22, staff_time =  80.404, good_time = 90, owners = [2], ghost_characters = [2, 3], ghost_kart = 10, music = 0x01),
+    Course("Baby Park",         0x21, staff_time =  71.108, good_time = 80, owners = [6, 7], laps = 7, ghost_characters = [6, 7], ghost_kart = 0, music = 0x00),
+    Course("Dry Dry Desert",    0x32, staff_time = 110.755, good_time = 120, ghost_characters = [5, 4], ghost_kart = 12, music = 0x0e),
+    Course("Mushroom Bridge",   0x28, staff_time =  91.458, good_time = 100, ghost_characters = [10, 11], ghost_kart = 2, music = 0x06),
+    Course("Mario Circuit",     0x25, staff_time = 101.384, good_time = 115, owners = [0], ghost_characters = [0, 1], ghost_kart = 8, music = 0x04),
+    Course("Daisy Cruiser",     0x23, staff_time = 112.207, good_time = 125, owners = [3], ghost_characters = [3, 2], ghost_kart = 10, music = 0x02),
+    Course("Waluigi Stadium",   0x2a, staff_time = 119.658, good_time = 130, owners = [17], ghost_characters = [17, 16], ghost_kart = 15, music = 0x08),
+    Course("Sherbet Land",      0x33, staff_time =  85.904, good_time = 100, ghost_characters = [7, 6], ghost_kart = 0, music = 0x0f),
+    Course("Mushroom City",     0x29, staff_time = 110.663, good_time = 120, ghost_characters = [11, 10], ghost_kart = 2, music = 0x07),
+    Course("Yoshi Circuit",     0x26, staff_time = 119.886, good_time = 135, owners = [4], ghost_characters = [4, 5], ghost_kart = 12, music = 0x05),
+    Course("DK Mountain",       0x2d, staff_time = 132.639, good_time = 145, owners = [12], ghost_characters = [12, 13], ghost_kart = 16, music = 0x0b),
+    Course("Wario Colosseum",   0x2b, staff_time = 141.106, good_time = 155, owners = [16], laps = 2, ghost_characters = [16, 17], ghost_kart = 15, music = 0x09),
+    Course("Dino Dino Jungle",  0x2c, staff_time = 120.908, good_time = 140, ghost_characters = [13, 12], ghost_kart = 16, music = 0x0a),
+    Course("Bowser's Castle",   0x2f, staff_time = 164.690, good_time = 185, owners = [14], ghost_characters = [14, 15], ghost_kart = 17, music = 0x0c),
+    Course("Rainbow Road",      0x31, staff_time = 196.476, good_time = 210, ghost_characters = [0, 2], ghost_kart = 8, music = 0x0d),
 ]
 
 COURSES = RACE_COURSES + [

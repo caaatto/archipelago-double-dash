@@ -124,6 +124,7 @@ class MkddContext(CommonContext):
                 self.options.update_from_slot_data(slot_data)
                 self.trophy_requirement = slot_data["trophy_requirement"]
                 self.game_state.cups_courses = game_data.ensure_cups_courses_per_class(slot_data["cups_courses"])
+                self.game_state.course_music = slot_data.get("course_music", [])
 
                 self.game_state.character_item_total_weights = slot_data.get("character_item_total_weights")
                 self.game_state.global_items_total_weights = slot_data.get("global_items_total_weights")
@@ -206,6 +207,7 @@ def apply_patch():
     apply_dict_patch(patches.cup_selection)
     apply_dict_patch(patches.course_selection)
     apply_dict_patch(patches.driver_switch)
+    apply_dict_patch(patches.music_shuffle)
     apply_dict_patch(patches.vehicle_class_selector)
     apply_dict_patch(patches.time_trial_items)
     apply_dict_patch(patches.item_shuffle)
@@ -349,6 +351,7 @@ def update_game(ctx: MkddContext) -> None:
     apply_ar_code(ar_codes.unlock_everything)
     ctx.game_state.handle_character_menu()
     ctx.game_state.apply_shuffled_courses()
+    ctx.game_state.apply_music()
     ctx.game_state.apply_item_box_items()
     ctx.game_state.update_item_box_visuals(ctx.mkdd_locations_checked)
     ctx.game_state.apply_lap_counts()

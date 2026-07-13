@@ -201,6 +201,12 @@ Mario Kart Double Dash:
   ###################
   # Quality of Life #
   ###################
+  music_shuffle: vanilla
+    # Shuffles the course music.
+    # Shuffle Once: every course plays another course's music, same for the whole seed.
+    # Chaotic: the music is rerolled for every race.
+    # Possible values: vanilla, shuffle_once, chaotic
+
   all_cup_tour_length: 8
     # How many races are in the All Cup Tour? 16 = vanilla.
     # Minimum value is 2

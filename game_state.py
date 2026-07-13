@@ -33,6 +33,8 @@ class MkddGameState():
         self.rain_trap_timer: int = 0
         self.driver_switch_traps: int = 0
         self.driver_switch_trap_timer: int = 0
+        self.course_music: list[int] = []
+        """Music (bgm id low byte) per race course, in RACE_COURSES order. Empty = vanilla."""
         self.queued_items: int = 0
         self.state_valid: bool = False
 
@@ -650,6 +652,21 @@ class MkddGameState():
     def get_cups_courses(self) -> list[list[int]]:
         """Returns the course arrangement of the current vehicle class."""
         return self.cups_courses[min(3, max(0, self.vehicle_class))]
+
+
+    def apply_music(self) -> None:
+        """Writes the course music override table."""
+        # With chaotic music shuffle, reroll while in the menus. Not during a race,
+        # because the final lap reads the table again and must stay in sync.
+        if (self.options.music_shuffle == options.MusicShuffle.option_chaotic
+                and self.course_changed and self.current_course.type == game_data.CourseType.MENU):
+            self.course_music = [random.choice(game_data.RACE_COURSES).music for _ in game_data.RACE_COURSES]
+
+        table = [0xFF] * 19
+        for i, course in enumerate(game_data.RACE_COURSES):
+            if i < len(self.course_music):
+                table[course.id - 0x21] = self.course_music[i]
+        dolphin.write_bytes(self.memory_addresses.course_music_bx, bytes(table))
 
 
     def apply_shuffled_courses(self) -> None:

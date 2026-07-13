@@ -132,6 +132,8 @@ class MkddMemAddresses():
     """Table of selectable courses per cup (5 cups x 4 courses, size 20). 1 = selectable."""
     driver_switch_w: int
     """Set to 1 to force a driver/rider switch on the player's kart. Consumed by the game."""
+    course_music_bx: int
+    """Course music override table (size 19). Index = course id - 0x21, value = bgm id low byte, 0xff = vanilla."""
     text_sx: int
     """Text to print."""
     text_size: int
@@ -253,6 +255,7 @@ class MkddMemAddressesUsa(MkddMemAddresses):
     spawn_item_vel_fx = spawn_item_id_w + 16
     available_courses_bx = 0x80001088
     driver_switch_w = 0x8000109c
+    course_music_bx = 0x800010a0
 
     text_sx = 0x80000da4
     text_size = 0x30
