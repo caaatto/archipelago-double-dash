@@ -173,24 +173,31 @@ time_trial_items: dict[int, list[int]] = {
         0x4bd47138,
     ],
     0x800020b4: [
+        0x38800005,
+        0x88df05b3,
+        0x28060000,
+        0x4082000c,
         0x3c808000,
         0x88841041,
-        0x482b8ec4,
+        0x482b8eb4,
     ],
     0x802bafa8: [
-        0x4bd47118,
+        0x4bd47128,
     ],
-    0x800020c0: [
+    0x800020d0: [
+        0x38800005,
+        0x28050000,
+        0x4082000c,
         0x3c808000,
         0x88841042,
-        0x482b8ee4,
+        0x482b8ec8,
     ],
 }
 item_shuffle: dict[int, list[int]] = {
     0x8020cbc0: [
-        0x4bdf550c,
+        0x4bdf5528,
     ],
-    0x800020cc: [
+    0x800020e8: [
         0x90010024,
         0x28000000,
         0x40a20030,
@@ -204,22 +211,22 @@ item_shuffle: dict[int, list[int]] = {
         0x3c608000,
         0x38631043,
         0x7c6328ae,
-        0x4820aac8,
-        0x4820aac0,
+        0x4820aaac,
+        0x4820aaa4,
     ],
 }
 force_item_shuffle: dict[int, list[int]] = {
     0x80189c50: [
-        0x4be784b8,
+        0x4be784d4,
     ],
-    0x80002108: [
+    0x80002124: [
         0x38a00001,
         0x38800000,
         0x3c60803d,
         0x8063bf40,
-        0x48209515,
+        0x482094f9,
     ],
-    0x8000211c: [
+    0x80002138: [
         0x5460063f,
         0x4182003c,
         0x3ca08000,
@@ -235,18 +242,18 @@ force_item_shuffle: dict[int, list[int]] = {
         0x38800000,
         0x3c60803d,
         0x8063bf40,
-        0x482096a9,
+        0x4820968d,
     ],
-    0x8000215c: [
+    0x80002178: [
         0x7fe3fb78,
-        0x48187af4,
+        0x48187ad8,
     ],
 }
 item_box: dict[int, list[int]] = {
     0x801fbe1c: [
-        0x4be06348,
+        0x4be06364,
     ],
-    0x80002164: [
+    0x80002180: [
         0x28040000,
         0x40a20014,
         0x808300e8,
@@ -254,7 +261,7 @@ item_box: dict[int, list[int]] = {
         0x90831060,
         0x38800000,
         0x806daaa0,
-        0x481f9ca0,
+        0x481f9c84,
     ],
     0x801fb77c: [
         0x9421ffe8,
@@ -269,9 +276,9 @@ item_box: dict[int, list[int]] = {
         0x38210018,
     ],
     0x801fb78c: [
-        0x4be069f8,
+        0x4be06a14,
     ],
-    0x80002184: [
+    0x800021a0: [
         0x8183017c,
         0x2c0c0002,
         0x40820014,
@@ -279,14 +286,14 @@ item_box: dict[int, list[int]] = {
         0xbbac000c,
         0xbfa30040,
         0x7c7f1b78,
-        0x481f95f0,
+        0x481f95d4,
     ],
 }
 rolling_item_box: dict[int, list[int]] = {
     0x8027d1e4: [
-        0x4bd84fc0,
+        0x4bd84fdc,
     ],
-    0x800021a4: [
+    0x800021c0: [
         0x28040000,
         0x40a20014,
         0x808300e8,
@@ -294,7 +301,7 @@ rolling_item_box: dict[int, list[int]] = {
         0x909f1060,
         0x38800000,
         0x7c7f1b78,
-        0x4827b028,
+        0x4827b00c,
     ],
     0x8027cb1c: [
         0x9421ffe8,
@@ -309,28 +316,28 @@ rolling_item_box: dict[int, list[int]] = {
         0x38210018,
     ],
     0x8027cb2c: [
-        0x4bd85698,
+        0x4bd856b4,
     ],
-    0x800021c4: [
+    0x800021e0: [
         0x818300e8,
         0xbbac000c,
         0xbfa30040,
         0x7c7f1b78,
-        0x4827a95c,
+        0x4827a940,
     ],
 }
 car_item_box: dict[int, list[int]] = {
     0x8019a69c: [
-        0x4be67b3c,
+        0x4be67b58,
     ],
-    0x800021d8: [
+    0x800021f4: [
         0x28040000,
         0x40a20010,
         0x83c300e8,
         0x3fe08000,
         0x93df1060,
         0x7c7e1b78,
-        0x481984b0,
+        0x48198494,
     ],
     0x8019a630: [
         0x9421ffe8,
@@ -345,14 +352,14 @@ car_item_box: dict[int, list[int]] = {
         0x38210018,
     ],
     0x8019a640: [
-        0x4be67bb4,
+        0x4be67bd0,
     ],
-    0x800021f4: [
+    0x80002210: [
         0x818300e8,
         0xbbac000c,
         0xbfa30040,
         0x7c7f1b78,
-        0x48198440,
+        0x48198424,
     ],
 }
 disable_start_pos_shuffle: dict[int, list[int]] = {
@@ -362,9 +369,9 @@ disable_start_pos_shuffle: dict[int, list[int]] = {
 }
 spawn_item: dict[int, list[int]] = {
     0x80189b90: [
-        0x4be78678,
+        0x4be78694,
     ],
-    0x80002208: [
+    0x80002224: [
         0x3ca08000,
         0x8085106c,
         0x28040014,
@@ -375,9 +382,9 @@ spawn_item: dict[int, list[int]] = {
         0x38a51070,
         0x3c60803d,
         0x8063bf40,
-        0x4820706d,
+        0x48207051,
     ],
-    0x80002234: [
+    0x80002250: [
         0x28030000,
         0x41820014,
         0x38000000,
@@ -385,14 +392,14 @@ spawn_item: dict[int, list[int]] = {
         0x38000001,
         0x98030124,
         0x887f0022,
-        0x48187944,
+        0x48187928,
     ],
 }
 draw_string: dict[int, list[int]] = {
     0x801d1b58: [
-        0x4be306fc,
+        0x4be30718,
     ],
-    0x80002254: [
+    0x80002270: [
         0x9421fff0,
         0x7c0802a6,
         0x90010014,
@@ -403,9 +410,9 @@ draw_string: dict[int, list[int]] = {
         0x7ca5fa14,
         0xa065fffc,
         0xa085fffe,
-        0x480179d1,
+        0x480179b5,
     ],
-    0x80002280: [
+    0x8000229c: [
         0x3bff0030,
         0x281f00f0,
         0x4180ffe0,
@@ -414,7 +421,7 @@ draw_string: dict[int, list[int]] = {
         0x7c0803a6,
         0x38210010,
         0x80010014,
-        0x481cf8bc,
+        0x481cf8a0,
     ],
 }
 no_triple_shell_swap: dict[int, list[int]] = {
@@ -424,9 +431,9 @@ no_triple_shell_swap: dict[int, list[int]] = {
 }
 invalidate_cache: dict[int, list[int]] = {
     0x80159394: [
-        0x4bea8f10,
+        0x4bea8f2c,
     ],
-    0x800022a4: [
+    0x800022c0: [
         0x3d808016,
         0x398c38b0,
         0x7c00606c,
@@ -589,21 +596,21 @@ invalidate_cache: dict[int, list[int]] = {
         0x7c0067ac,
     ],
     0x80162308: [
-        0x4be9ff9c,
+        0x4be9ffb8,
     ],
     0x8011510c: [
-        0x4beed198,
+        0x4beed1b4,
     ],
-    0x80002524: [
+    0x80002540: [
         0x4c00012c,
         0x4e800020,
     ],
 }
 course_selection: dict[int, list[int]] = {
     0x8016af84: [
-        0x4be975a8,
+        0x4be975c4,
     ],
-    0x8000252c: [
+    0x80002548: [
         0x806da38c,
         0x808da388,
         0x5484103a,
@@ -620,12 +627,12 @@ course_selection: dict[int, list[int]] = {
         0x4181ffe8,
         0x906da38c,
         0xc002a00c,
-        0x48168a3c,
+        0x48168a20,
     ],
     0x8016afdc: [
-        0x4be97594,
+        0x4be975b0,
     ],
-    0x80002570: [
+    0x8000258c: [
         0x806da38c,
         0x808da388,
         0x5484103a,
@@ -642,6 +649,6 @@ course_selection: dict[int, list[int]] = {
         0x4181ffe8,
         0x906da38c,
         0xc002a00c,
-        0x48168a50,
+        0x48168a34,
     ],
 }

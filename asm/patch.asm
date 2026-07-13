@@ -267,16 +267,25 @@ WriteTo code_vehicle_class_left
 
 
 REGION time_trial_items
+# Ghost karts (kart number != 0) keep the vanilla single mushroom they were
+# recorded with, otherwise they desync (issue #41).
 # Driver
 .set code_tt_items_driver, 0x802baf7c
-InsertAt code_tt_items_driver, 2
+InsertAt code_tt_items_driver, 6
+    li      r4, 5               # Default code (vanilla single mushroom).
+    lbz     r6, 0x5b3 (r31)     # Kart number.
+    cmplwi  r6, 0
+    bne-    0xc                 # Ghosts get the vanilla item.
     lis     r4, tt_items_driver_b@ha
     lbz     r4, tt_items_driver_b@l (r4)
 Return
 
 # Rider
 .set code_tt_items_rider, 0x802bafa8
-InsertAt code_tt_items_rider, 2
+InsertAt code_tt_items_rider, 5
+    li      r4, 5               # Default code (vanilla single mushroom).
+    cmplwi  r5, 0               # r5 = kart number.
+    bne-    0xc                 # Ghosts get the vanilla item.
     lis     r4, tt_items_rider_b@ha
     lbz     r4, tt_items_rider_b@l (r4)
 Return

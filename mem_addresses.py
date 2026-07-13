@@ -72,6 +72,22 @@ class MkddMemAddresses():
     """Kart's position is here from kart pointer (x, y, z)."""
     kart_velocity_fx_offset: int
     """Kart's velocity is here from kart pointer (x, y, z)."""
+    kart_body_speeds_fx_offset: int
+    """Kart instance speeds (road, sand, grass, mud), copied from stat table at race init."""
+    kart_body_acceleration_1_f_offset: int
+    """Kart instance acceleration 1, copied from stat table at race init."""
+    kart_body_acceleration_2_f_offset: int
+    """Kart instance acceleration 2, copied from stat table at race init."""
+    kart_body_mini_turbo_max_h_offset: int
+    """Kart instance mini-turbo boost duration (halfword!), 1 + stat table value."""
+    kart_body_mass_f_offset: int
+    """Kart instance mass, copied from stat table at race init."""
+    kart_body_steer_f_offset: int
+    """Kart instance steer, copied from stat table at race init."""
+    kart_body_kart_id_w_offset: int
+    """Kart id (0-20) of the kart instance."""
+    kart_body_class_b_offset: int
+    """Vehicle class (0-2) of the kart instance."""
     kart_struct_size: int
     """Use this in combination with kart_stats_pointer and stat offsets to modify karts."""
     kart_speed_on_road_f_offset: int
@@ -199,6 +215,14 @@ class MkddMemAddressesUsa(MkddMemAddresses):
     kart_control_kart_pointers_offset = 0xA0
     kart_position_fx_offset = 0x23c
     kart_velocity_fx_offset = 0x26c
+    kart_body_speeds_fx_offset = 0x3f0
+    kart_body_acceleration_1_f_offset = 0x3d4
+    kart_body_acceleration_2_f_offset = 0x51c
+    kart_body_mini_turbo_max_h_offset = 0x5a0
+    kart_body_mass_f_offset = 0x420
+    kart_body_steer_f_offset = 0x484
+    kart_body_kart_id_w_offset = 0x5a8
+    kart_body_class_b_offset = 0x5c4
 
     kart_struct_size = 0x100
     kart_speed_on_road_f_offset = 0x50
