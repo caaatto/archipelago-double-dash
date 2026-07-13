@@ -313,6 +313,18 @@ InsertAt code_item_shuffle, 13
 ReturnAt item_shuffle_return_player
 Return
 
+# Special item boxes (course object param3 > 0) roll a random special item and skip
+# the code path with the randomizer hook above. Ignore the special flag for the
+# player so that every box gives the item rolled by the client.
+.set code_special_item_box, 0x8020cb70
+InsertAt code_special_item_box, 5
+    lbz     r0, 7 (r28)         # Default code (special box flag).
+    lwz     r4, 8 (r1)          # Kart index.
+    cmplwi  r4, 0
+    bne     0x8
+    li      r0, 0               # Player: ignore the flag.
+Return
+
 
 REGION force_item_shuffle
 .set item_obj_mgr, 0x803cbf40
@@ -527,6 +539,7 @@ Invalidate code_vehicle_class_left
 Invalidate code_tt_items_driver
 Invalidate code_tt_items_rider
 Invalidate code_item_shuffle
+Invalidate code_special_item_box
 Invalidate code_force_item_shuffle
 Invalidate code_send_box_id
 Invalidate code_update_box_stack_1
