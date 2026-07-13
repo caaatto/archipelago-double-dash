@@ -517,6 +517,15 @@ WriteTo code_no_triple_shell_swap
     nop
 
 
+REGION skip_credits
+# The staff roll can be skipped with the A button once the jump flag is enabled
+# (120 frames into the Mario title cut). Trigger the skip automatically so that
+# the credits don't play out after the special cup (issue #11).
+.set code_skip_credits, 0x801a8558
+WriteTo code_skip_credits
+    nop
+
+
 REGION invalidate_cache
 InsertAt 0x80159394, 0          # Entering player count menu.
 InsertAt 0x80162308, 0          # Entering character selection screen.
@@ -555,6 +564,7 @@ Invalidate code_car_box_update_stack_2
 Invalidate code_car_box_update
 Invalidate code_disable_start_pos_shuffle
 Invalidate code_no_triple_shell_swap
+Invalidate code_skip_credits
 Invalidate 0x8016af84   # Course selection up (course_selection region below)
 Invalidate 0x8016afdc   # Course selection down (course_selection region below)
 Invalidate 0x80005420   # Lap modifier 1 (AR CODES)

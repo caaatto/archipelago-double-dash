@@ -440,6 +440,11 @@ no_triple_shell_swap: dict[int, list[int]] = {
         0x60000000,
     ],
 }
+skip_credits: dict[int, list[int]] = {
+    0x801a8558: [
+        0x60000000,
+    ],
+}
 invalidate_cache: dict[int, list[int]] = {
     0x80159394: [
         0x4bea8f44,
@@ -581,6 +586,10 @@ invalidate_cache: dict[int, list[int]] = {
         0x398cb258,
         0x7c00606c,
         0x7c0067ac,
+        0x3d80801b,
+        0x398c8558,
+        0x7c00606c,
+        0x7c0067ac,
         0x3d808017,
         0x398caf84,
         0x7c00606c,
@@ -616,16 +625,16 @@ invalidate_cache: dict[int, list[int]] = {
     0x8011510c: [
         0x4beed1cc,
     ],
-    0x80002568: [
+    0x80002578: [
         0x4c00012c,
         0x4e800020,
     ],
 }
 course_selection: dict[int, list[int]] = {
     0x8016af84: [
-        0x4be975ec,
+        0x4be975fc,
     ],
-    0x80002570: [
+    0x80002580: [
         0x806da38c,
         0x808da388,
         0x5484103a,
@@ -642,12 +651,12 @@ course_selection: dict[int, list[int]] = {
         0x4181ffe8,
         0x906da38c,
         0xc002a00c,
-        0x481689f8,
+        0x481689e8,
     ],
     0x8016afdc: [
-        0x4be975d8,
+        0x4be975e8,
     ],
-    0x800025b4: [
+    0x800025c4: [
         0x806da38c,
         0x808da388,
         0x5484103a,
@@ -664,6 +673,6 @@ course_selection: dict[int, list[int]] = {
         0x4181ffe8,
         0x906da38c,
         0xc002a00c,
-        0x48168a0c,
+        0x481689fc,
     ],
 }
