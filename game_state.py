@@ -378,7 +378,13 @@ class MkddGameState():
                 owner_count += 1
             if owner_count == len(self.current_course.owners):
                 new_locations.add(locations.get_loc_name_win_course_char(self.current_course))
-        
+
+        # Win with the staff ghost combination.
+        ghost_characters = {game_data.CHARACTERS[c] for c in self.current_course.ghost_characters}
+        if (set(self.active_characters) == ghost_characters
+                and self.active_kart.id == self.current_course.ghost_kart):
+            new_locations.add(locations.get_loc_name_win_ghost_combo(self.current_course))
+
         return new_locations
     
         

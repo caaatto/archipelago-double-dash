@@ -114,3 +114,17 @@ class TestCupLocationsAlwaysPresent(MkddTestBase):
         location_names = _location_names(self)
         for cup in game_data.NORMAL_CUPS:
             self.assertIn(mkdd_locs.get_loc_name_cup(cup, 0, 0), location_names)
+
+
+class TestGhostComboLocations(MkddTestBase):
+    options = {**BASE_OPTIONS, "time_trials": "disable"}
+
+    def test_all_ghost_combo_locations_exist(self) -> None:
+        location_names = _location_names(self)
+        for course in game_data.RACE_COURSES:
+            self.assertIn(mkdd_locs.get_loc_name_win_ghost_combo(course), location_names)
+
+    def test_ghost_combo_data_is_complete(self) -> None:
+        for course in game_data.RACE_COURSES:
+            self.assertEqual(len(course.ghost_characters), 2)
+            self.assertIn(course.ghost_kart, range(len(game_data.KARTS)))

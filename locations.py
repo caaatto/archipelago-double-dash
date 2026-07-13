@@ -90,6 +90,11 @@ def get_loc_name_win_course_char(course: game_data.Course) -> str:
     else:
         return f"Win in {course.name} With {characters[0]} and {characters[1]}"
 
+def get_loc_name_win_ghost_combo(course: game_data.Course) -> str:
+    characters = [game_data.CHARACTERS[character].name for character in course.ghost_characters]
+    kart = game_data.KARTS[course.ghost_kart].name
+    return f"Win in {course.name} With {characters[0]}, {characters[1]} and {kart}"
+
 
 data_table: list[MkddLocationData] = [MkddLocationData("", 0)] # Id 0 is reserved.
 
@@ -179,6 +184,14 @@ for course, box_groups in BOX_NAMES.items():
 for course, routes in ROUTE_LOCATIONS.items():
     for route in routes:
         data_table.append(MkddLocationData(get_loc_name_route(course, route), 0, course, tags={course, TAG_SHORTCUT} | route.tags))
+
+# New locations must be appended at the end to keep existing location ids stable.
+
+# Win courses with the staff ghost combination.
+for course in game_data.RACE_COURSES:
+    required_items = {game_data.CHARACTERS[c].name: 1 for c in course.ghost_characters}
+    required_items[game_data.KARTS[course.ghost_kart].name] = 1
+    data_table.append(MkddLocationData(get_loc_name_win_ghost_combo(course), 40, course.name + " GP", required_items, {course.name, TAG_WIN_COMBO}))
 
 name_to_id: dict[str, int] = {data.name:id for (id, data) in enumerate(data_table) if id > 0}
 
