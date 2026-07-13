@@ -517,6 +517,82 @@ WriteTo code_no_triple_shell_swap
     nop
 
 
+REGION menu_lockout
+# Lock the main menu to selections the randomizer supports (issue #48).
+# The mode cursor (menu object +0x2100) doubles as the mode id in setRaceData:
+# 0 = grand prix, 1 = versus, 2 = time attack, 3 = battle.
+
+# Player count cursor (+0x20f4): (cursor +- 1) & 1 instead of % 4, so only
+# 1 and 2 players can be selected.
+.set code_player_count_up, 0x8015b2f8
+WriteTo code_player_count_up
+    rlwinm  r0, r3, 0, 31, 31
+    nop
+    nop
+    nop
+    nop
+.set code_player_count_down, 0x8015b330
+WriteTo code_player_count_down
+    rlwinm  r0, r3, 0, 31, 31
+    nop
+    nop
+    nop
+    nop
+
+# Mode cursor: every store of versus (1) or battle (3) becomes grand prix (0).
+# Cursor restore upon entering the menu:
+.set code_mode_restore_vs, 0x80158e6c
+WriteTo code_mode_restore_vs
+    li      r0, 0
+.set code_mode_restore_battle1, 0x80158e78
+WriteTo code_mode_restore_battle1
+    li      r3, 0
+.set code_mode_restore_battle2, 0x80158e8c
+WriteTo code_mode_restore_battle2
+    li      r3, 0
+.set code_mode_restore_battle3, 0x80158ea0
+WriteTo code_mode_restore_battle3
+    li      r3, 0
+# Cursor movement, analog stick handlers:
+.set code_mode_stick_vs1, 0x8015da9c
+WriteTo code_mode_stick_vs1
+    li      r0, 0
+.set code_mode_stick_battle1, 0x8015db00
+WriteTo code_mode_stick_battle1
+    li      r0, 0
+.set code_mode_stick_vs2, 0x8015dbd4
+WriteTo code_mode_stick_vs2
+    li      r0, 0
+.set code_mode_stick_battle2, 0x8015dc24
+WriteTo code_mode_stick_battle2
+    li      r0, 0
+# Cursor movement, d-pad handlers:
+.set code_mode_pad_battle1, 0x8015eb64
+WriteTo code_mode_pad_battle1
+    li      r0, 0
+.set code_mode_pad_vs1, 0x8015eb7c
+WriteTo code_mode_pad_vs1
+    li      r0, 0
+.set code_mode_pad_battle2, 0x8015ebbc
+WriteTo code_mode_pad_battle2
+    li      r0, 0
+.set code_mode_pad_vs2, 0x8015ebc8
+WriteTo code_mode_pad_vs2
+    li      r0, 0
+.set code_mode_pad_vs3, 0x8015ecac
+WriteTo code_mode_pad_vs3
+    li      r0, 0
+.set code_mode_pad_battle3, 0x8015ecb8
+WriteTo code_mode_pad_battle3
+    li      r0, 0
+.set code_mode_pad_battle4, 0x8015ed04
+WriteTo code_mode_pad_battle4
+    li      r0, 0
+.set code_mode_pad_vs4, 0x8015ed10
+WriteTo code_mode_pad_vs4
+    li      r0, 0
+
+
 REGION skip_credits
 # The staff roll can be skipped with the A button once the jump flag is enabled
 # (120 frames into the Mario title cut). Trigger the skip automatically so that
@@ -565,6 +641,22 @@ Invalidate code_car_box_update
 Invalidate code_disable_start_pos_shuffle
 Invalidate code_no_triple_shell_swap
 Invalidate code_skip_credits
+Invalidate code_player_count_up
+Invalidate code_player_count_up + 16
+Invalidate code_player_count_down
+Invalidate code_player_count_down + 16
+Invalidate code_mode_restore_vs      # Same cache line as code_mode_restore_battle1.
+Invalidate code_mode_restore_battle2
+Invalidate code_mode_restore_battle3
+Invalidate code_mode_stick_vs1
+Invalidate code_mode_stick_battle1
+Invalidate code_mode_stick_vs2
+Invalidate code_mode_stick_battle2
+Invalidate code_mode_pad_battle1     # Same cache line as code_mode_pad_vs1.
+Invalidate code_mode_pad_battle2
+Invalidate code_mode_pad_vs2
+Invalidate code_mode_pad_vs3         # Same cache line as code_mode_pad_battle3.
+Invalidate code_mode_pad_battle4     # Same cache line as code_mode_pad_vs4.
 Invalidate 0x8016af84   # Course selection up (course_selection region below)
 Invalidate 0x8016afdc   # Course selection down (course_selection region below)
 Invalidate 0x802ab000   # Driver switch (driver_switch region below)

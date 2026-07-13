@@ -216,6 +216,7 @@ def apply_patch():
     apply_dict_patch(patches.item_box)
     apply_dict_patch(patches.car_item_box)
     apply_dict_patch(patches.disable_start_pos_shuffle)
+    apply_dict_patch(patches.menu_lockout)
     apply_dict_patch(patches.skip_credits)
     apply_dict_patch(patches.spawn_item)
     apply_dict_patch(patches.draw_string)
