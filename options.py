@@ -204,6 +204,14 @@ class OverlappingStartTrapWeight(Range):
     range_end = 100
     default = 5
 
+class DriverSwitchTrapWeight(Range):
+    """Your characters will switch places at a random moment during a race.
+    Bigger number = bigger chance of occurring."""
+    display_name = "Driver Switch Trap Weight"
+    range_start = 0
+    range_end = 100
+    default = 20
+
 # Quality of Life
 class Mirror200cc(Toggle):
     """Mirror mode is 200cc if enabled."""
@@ -279,6 +287,7 @@ class MkddOptions(PerGameCommonOptions):
     shell_rain_trap_weight: ShellRainTrapWeight
     bomb_rain_trap_weight: BombRainTrapWeight
     overlapping_start_trap_weight: OverlappingStartTrapWeight
+    driver_switch_trap_weight: DriverSwitchTrapWeight
 
     mirror_200cc: Mirror200cc
     faster_50cc_100cc: Faster50cc100cc
@@ -351,6 +360,7 @@ option_groups: list[OptionGroup] = [
         ShellRainTrapWeight,
         BombRainTrapWeight,
         OverlappingStartTrapWeight,
+        DriverSwitchTrapWeight,
     ]),
     OptionGroup("Quality of Life", [
         Mirror200cc,

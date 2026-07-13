@@ -598,6 +598,10 @@ invalidate_cache: dict[int, list[int]] = {
         0x398cafdc,
         0x7c00606c,
         0x7c0067ac,
+        0x3d80802b,
+        0x398cb000,
+        0x7c00606c,
+        0x7c0067ac,
         0x3d808000,
         0x398c5420,
         0x7c00606c,
@@ -625,16 +629,16 @@ invalidate_cache: dict[int, list[int]] = {
     0x8011510c: [
         0x4beed1cc,
     ],
-    0x80002578: [
+    0x80002588: [
         0x4c00012c,
         0x4e800020,
     ],
 }
 course_selection: dict[int, list[int]] = {
     0x8016af84: [
-        0x4be975fc,
+        0x4be9760c,
     ],
-    0x80002580: [
+    0x80002590: [
         0x806da38c,
         0x808da388,
         0x5484103a,
@@ -651,12 +655,12 @@ course_selection: dict[int, list[int]] = {
         0x4181ffe8,
         0x906da38c,
         0xc002a00c,
-        0x481689e8,
+        0x481689d8,
     ],
     0x8016afdc: [
-        0x4be975e8,
+        0x4be975f8,
     ],
-    0x800025c4: [
+    0x800025d4: [
         0x806da38c,
         0x808da388,
         0x5484103a,
@@ -673,6 +677,26 @@ course_selection: dict[int, list[int]] = {
         0x4181ffe8,
         0x906da38c,
         0xc002a00c,
-        0x481689fc,
+        0x481689ec,
+    ],
+}
+driver_switch: dict[int, list[int]] = {
+    0x802ab000: [
+        0x4bd57618,
+    ],
+    0x80002618: [
+        0x3cc08000,
+        0x80a6109c,
+        0x7c600039,
+        0x40820024,
+        0x281b0000,
+        0x40820018,
+        0x28050000,
+        0x41820014,
+        0x38a00000,
+        0x90a6109c,
+        0x48000008,
+        0x7c1bd800,
+        0x482a89bc,
     ],
 }

@@ -324,12 +324,14 @@ class MkddWorld(World):
             items.SHELL_RAIN_TRAP,
             items.BOMB_RAIN_TRAP,
             items.OVERLAPPING_START_TRAP,
+            items.DRIVER_SWITCH_TRAP,
         ]
         trap_weights = [
             self.options.banana_rain_trap_weight.value,
             self.options.shell_rain_trap_weight.value,
             self.options.bomb_rain_trap_weight.value,
             self.options.overlapping_start_trap_weight.value,
+            self.options.driver_switch_trap_weight.value,
         ]
         item_pool += [self.create_item(self.random.sample(traps, 1, counts=trap_weights)[0]) for _ in range(trap_count)]
         item_pool += [self.create_item(self.get_filler_item_name()) for _ in range(remaining_item_count - trap_count)]

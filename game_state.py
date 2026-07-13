@@ -31,6 +31,8 @@ class MkddGameState():
         self.rain_trap_queue: list[str] = []
         self.rain_trap_amount_left: int = 0
         self.rain_trap_timer: int = 0
+        self.driver_switch_traps: int = 0
+        self.driver_switch_trap_timer: int = 0
         self.queued_items: int = 0
         self.state_valid: bool = False
 
@@ -1066,6 +1068,29 @@ class MkddGameState():
         if self.rain_trap_timer < self.race_timer: # Rain finished.
             self.rain_trap_timer = 0
             self.rain_trap_queue.pop(0)
+
+
+    def handle_driver_switch_traps(self) -> None:
+        """Forces a driver/rider switch at a random moment if trap is received."""
+        if self.course_changed:
+            self.driver_switch_trap_timer = 0
+            # Clear a possibly unconsumed switch request from the previous race.
+            dolphin.write_word(self.memory_addresses.driver_switch_w, 0)
+
+        if self.driver_switch_traps == 0 or not self.in_game or self.mode != game_data.Modes.GRANDPRIX:
+            return
+
+        if self.driver_switch_trap_timer == 0: # Schedule the switch.
+            if self.race_timer_s < .1:
+                return
+            self.driver_switch_trap_timer = self.race_timer + random.randint(2 * 60, 15 * 60)
+            return
+
+        if self.race_timer >= self.driver_switch_trap_timer:
+            self.driver_switch_trap_timer = 0
+            self.driver_switch_traps -= 1
+            dolphin.write_word(self.memory_addresses.driver_switch_w, 1)
+            logger.debug(f"Applied driver switch trap. Traps remaining: {self.driver_switch_traps}")
 
 
 def dolphin_write_half(address: int, value: int) -> None:

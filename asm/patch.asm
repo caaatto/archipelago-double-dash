@@ -567,6 +567,7 @@ Invalidate code_no_triple_shell_swap
 Invalidate code_skip_credits
 Invalidate 0x8016af84   # Course selection up (course_selection region below)
 Invalidate 0x8016afdc   # Course selection down (course_selection region below)
+Invalidate 0x802ab000   # Driver switch (driver_switch region below)
 Invalidate 0x80005420   # Lap modifier 1 (AR CODES)
 Invalidate 0x80187BA0   # Lap modifier 2
 Invalidate 0x801CD680   # Unlock everything
@@ -584,6 +585,7 @@ REGION course_selection
 # This region is placed after invalidate_cache on purpose: its cache invalidation is
 # done with raw addresses above, so the invalidate block address stays unchanged.
 .set available_courses_bx, 0x80001088 # Size 20 (5 cups x 4 courses)
+.set driver_switch_w, 0x8000109c
 
 # Move up.
 .set code_course_up, 0x8016af84
@@ -626,3 +628,25 @@ InsertAt code_course_down, 16
     stw     r3, -0x5c74 (r13)
     lfs     f0, -0x5FF4 (rtoc)  # Default code.
 ReturnAt 0x8016b000
+
+
+REGION driver_switch
+# Allows the client to force a driver/rider switch on the player's kart by
+# writing 1 into driver_switch_w (driver switch trap, issue #4).
+# Hooks the change button test in the kart's per-frame change handling: the
+# comparison result must end up in cr0, "not equal" meaning switch requested.
+.set code_driver_switch, 0x802ab000
+InsertAt code_driver_switch, 12
+    lis     r6, driver_switch_w@ha
+    lwz     r5, driver_switch_w@l (r6)
+    and.    r0, r3, r0          # Default code (change button test).
+    bne-    0x24                # Button pressed normally.
+    cmplwi  r27, 0              # r27 = kart number, only force the player's kart.
+    bne-    0x18
+    cmplwi  r5, 0               # Switch requested by the client?
+    beq-    0x14
+    li      r5, 0               # Consume the request, cr0 stays "not equal".
+    stw     r5, driver_switch_w@l (r6)
+    b       0x8
+    cmpw    r27, r27            # Not the player: set cr0 back to "equal".
+Return

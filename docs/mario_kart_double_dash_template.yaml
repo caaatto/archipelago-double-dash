@@ -189,6 +189,12 @@ Mario Kart Double Dash:
     # Minimum value is 0
     # Maximum value is 100
 
+  driver_switch_trap_weight: 20
+    # Your characters will switch places at a random moment during a race.
+    # Bigger number = bigger chance of occurring.
+    # Minimum value is 0
+    # Maximum value is 100
+
   ###################
   # Quality of Life #
   ###################

@@ -60,6 +60,7 @@ OVERLAPPING_START_TRAP = "Overlapping Start Trap"
 BANANA_RAIN_TRAP = "Banana Rain Trap"
 SHELL_RAIN_TRAP = "Shell Rain Trap"
 BOMB_RAIN_TRAP = "Bomb Rain Trap"
+DRIVER_SWITCH_TRAP = "Driver Switch Trap"
 
 def get_item_name_tt_course(course: str) -> str:
     return f"{course} Time Trial"
@@ -119,6 +120,9 @@ data_table.append(MkddItemData(BOMB_RAIN_TRAP, TRAP, ItemType.RAIN_TRAP, count=0
 
 # Used by Universal Tracker glitched logic.
 data_table.append(MkddItemData(SKIP_DIFFICULTY, PROG, count = 0))
+
+# New items must be appended at the end to keep existing item ids stable.
+data_table.append(MkddItemData(DRIVER_SWITCH_TRAP, TRAP, count=0, tags={TAG_TRAPS, TAG_SYNC_ONLY}))
 
 name_to_id: dict[str, int] = {item.name:id for (id, item) in enumerate(data_table) if id > 0}
 

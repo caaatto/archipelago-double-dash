@@ -130,6 +130,8 @@ class MkddMemAddresses():
     """Velocity for item to spawn."""
     available_courses_bx: int
     """Table of selectable courses per cup (5 cups x 4 courses, size 20). 1 = selectable."""
+    driver_switch_w: int
+    """Set to 1 to force a driver/rider switch on the player's kart. Consumed by the game."""
     text_sx: int
     """Text to print."""
     text_size: int
@@ -250,6 +252,7 @@ class MkddMemAddressesUsa(MkddMemAddresses):
     spawn_item_pos_fx = spawn_item_id_w + 4
     spawn_item_vel_fx = spawn_item_id_w + 16
     available_courses_bx = 0x80001088
+    driver_switch_w = 0x8000109c
 
     text_sx = 0x80000da4
     text_size = 0x30

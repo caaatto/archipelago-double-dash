@@ -205,6 +205,7 @@ def apply_patch():
     apply_dict_patch(patches.update_menu_pointer)
     apply_dict_patch(patches.cup_selection)
     apply_dict_patch(patches.course_selection)
+    apply_dict_patch(patches.driver_switch)
     apply_dict_patch(patches.vehicle_class_selector)
     apply_dict_patch(patches.time_trial_items)
     apply_dict_patch(patches.item_shuffle)
@@ -274,6 +275,8 @@ def give_item(ctx: MkddContext, item: MkddItemData) -> None:
         ctx.game_state.starting_position = max(0, ctx.game_state.starting_position - 1)
     elif item.name == items.OVERLAPPING_START_TRAP:
         ctx.game_state.overlapping_start_traps += 1
+    elif item.name == items.DRIVER_SWITCH_TRAP:
+        ctx.game_state.driver_switch_traps += 1
     elif item.item_type == items.ItemType.RAIN_TRAP:
         ctx.game_state.rain_trap_queue.append(item.name)
     elif item.name == items.RANDOM_ITEM:
@@ -357,6 +360,7 @@ def update_game(ctx: MkddContext) -> None:
     ctx.game_state.handle_starting_position()
     ctx.game_state.handle_overlapping_start_trap()
     ctx.game_state.handle_rain_traps()
+    ctx.game_state.handle_driver_switch_traps()
 
 
 async def check_current_course_changed(ctx: MkddContext) -> None:
