@@ -47,6 +47,8 @@ class MkddGameState():
         """Item hit events processed so far, -1 = not synced yet."""
         self.last_obstacle_hit_counter: int = -1
         """Obstacle hit events processed so far, -1 = not synced yet."""
+        self.cpu_upgraded_karts: set[int] = set()
+        """Kart numbers of CPUs that get upgrades this race (cpu_upgrades: some)."""
         self.queued_items: int = 0
         self.state_valid: bool = False
 
@@ -1023,13 +1025,17 @@ class MkddGameState():
                 return 1.0
 
 
-    def get_modified_kart_stats(self, kart_id: int, apply_upgrades: bool) -> game_data.KartStats:
-        """Returns kart stats, with speed modifiers and unlocked upgrades applied if requested."""
+    def get_modified_kart_stats(self, kart_id: int, apply_upgrades: bool, apply_engine: bool|None = None) -> game_data.KartStats:
+        """Returns kart stats, with speed modifiers and unlocked upgrades applied if requested.
+        apply_engine controls the player's engine upgrade multiplier separately
+        (CPUs get kart upgrades but not the player's engine level)."""
         stats = game_data.KARTS[kart_id].stats
         if not apply_upgrades:
             return stats
+        if apply_engine is None:
+            apply_engine = apply_upgrades
 
-        speed_1_multiplier = self.calculate_speed_multiplier()
+        speed_1_multiplier = self.calculate_speed_multiplier() if apply_engine else 1.0
         speed_2_multiplier = 1.0
         speed_3_multiplier = 1.0
         speed_4_multiplier = 1.0
@@ -1072,12 +1078,16 @@ class MkddGameState():
         # In time trials the shared stat table is kept vanilla, so that ghost karts
         # initialize with the stats they were recorded with (issue #41). The player's
         # upgrades are applied directly to the kart instance instead.
+        # The same trick handles the cpu_upgrades option (issue #42): with the rival
+        # setting the table carries the player's upgrades (CPUs on the same kart share
+        # them like before), otherwise the table stays vanilla and upgrades go to the
+        # kart instances.
         time_trial: bool = self.mode == game_data.Modes.TIMETRIAL
+        rival_mode: bool = self.options.cpu_upgrades == options.CpuUpgrades.option_rival
         kart_stats_pointer = self.memory_addresses.kart_stats_pointer
         for i in range(len(game_data.KARTS)):
             kart_address = kart_stats_pointer + i * self.memory_addresses.kart_struct_size
-            # Upgrades apply to the player only (by side-effect also bots using the same kart).
-            apply_upgrades: bool = game_data.KARTS[i] == self.active_kart and not time_trial
+            apply_upgrades: bool = game_data.KARTS[i] == self.active_kart and not time_trial and rival_mode
             stats = self.get_modified_kart_stats(i, apply_upgrades)
 
             dolphin.write_float(kart_address + self.memory_addresses.kart_speed_on_road_f_offset, stats.speed_on_road)
@@ -1091,17 +1101,22 @@ class MkddGameState():
             dolphin.write_float(kart_address + self.memory_addresses.kart_roll_f_offset, stats.roll)
             dolphin.write_float(kart_address + self.memory_addresses.kart_steer_f_offset, stats.steer)
 
-        if time_trial:
+        if time_trial or not rival_mode:
             self.apply_player_kart_body_stats()
+        if not time_trial and self.options.cpu_upgrades in (options.CpuUpgrades.option_some, options.CpuUpgrades.option_all):
+            if self.course_changed:
+                self.cpu_upgraded_karts = {k for k in range(1, 8) if random.random() < .5}
+            self.apply_cpu_kart_body_stats()
 
 
     def apply_player_kart_body_stats(self) -> None:
         """Applies upgraded stats directly to the player's kart instance.
 
-        Used in time trials, where the shared stat table must stay vanilla so that
-        ghost karts don't pick up the player's upgrades (issue #41). The instance
-        fields are copied from the stat table at race init, so they can be
-        overwritten at any point after that.
+        Used whenever the shared stat table stays vanilla: in time trials so that
+        ghost karts don't pick up the player's upgrades (issue #41), and with
+        cpu_upgrades settings other than rival (issue #42). The instance fields are
+        copied from the stat table at race init, so they can be overwritten at any
+        point after that.
         """
         kart_ctrl: int = dolphin.read_word(self.memory_addresses.kart_control_pointer)
         if kart_ctrl == 0:
@@ -1112,8 +1127,34 @@ class MkddGameState():
         # Make sure the kart instance is initialized and drives the kart we think it does.
         if dolphin.read_word(kart_address + self.memory_addresses.kart_body_kart_id_w_offset) != self.active_kart.id:
             return
+        self.apply_kart_body_stats(kart_address, self.active_kart.id, apply_engine = True)
 
-        stats = self.get_modified_kart_stats(self.active_kart.id, True)
+
+    def apply_cpu_kart_body_stats(self) -> None:
+        """Applies the upgrades unlocked for each kart to the CPU kart instances
+        (cpu_upgrades option, issue #42)."""
+        kart_ctrl: int = dolphin.read_word(self.memory_addresses.kart_control_pointer)
+        if kart_ctrl == 0:
+            return
+        random_mode: bool = self.options.cpu_upgrades == options.CpuUpgrades.option_some
+        for kart_no in range(1, 8):
+            if random_mode and kart_no not in self.cpu_upgraded_karts:
+                continue
+            kart_address: int = dolphin.read_word(
+                kart_ctrl + self.memory_addresses.kart_control_kart_pointers_offset + kart_no * 4)
+            if kart_address == 0:
+                continue
+            kart_id: int = dolphin.read_word(kart_address + self.memory_addresses.kart_body_kart_id_w_offset)
+            if not 0 <= kart_id < len(game_data.KARTS):
+                continue
+            if len(self.kart_upgrades[kart_id]) == 0:
+                continue
+            self.apply_kart_body_stats(kart_address, kart_id, apply_engine = False)
+
+
+    def apply_kart_body_stats(self, kart_address: int, kart_id: int, apply_engine: bool) -> None:
+        """Writes upgraded stats into one kart instance."""
+        stats = self.get_modified_kart_stats(kart_id, True, apply_engine)
         # The instance speeds include the vehicle class multiplier.
         vehicle_class: int = min(2, dolphin.read_byte(kart_address + self.memory_addresses.kart_body_class_b_offset))
         class_multiplier: float = dolphin.read_float(self.memory_addresses.class_speed_multipliers_fx + vehicle_class * 4)

@@ -186,6 +186,19 @@ class KartUpgrades(Range):
     range_end = 100
     default = 20
 
+class CpuUpgrades(Choice):
+    """How CPU karts use the kart upgrades you have unlocked (grand prix only).
+    Off: CPUs always drive stock karts.
+    Rival: CPUs driving the same kart as you share your upgrades.
+    Some: every CPU has a 50 % chance per race to get the upgrades unlocked for its kart.
+    All: every CPU gets the upgrades unlocked for its kart."""
+    display_name = "CPU Upgrades"
+    option_off = 0
+    option_rival = 1
+    option_some = 2
+    option_all = 3
+    default = 1
+
 class SpeedUpgrades(DefaultOnToggle):
     """Adds 3 Progressive Speed Upgrades to the pool.
     You start at a slight disadvantage (90 % speed) and collecting all the speed upgrades gets you to 110 % speed.
@@ -364,6 +377,7 @@ class MkddOptions(PerGameCommonOptions):
 
     kart_upgrades: KartUpgrades
     speed_upgrades: SpeedUpgrades
+    cpu_upgrades: CpuUpgrades
     
     trap_chance: TrapChance
     banana_rain_trap_weight: BananaRainTrapWeight
@@ -400,6 +414,7 @@ class MkddOptions(PerGameCommonOptions):
             "item_box_unlocks",
             "frantic_items",
             "guaranteed_items",
+            "cpu_upgrades",
             "all_cup_tour_length",
             "music_shuffle",
             "mirror_200cc",
@@ -451,6 +466,7 @@ option_groups: list[OptionGroup] = [
     OptionGroup("Karts", [
         KartUpgrades,
         SpeedUpgrades,
+        CpuUpgrades,
     ]),
     OptionGroup("Traps", [
         TrapChance,

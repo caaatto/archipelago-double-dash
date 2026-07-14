@@ -181,6 +181,14 @@ Mario Kart Double Dash:
     # Disabling this sets logic difficulty on hard if it's lower.
     # Possible values: true, false
 
+  cpu_upgrades: rival
+    # How CPU karts use the kart upgrades you have unlocked (grand prix only).
+    # Off: CPUs always drive stock karts.
+    # Rival: CPUs driving the same kart as you share your upgrades.
+    # Some: every CPU has a 50 % chance per race to get the upgrades unlocked for its kart.
+    # All: every CPU gets the upgrades unlocked for its kart.
+    # Possible values: off, rival, some, all
+
   #########
   # Traps #
   #########
