@@ -1,0 +1,3235 @@
+[
+  {
+    "name": "Luigi Circuit",
+    "children": [
+      {
+        "name": "Race",
+        "map_locations": [
+          {
+            "map": "Courses",
+            "x": 93,
+            "y": 126
+          }
+        ],
+        "sections": [
+          {
+            "name": "Luigi Circuit Finish"
+          },
+          {
+            "name": "Luigi Circuit Take The Lead"
+          },
+          {
+            "name": "Luigi Circuit 1st"
+          },
+          {
+            "name": "Win in Luigi Circuit With Luigi"
+          },
+          {
+            "name": "Win in Luigi Circuit With Luigi, Mario and Red Fire"
+          },
+          {
+            "name": "Defeat a Chain Chomp"
+          }
+        ]
+      },
+      {
+        "name": "Boxes",
+        "map_locations": [
+          {
+            "map": "Courses",
+            "x": 171,
+            "y": 126
+          }
+        ],
+        "sections": [
+          {
+            "name": "Luigi Circuit - First U-turn Box 1"
+          },
+          {
+            "name": "Luigi Circuit - First U-turn Box 2"
+          },
+          {
+            "name": "Luigi Circuit - First U-turn Box 3"
+          },
+          {
+            "name": "Luigi Circuit - First U-turn Box 4"
+          },
+          {
+            "name": "Luigi Circuit - First U-turn Box 5"
+          },
+          {
+            "name": "Luigi Circuit - First U-turn Box 6"
+          },
+          {
+            "name": "Luigi Circuit - First U-turn Box 7"
+          },
+          {
+            "name": "Luigi Circuit - First U-turn Boxes"
+          },
+          {
+            "name": "Luigi Circuit - Last Turn Box 1"
+          },
+          {
+            "name": "Luigi Circuit - Last Turn Box 2"
+          },
+          {
+            "name": "Luigi Circuit - Last Turn Box 3"
+          },
+          {
+            "name": "Luigi Circuit - Last Turn Box 4"
+          },
+          {
+            "name": "Luigi Circuit - Last Turn Box 5"
+          },
+          {
+            "name": "Luigi Circuit - Last Turn Boxes"
+          },
+          {
+            "name": "Luigi Circuit - 50cc First Straight Box 1"
+          },
+          {
+            "name": "Luigi Circuit - 50cc First Straight Box 2"
+          },
+          {
+            "name": "Luigi Circuit - 50cc First Straight Box 3"
+          },
+          {
+            "name": "Luigi Circuit - 50cc First Straight Box 4"
+          },
+          {
+            "name": "Luigi Circuit - 50cc First Straight Boxes"
+          },
+          {
+            "name": "Luigi Circuit - 50cc Second Straight Box 1"
+          },
+          {
+            "name": "Luigi Circuit - 50cc Second Straight Box 2"
+          },
+          {
+            "name": "Luigi Circuit - 50cc Second Straight Box 3"
+          },
+          {
+            "name": "Luigi Circuit - 50cc Second Straight Box 4"
+          },
+          {
+            "name": "Luigi Circuit - 50cc Second Straight Boxes"
+          },
+          {
+            "name": "Luigi Circuit - 100cc Center Box 1"
+          },
+          {
+            "name": "Luigi Circuit - 100cc Center Box 2"
+          },
+          {
+            "name": "Luigi Circuit - 100cc Center Box 3"
+          },
+          {
+            "name": "Luigi Circuit - 100cc Center Box 4"
+          },
+          {
+            "name": "Luigi Circuit - 100cc Center Boxes"
+          },
+          {
+            "name": "Luigi Circuit - 100cc Chomp Shortcut Box 1"
+          },
+          {
+            "name": "Luigi Circuit - 100cc Chomp Shortcut Box 2"
+          },
+          {
+            "name": "Luigi Circuit - 100cc Chomp Shortcut Boxes"
+          },
+          {
+            "name": "Luigi Circuit - 100cc Last Turn Shortcut Box 1"
+          },
+          {
+            "name": "Luigi Circuit - 100cc Last Turn Shortcut Box 2"
+          },
+          {
+            "name": "Luigi Circuit - 100cc Last Turn Shortcut Boxes"
+          }
+        ]
+      },
+      {
+        "name": "TT",
+        "map_locations": [
+          {
+            "map": "Courses",
+            "x": 248,
+            "y": 126
+          }
+        ],
+        "sections": [
+          {
+            "name": "Luigi Circuit Time Trial in 1:35"
+          },
+          {
+            "name": "Luigi Circuit Defeat Staff Ghost"
+          },
+          {
+            "name": "Luigi Circuit Custom Time 1"
+          },
+          {
+            "name": "Luigi Circuit Custom Time 2"
+          },
+          {
+            "name": "Luigi Circuit Custom Time 3"
+          },
+          {
+            "name": "Luigi Circuit Custom Time 4"
+          },
+          {
+            "name": "Luigi Circuit Custom Time 5"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "Peach Beach",
+    "children": [
+      {
+        "name": "Race",
+        "map_locations": [
+          {
+            "map": "Courses",
+            "x": 419,
+            "y": 126
+          }
+        ],
+        "sections": [
+          {
+            "name": "Peach Beach Finish"
+          },
+          {
+            "name": "Peach Beach Take The Lead"
+          },
+          {
+            "name": "Peach Beach 1st"
+          },
+          {
+            "name": "Win in Peach Beach With Peach"
+          },
+          {
+            "name": "Win in Peach Beach With Peach, Daisy and Heart Coach"
+          },
+          {
+            "name": "Defeat a Cataquack"
+          }
+        ]
+      },
+      {
+        "name": "Boxes",
+        "map_locations": [
+          {
+            "map": "Courses",
+            "x": 497,
+            "y": 126
+          }
+        ],
+        "sections": [
+          {
+            "name": "Peach Beach - Hidden Pipe Box"
+          },
+          {
+            "name": "Peach Beach - First Turn Box 1"
+          },
+          {
+            "name": "Peach Beach - First Turn Box 2"
+          },
+          {
+            "name": "Peach Beach - First Turn Box 3"
+          },
+          {
+            "name": "Peach Beach - First Turn Box 4"
+          },
+          {
+            "name": "Peach Beach - First Turn Box 5"
+          },
+          {
+            "name": "Peach Beach - First Turn Boxes"
+          },
+          {
+            "name": "Peach Beach - Beach Jump Box 1"
+          },
+          {
+            "name": "Peach Beach - Beach Jump Box 2"
+          },
+          {
+            "name": "Peach Beach - Beach Jump Boxes"
+          },
+          {
+            "name": "Peach Beach - Under Arc Box 1"
+          },
+          {
+            "name": "Peach Beach - Under Arc Box 2"
+          },
+          {
+            "name": "Peach Beach - Under Arc Box 3"
+          },
+          {
+            "name": "Peach Beach - Under Arc Box 4"
+          },
+          {
+            "name": "Peach Beach - Under Arc Box 5"
+          },
+          {
+            "name": "Peach Beach - Under Arc Box 6"
+          },
+          {
+            "name": "Peach Beach - Under Arc Boxes"
+          },
+          {
+            "name": "Peach Beach - Ramp Box 1"
+          },
+          {
+            "name": "Peach Beach - Ramp Box 2"
+          },
+          {
+            "name": "Peach Beach - Ramp Box 3"
+          },
+          {
+            "name": "Peach Beach - Ramp Box 4"
+          },
+          {
+            "name": "Peach Beach - Ramp Box 5"
+          },
+          {
+            "name": "Peach Beach - Ramp Box 6"
+          },
+          {
+            "name": "Peach Beach - Ramp Boxes"
+          },
+          {
+            "name": "Peach Beach - Fountain Box 1"
+          },
+          {
+            "name": "Peach Beach - Fountain Box 2"
+          },
+          {
+            "name": "Peach Beach - Fountain Boxes"
+          },
+          {
+            "name": "Peach Beach - Behind Cargo Box"
+          }
+        ]
+      },
+      {
+        "name": "TT",
+        "map_locations": [
+          {
+            "map": "Courses",
+            "x": 574,
+            "y": 126
+          }
+        ],
+        "sections": [
+          {
+            "name": "Peach Beach Time Trial in 1:30"
+          },
+          {
+            "name": "Peach Beach Defeat Staff Ghost"
+          },
+          {
+            "name": "Peach Beach Custom Time 1"
+          },
+          {
+            "name": "Peach Beach Custom Time 2"
+          },
+          {
+            "name": "Peach Beach Custom Time 3"
+          },
+          {
+            "name": "Peach Beach Custom Time 4"
+          },
+          {
+            "name": "Peach Beach Custom Time 5"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "Baby Park",
+    "children": [
+      {
+        "name": "Race",
+        "map_locations": [
+          {
+            "map": "Courses",
+            "x": 745,
+            "y": 126
+          }
+        ],
+        "sections": [
+          {
+            "name": "Baby Park Finish"
+          },
+          {
+            "name": "Baby Park Take The Lead"
+          },
+          {
+            "name": "Baby Park 1st"
+          },
+          {
+            "name": "Win in Baby Park With Baby Mario and Baby Luigi"
+          },
+          {
+            "name": "Win in Baby Park With Baby Mario, Baby Luigi and Goo-Goo Buggy"
+          }
+        ]
+      },
+      {
+        "name": "Boxes",
+        "map_locations": [
+          {
+            "map": "Courses",
+            "x": 823,
+            "y": 126
+          }
+        ],
+        "sections": [
+          {
+            "name": "Baby Park - First Turn Box 1"
+          },
+          {
+            "name": "Baby Park - First Turn Box 2"
+          },
+          {
+            "name": "Baby Park - First Turn Box 3"
+          },
+          {
+            "name": "Baby Park - First Turn Box 4"
+          },
+          {
+            "name": "Baby Park - First Turn Box 5"
+          },
+          {
+            "name": "Baby Park - First Turn Box 6"
+          },
+          {
+            "name": "Baby Park - First Turn Box 7"
+          },
+          {
+            "name": "Baby Park - First Turn Boxes"
+          },
+          {
+            "name": "Baby Park - Second Turn Box 1"
+          },
+          {
+            "name": "Baby Park - Second Turn Box 2"
+          },
+          {
+            "name": "Baby Park - Second Turn Box 3"
+          },
+          {
+            "name": "Baby Park - Second Turn Box 4"
+          },
+          {
+            "name": "Baby Park - Second Turn Box 5"
+          },
+          {
+            "name": "Baby Park - Second Turn Box 6"
+          },
+          {
+            "name": "Baby Park - Second Turn Box 7"
+          },
+          {
+            "name": "Baby Park - Second Turn Boxes"
+          },
+          {
+            "name": "Baby Park - Outer Edge Box"
+          }
+        ]
+      },
+      {
+        "name": "TT",
+        "map_locations": [
+          {
+            "map": "Courses",
+            "x": 900,
+            "y": 126
+          }
+        ],
+        "sections": [
+          {
+            "name": "Baby Park Time Trial in 1:20"
+          },
+          {
+            "name": "Baby Park Defeat Staff Ghost"
+          },
+          {
+            "name": "Baby Park Custom Time 1"
+          },
+          {
+            "name": "Baby Park Custom Time 2"
+          },
+          {
+            "name": "Baby Park Custom Time 3"
+          },
+          {
+            "name": "Baby Park Custom Time 4"
+          },
+          {
+            "name": "Baby Park Custom Time 5"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "Dry Dry Desert",
+    "children": [
+      {
+        "name": "Race",
+        "map_locations": [
+          {
+            "map": "Courses",
+            "x": 1056,
+            "y": 126
+          }
+        ],
+        "sections": [
+          {
+            "name": "Dry Dry Desert Finish"
+          },
+          {
+            "name": "Dry Dry Desert Take The Lead"
+          },
+          {
+            "name": "Dry Dry Desert 1st"
+          },
+          {
+            "name": "Win in Dry Dry Desert With Birdo, Yoshi and Turbo Yoshi"
+          },
+          {
+            "name": "Defeat a Pokey"
+          }
+        ]
+      },
+      {
+        "name": "Boxes",
+        "map_locations": [
+          {
+            "map": "Courses",
+            "x": 1118,
+            "y": 126
+          }
+        ],
+        "sections": [
+          {
+            "name": "Dry Dry Desert - Start Box 1"
+          },
+          {
+            "name": "Dry Dry Desert - Start Box 2"
+          },
+          {
+            "name": "Dry Dry Desert - Start Box 3"
+          },
+          {
+            "name": "Dry Dry Desert - Start Box 4"
+          },
+          {
+            "name": "Dry Dry Desert - Start Boxes"
+          },
+          {
+            "name": "Dry Dry Desert - First Turn Box 1"
+          },
+          {
+            "name": "Dry Dry Desert - First Turn Box 2"
+          },
+          {
+            "name": "Dry Dry Desert - First Turn Box 3"
+          },
+          {
+            "name": "Dry Dry Desert - First Turn Box 4"
+          },
+          {
+            "name": "Dry Dry Desert - First Turn Box 5"
+          },
+          {
+            "name": "Dry Dry Desert - First Turn Boxes"
+          },
+          {
+            "name": "Dry Dry Desert - Before Sand Pit Box 1"
+          },
+          {
+            "name": "Dry Dry Desert - Before Sand Pit Box 2"
+          },
+          {
+            "name": "Dry Dry Desert - Before Sand Pit Box 3"
+          },
+          {
+            "name": "Dry Dry Desert - Before Sand Pit Box 4"
+          },
+          {
+            "name": "Dry Dry Desert - Before Sand Pit Boxes"
+          },
+          {
+            "name": "Dry Dry Desert - After Sand Pit Box 1"
+          },
+          {
+            "name": "Dry Dry Desert - After Sand Pit Box 2"
+          },
+          {
+            "name": "Dry Dry Desert - After Sand Pit Box 3"
+          },
+          {
+            "name": "Dry Dry Desert - After Sand Pit Box 4"
+          },
+          {
+            "name": "Dry Dry Desert - After Sand Pit Boxes"
+          },
+          {
+            "name": "Dry Dry Desert - Between Pokeys Box"
+          },
+          {
+            "name": "Dry Dry Desert - Sand Hills Box 1"
+          },
+          {
+            "name": "Dry Dry Desert - Sand Hills Box 2"
+          },
+          {
+            "name": "Dry Dry Desert - Sand Hills Box 3"
+          },
+          {
+            "name": "Dry Dry Desert - Sand Hills Box 4"
+          },
+          {
+            "name": "Dry Dry Desert - Sand Hills Box 5"
+          },
+          {
+            "name": "Dry Dry Desert - Sand Hills Boxes"
+          },
+          {
+            "name": "Dry Dry Desert - Last Pokeys Box 1"
+          },
+          {
+            "name": "Dry Dry Desert - Last Pokeys Box 2"
+          },
+          {
+            "name": "Dry Dry Desert - Last Pokeys Box 3"
+          },
+          {
+            "name": "Dry Dry Desert - Last Pokeys Box 4"
+          },
+          {
+            "name": "Dry Dry Desert - Last Pokeys Boxes"
+          },
+          {
+            "name": "Dry Dry Desert - Sphinx Box"
+          }
+        ]
+      },
+      {
+        "name": "TT",
+        "map_locations": [
+          {
+            "map": "Courses",
+            "x": 1180,
+            "y": 126
+          }
+        ],
+        "sections": [
+          {
+            "name": "Dry Dry Desert Time Trial in 2:00"
+          },
+          {
+            "name": "Dry Dry Desert Defeat Staff Ghost"
+          },
+          {
+            "name": "Dry Dry Desert Custom Time 1"
+          },
+          {
+            "name": "Dry Dry Desert Custom Time 2"
+          },
+          {
+            "name": "Dry Dry Desert Custom Time 3"
+          },
+          {
+            "name": "Dry Dry Desert Custom Time 4"
+          },
+          {
+            "name": "Dry Dry Desert Custom Time 5"
+          }
+        ]
+      },
+      {
+        "name": "Routes",
+        "map_locations": [
+          {
+            "map": "Courses",
+            "x": 1242,
+            "y": 126
+          }
+        ],
+        "sections": [
+          {
+            "name": "Dry Dry Desert - Survive Sand Pit"
+          },
+          {
+            "name": "Dry Dry Desert - Last Sign Shortcut"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "Mushroom Bridge",
+    "children": [
+      {
+        "name": "Race",
+        "map_locations": [
+          {
+            "map": "Courses",
+            "x": 78,
+            "y": 292
+          }
+        ],
+        "sections": [
+          {
+            "name": "Mushroom Bridge Finish"
+          },
+          {
+            "name": "Mushroom Bridge Take The Lead"
+          },
+          {
+            "name": "Mushroom Bridge 1st"
+          },
+          {
+            "name": "Win in Mushroom Bridge With Koopa, Paratroopa and Koopa Dasher"
+          }
+        ]
+      },
+      {
+        "name": "Boxes",
+        "map_locations": [
+          {
+            "map": "Courses",
+            "x": 140,
+            "y": 292
+          }
+        ],
+        "sections": [
+          {
+            "name": "Mushroom Bridge - Left Lane Box 1"
+          },
+          {
+            "name": "Mushroom Bridge - Left Lane Box 2"
+          },
+          {
+            "name": "Mushroom Bridge - Left Lane Boxes"
+          },
+          {
+            "name": "Mushroom Bridge - Right Lane Box 1"
+          },
+          {
+            "name": "Mushroom Bridge - Right Lane Box 2"
+          },
+          {
+            "name": "Mushroom Bridge - Right Lane Boxes"
+          },
+          {
+            "name": "Mushroom Bridge - Pipe Box"
+          },
+          {
+            "name": "Mushroom Bridge - First Tunnel Box 1"
+          },
+          {
+            "name": "Mushroom Bridge - First Tunnel Box 2"
+          },
+          {
+            "name": "Mushroom Bridge - First Tunnel Box 3"
+          },
+          {
+            "name": "Mushroom Bridge - First Tunnel Boxes"
+          },
+          {
+            "name": "Mushroom Bridge - Sidewalk Box"
+          },
+          {
+            "name": "Mushroom Bridge - Second Tunnel Box 1"
+          },
+          {
+            "name": "Mushroom Bridge - Second Tunnel Box 2"
+          },
+          {
+            "name": "Mushroom Bridge - Second Tunnel Box 3"
+          },
+          {
+            "name": "Mushroom Bridge - Second Tunnel Boxes"
+          },
+          {
+            "name": "Mushroom Bridge - Bridge Box 1"
+          },
+          {
+            "name": "Mushroom Bridge - Bridge Box 2"
+          },
+          {
+            "name": "Mushroom Bridge - Bridge Box 3"
+          },
+          {
+            "name": "Mushroom Bridge - Bridge Boxes"
+          },
+          {
+            "name": "Mushroom Bridge - Bridge Top Box 1"
+          },
+          {
+            "name": "Mushroom Bridge - Bridge Top Box 2"
+          },
+          {
+            "name": "Mushroom Bridge - Bridge Top Boxes"
+          },
+          {
+            "name": "Mushroom Bridge - Toad House Box"
+          }
+        ]
+      },
+      {
+        "name": "TT",
+        "map_locations": [
+          {
+            "map": "Courses",
+            "x": 202,
+            "y": 292
+          }
+        ],
+        "sections": [
+          {
+            "name": "Mushroom Bridge Time Trial in 1:40"
+          },
+          {
+            "name": "Mushroom Bridge Defeat Staff Ghost"
+          },
+          {
+            "name": "Mushroom Bridge Custom Time 1"
+          },
+          {
+            "name": "Mushroom Bridge Custom Time 2"
+          },
+          {
+            "name": "Mushroom Bridge Custom Time 3"
+          },
+          {
+            "name": "Mushroom Bridge Custom Time 4"
+          },
+          {
+            "name": "Mushroom Bridge Custom Time 5"
+          }
+        ]
+      },
+      {
+        "name": "Routes",
+        "map_locations": [
+          {
+            "map": "Courses",
+            "x": 264,
+            "y": 292
+          }
+        ],
+        "sections": [
+          {
+            "name": "Mushroom Bridge - Toad House Shortcut"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "Mario Circuit",
+    "children": [
+      {
+        "name": "Race",
+        "map_locations": [
+          {
+            "map": "Courses",
+            "x": 404,
+            "y": 292
+          }
+        ],
+        "sections": [
+          {
+            "name": "Mario Circuit Finish"
+          },
+          {
+            "name": "Mario Circuit Take The Lead"
+          },
+          {
+            "name": "Mario Circuit 1st"
+          },
+          {
+            "name": "Win in Mario Circuit With Mario"
+          },
+          {
+            "name": "Win in Mario Circuit With Mario, Luigi and Red Fire"
+          },
+          {
+            "name": "Defeat a Goomba"
+          },
+          {
+            "name": "Defeat a Piranha Plant"
+          }
+        ]
+      },
+      {
+        "name": "Boxes",
+        "map_locations": [
+          {
+            "map": "Courses",
+            "x": 466,
+            "y": 292
+          }
+        ],
+        "sections": [
+          {
+            "name": "Mario Circuit - Start Box 1"
+          },
+          {
+            "name": "Mario Circuit - Start Box 2"
+          },
+          {
+            "name": "Mario Circuit - Start Box 3"
+          },
+          {
+            "name": "Mario Circuit - Start Box 4"
+          },
+          {
+            "name": "Mario Circuit - Start Box 5"
+          },
+          {
+            "name": "Mario Circuit - Start Boxes"
+          },
+          {
+            "name": "Mario Circuit - Before Tunnel Box 1"
+          },
+          {
+            "name": "Mario Circuit - Before Tunnel Box 2"
+          },
+          {
+            "name": "Mario Circuit - Before Tunnel Box 3"
+          },
+          {
+            "name": "Mario Circuit - Before Tunnel Box 4"
+          },
+          {
+            "name": "Mario Circuit - Before Tunnel Boxes"
+          },
+          {
+            "name": "Mario Circuit - Near Goombas Box 1"
+          },
+          {
+            "name": "Mario Circuit - Near Goombas Box 2"
+          },
+          {
+            "name": "Mario Circuit - Near Goombas Box 3"
+          },
+          {
+            "name": "Mario Circuit - Near Goombas Box 4"
+          },
+          {
+            "name": "Mario Circuit - Near Goombas Box 5"
+          },
+          {
+            "name": "Mario Circuit - Near Goombas Box 6"
+          },
+          {
+            "name": "Mario Circuit - Near Goombas Boxes"
+          }
+        ]
+      },
+      {
+        "name": "TT",
+        "map_locations": [
+          {
+            "map": "Courses",
+            "x": 528,
+            "y": 292
+          }
+        ],
+        "sections": [
+          {
+            "name": "Mario Circuit Time Trial in 1:55"
+          },
+          {
+            "name": "Mario Circuit Defeat Staff Ghost"
+          },
+          {
+            "name": "Mario Circuit Custom Time 1"
+          },
+          {
+            "name": "Mario Circuit Custom Time 2"
+          },
+          {
+            "name": "Mario Circuit Custom Time 3"
+          },
+          {
+            "name": "Mario Circuit Custom Time 4"
+          },
+          {
+            "name": "Mario Circuit Custom Time 5"
+          }
+        ]
+      },
+      {
+        "name": "Routes",
+        "map_locations": [
+          {
+            "map": "Courses",
+            "x": 590,
+            "y": 292
+          }
+        ],
+        "sections": [
+          {
+            "name": "Mario Circuit - Chain Chomp Shortcut"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "Daisy Cruiser",
+    "children": [
+      {
+        "name": "Race",
+        "map_locations": [
+          {
+            "map": "Courses",
+            "x": 730,
+            "y": 292
+          }
+        ],
+        "sections": [
+          {
+            "name": "Daisy Cruiser Finish"
+          },
+          {
+            "name": "Daisy Cruiser Take The Lead"
+          },
+          {
+            "name": "Daisy Cruiser 1st"
+          },
+          {
+            "name": "Win in Daisy Cruiser With Daisy"
+          },
+          {
+            "name": "Win in Daisy Cruiser With Daisy, Peach and Heart Coach"
+          }
+        ]
+      },
+      {
+        "name": "Boxes",
+        "map_locations": [
+          {
+            "map": "Courses",
+            "x": 792,
+            "y": 292
+          }
+        ],
+        "sections": [
+          {
+            "name": "Daisy Cruiser - First Box 1"
+          },
+          {
+            "name": "Daisy Cruiser - First Box 2"
+          },
+          {
+            "name": "Daisy Cruiser - First Box 3"
+          },
+          {
+            "name": "Daisy Cruiser - First Box 4"
+          },
+          {
+            "name": "Daisy Cruiser - First Box 5"
+          },
+          {
+            "name": "Daisy Cruiser - First Boxes"
+          },
+          {
+            "name": "Daisy Cruiser - Dining Hall Box 1"
+          },
+          {
+            "name": "Daisy Cruiser - Dining Hall Box 2"
+          },
+          {
+            "name": "Daisy Cruiser - Dining Hall Box 3"
+          },
+          {
+            "name": "Daisy Cruiser - Dining Hall Box 4"
+          },
+          {
+            "name": "Daisy Cruiser - Dining Hall Box 5"
+          },
+          {
+            "name": "Daisy Cruiser - Dining Hall Box 6"
+          },
+          {
+            "name": "Daisy Cruiser - Dining Hall Box 7"
+          },
+          {
+            "name": "Daisy Cruiser - Dining Hall Box 8"
+          },
+          {
+            "name": "Daisy Cruiser - Dining Hall Boxes"
+          },
+          {
+            "name": "Daisy Cruiser - Cargo Hatch Box 1"
+          },
+          {
+            "name": "Daisy Cruiser - Cargo Hatch Box 2"
+          },
+          {
+            "name": "Daisy Cruiser - Cargo Hatch Boxes"
+          },
+          {
+            "name": "Daisy Cruiser - Cargo Area Box"
+          },
+          {
+            "name": "Daisy Cruiser - Deck Box 1"
+          },
+          {
+            "name": "Daisy Cruiser - Deck Box 2"
+          },
+          {
+            "name": "Daisy Cruiser - Deck Box 3"
+          },
+          {
+            "name": "Daisy Cruiser - Deck Box 4"
+          },
+          {
+            "name": "Daisy Cruiser - Deck Box 5"
+          },
+          {
+            "name": "Daisy Cruiser - Deck Boxes"
+          }
+        ]
+      },
+      {
+        "name": "TT",
+        "map_locations": [
+          {
+            "map": "Courses",
+            "x": 854,
+            "y": 292
+          }
+        ],
+        "sections": [
+          {
+            "name": "Daisy Cruiser Time Trial in 2:05"
+          },
+          {
+            "name": "Daisy Cruiser Defeat Staff Ghost"
+          },
+          {
+            "name": "Daisy Cruiser Custom Time 1"
+          },
+          {
+            "name": "Daisy Cruiser Custom Time 2"
+          },
+          {
+            "name": "Daisy Cruiser Custom Time 3"
+          },
+          {
+            "name": "Daisy Cruiser Custom Time 4"
+          },
+          {
+            "name": "Daisy Cruiser Custom Time 5"
+          }
+        ]
+      },
+      {
+        "name": "Routes",
+        "map_locations": [
+          {
+            "map": "Courses",
+            "x": 916,
+            "y": 292
+          }
+        ],
+        "sections": [
+          {
+            "name": "Daisy Cruiser - Pool Shortcut"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "Waluigi Stadium",
+    "children": [
+      {
+        "name": "Race",
+        "map_locations": [
+          {
+            "map": "Courses",
+            "x": 1056,
+            "y": 292
+          }
+        ],
+        "sections": [
+          {
+            "name": "Waluigi Stadium Finish"
+          },
+          {
+            "name": "Waluigi Stadium Take The Lead"
+          },
+          {
+            "name": "Waluigi Stadium 1st"
+          },
+          {
+            "name": "Win in Waluigi Stadium With Waluigi"
+          },
+          {
+            "name": "Win in Waluigi Stadium With Waluigi, Wario and Wario Car"
+          }
+        ]
+      },
+      {
+        "name": "Boxes",
+        "map_locations": [
+          {
+            "map": "Courses",
+            "x": 1118,
+            "y": 292
+          }
+        ],
+        "sections": [
+          {
+            "name": "Waluigi Stadium - Start Box 1"
+          },
+          {
+            "name": "Waluigi Stadium - Start Box 2"
+          },
+          {
+            "name": "Waluigi Stadium - Start Box 3"
+          },
+          {
+            "name": "Waluigi Stadium - Start Box 4"
+          },
+          {
+            "name": "Waluigi Stadium - Start Boxes"
+          },
+          {
+            "name": "Waluigi Stadium - First Jump Box"
+          },
+          {
+            "name": "Waluigi Stadium - Second Jump Box"
+          },
+          {
+            "name": "Waluigi Stadium - Near Big Puddle Box 1"
+          },
+          {
+            "name": "Waluigi Stadium - Near Big Puddle Box 2"
+          },
+          {
+            "name": "Waluigi Stadium - Near Big Puddle Box 3"
+          },
+          {
+            "name": "Waluigi Stadium - Near Big Puddle Box 4"
+          },
+          {
+            "name": "Waluigi Stadium - Near Big Puddle Boxes"
+          },
+          {
+            "name": "Waluigi Stadium - First Piranha Box 1"
+          },
+          {
+            "name": "Waluigi Stadium - First Piranha Box 2"
+          },
+          {
+            "name": "Waluigi Stadium - First Piranha Box 3"
+          },
+          {
+            "name": "Waluigi Stadium - First Piranha Box 4"
+          },
+          {
+            "name": "Waluigi Stadium - First Piranha Boxes"
+          },
+          {
+            "name": "Waluigi Stadium - Second Piranha Box 1"
+          },
+          {
+            "name": "Waluigi Stadium - Second Piranha Box 2"
+          },
+          {
+            "name": "Waluigi Stadium - Second Piranha Box 3"
+          },
+          {
+            "name": "Waluigi Stadium - Second Piranha Box 4"
+          },
+          {
+            "name": "Waluigi Stadium - Second Piranha Boxes"
+          },
+          {
+            "name": "Waluigi Stadium - After Piranhas Box 1"
+          },
+          {
+            "name": "Waluigi Stadium - After Piranhas Box 2"
+          },
+          {
+            "name": "Waluigi Stadium - After Piranhas Box 3"
+          },
+          {
+            "name": "Waluigi Stadium - After Piranhas Box 4"
+          },
+          {
+            "name": "Waluigi Stadium - After Piranhas Boxes"
+          },
+          {
+            "name": "Waluigi Stadium - Last Jump Box"
+          },
+          {
+            "name": "Waluigi Stadium - Under Second Jump Box"
+          }
+        ]
+      },
+      {
+        "name": "TT",
+        "map_locations": [
+          {
+            "map": "Courses",
+            "x": 1180,
+            "y": 292
+          }
+        ],
+        "sections": [
+          {
+            "name": "Waluigi Stadium Time Trial in 2:10"
+          },
+          {
+            "name": "Waluigi Stadium Defeat Staff Ghost"
+          },
+          {
+            "name": "Waluigi Stadium Custom Time 1"
+          },
+          {
+            "name": "Waluigi Stadium Custom Time 2"
+          },
+          {
+            "name": "Waluigi Stadium Custom Time 3"
+          },
+          {
+            "name": "Waluigi Stadium Custom Time 4"
+          },
+          {
+            "name": "Waluigi Stadium Custom Time 5"
+          }
+        ]
+      },
+      {
+        "name": "Routes",
+        "map_locations": [
+          {
+            "map": "Courses",
+            "x": 1242,
+            "y": 292
+          }
+        ],
+        "sections": [
+          {
+            "name": "Waluigi Stadium - Pond Shortcut"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "Sherbet Land",
+    "children": [
+      {
+        "name": "Race",
+        "map_locations": [
+          {
+            "map": "Courses",
+            "x": 78,
+            "y": 458
+          }
+        ],
+        "sections": [
+          {
+            "name": "Sherbet Land Finish"
+          },
+          {
+            "name": "Sherbet Land Take The Lead"
+          },
+          {
+            "name": "Sherbet Land 1st"
+          },
+          {
+            "name": "Win in Sherbet Land With Baby Luigi, Baby Mario and Goo-Goo Buggy"
+          },
+          {
+            "name": "Defeat a Shy Guy"
+          }
+        ]
+      },
+      {
+        "name": "Boxes",
+        "map_locations": [
+          {
+            "map": "Courses",
+            "x": 140,
+            "y": 458
+          }
+        ],
+        "sections": [
+          {
+            "name": "Sherbet Land - Start Box 1"
+          },
+          {
+            "name": "Sherbet Land - Start Box 2"
+          },
+          {
+            "name": "Sherbet Land - Start Box 3"
+          },
+          {
+            "name": "Sherbet Land - Start Box 4"
+          },
+          {
+            "name": "Sherbet Land - Start Boxes"
+          },
+          {
+            "name": "Sherbet Land - Tunnel Beginning Box 1"
+          },
+          {
+            "name": "Sherbet Land - Tunnel Beginning Box 2"
+          },
+          {
+            "name": "Sherbet Land - Tunnel Beginning Box 3"
+          },
+          {
+            "name": "Sherbet Land - Tunnel Beginning Boxes"
+          },
+          {
+            "name": "Sherbet Land - Tunnel End Box 1"
+          },
+          {
+            "name": "Sherbet Land - Tunnel End Box 2"
+          },
+          {
+            "name": "Sherbet Land - Tunnel End Box 3"
+          },
+          {
+            "name": "Sherbet Land - Tunnel End Boxes"
+          },
+          {
+            "name": "Sherbet Land - After Tunnel Box 1"
+          },
+          {
+            "name": "Sherbet Land - After Tunnel Box 2"
+          },
+          {
+            "name": "Sherbet Land - After Tunnel Box 3"
+          },
+          {
+            "name": "Sherbet Land - After Tunnel Boxes"
+          },
+          {
+            "name": "Sherbet Land - Before Ice Box 1"
+          },
+          {
+            "name": "Sherbet Land - Before Ice Box 2"
+          },
+          {
+            "name": "Sherbet Land - Before Ice Box 3"
+          },
+          {
+            "name": "Sherbet Land - Before Ice Box 4"
+          },
+          {
+            "name": "Sherbet Land - Before Ice Box 5"
+          },
+          {
+            "name": "Sherbet Land - Before Ice Boxes"
+          },
+          {
+            "name": "Sherbet Land - On Ice Box 1"
+          },
+          {
+            "name": "Sherbet Land - On Ice Box 2"
+          },
+          {
+            "name": "Sherbet Land - On Ice Box 3"
+          },
+          {
+            "name": "Sherbet Land - On Ice Box 4"
+          },
+          {
+            "name": "Sherbet Land - On Ice Boxes"
+          },
+          {
+            "name": "Sherbet Land - Under Freezie Box"
+          }
+        ]
+      },
+      {
+        "name": "TT",
+        "map_locations": [
+          {
+            "map": "Courses",
+            "x": 202,
+            "y": 458
+          }
+        ],
+        "sections": [
+          {
+            "name": "Sherbet Land Time Trial in 1:40"
+          },
+          {
+            "name": "Sherbet Land Defeat Staff Ghost"
+          },
+          {
+            "name": "Sherbet Land Custom Time 1"
+          },
+          {
+            "name": "Sherbet Land Custom Time 2"
+          },
+          {
+            "name": "Sherbet Land Custom Time 3"
+          },
+          {
+            "name": "Sherbet Land Custom Time 4"
+          },
+          {
+            "name": "Sherbet Land Custom Time 5"
+          }
+        ]
+      },
+      {
+        "name": "Routes",
+        "map_locations": [
+          {
+            "map": "Courses",
+            "x": 264,
+            "y": 458
+          }
+        ],
+        "sections": [
+          {
+            "name": "Sherbet Land - Last Turn Shortcut"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "Mushroom City",
+    "children": [
+      {
+        "name": "Race",
+        "map_locations": [
+          {
+            "map": "Courses",
+            "x": 404,
+            "y": 458
+          }
+        ],
+        "sections": [
+          {
+            "name": "Mushroom City Finish"
+          },
+          {
+            "name": "Mushroom City Take The Lead"
+          },
+          {
+            "name": "Mushroom City 1st"
+          },
+          {
+            "name": "Win in Mushroom City With Paratroopa, Koopa and Koopa Dasher"
+          }
+        ]
+      },
+      {
+        "name": "Boxes",
+        "map_locations": [
+          {
+            "map": "Courses",
+            "x": 466,
+            "y": 458
+          }
+        ],
+        "sections": [
+          {
+            "name": "Mushroom City - Outer Route Box 1"
+          },
+          {
+            "name": "Mushroom City - Outer Route Box 2"
+          },
+          {
+            "name": "Mushroom City - Outer Route Boxes"
+          },
+          {
+            "name": "Mushroom City - First Block Box"
+          },
+          {
+            "name": "Mushroom City - Last Straight Left Lane Box 1"
+          },
+          {
+            "name": "Mushroom City - Last Straight Left Lane Box 2"
+          },
+          {
+            "name": "Mushroom City - Last Straight Left Lane Boxes"
+          },
+          {
+            "name": "Mushroom City - Last Straight Right Lane Box 1"
+          },
+          {
+            "name": "Mushroom City - Last Straight Right Lane Box 2"
+          },
+          {
+            "name": "Mushroom City - Last Straight Right Lane Box 3"
+          },
+          {
+            "name": "Mushroom City - Last Straight Right Lane Boxes"
+          },
+          {
+            "name": "Mushroom City - Start Box 1"
+          },
+          {
+            "name": "Mushroom City - Start Box 2"
+          },
+          {
+            "name": "Mushroom City - Start Box 3"
+          },
+          {
+            "name": "Mushroom City - Start Box 4"
+          },
+          {
+            "name": "Mushroom City - Start Boxes"
+          },
+          {
+            "name": "Mushroom City - Alley Box"
+          },
+          {
+            "name": "Mushroom City - Crossroad Box"
+          },
+          {
+            "name": "Mushroom City - After City Box 1"
+          },
+          {
+            "name": "Mushroom City - After City Box 2"
+          },
+          {
+            "name": "Mushroom City - After City Box 3"
+          },
+          {
+            "name": "Mushroom City - After City Box 4"
+          },
+          {
+            "name": "Mushroom City - After City Boxes"
+          },
+          {
+            "name": "Mushroom City - Ramp Box 1"
+          },
+          {
+            "name": "Mushroom City - Ramp Box 2"
+          },
+          {
+            "name": "Mushroom City - Ramp Box 3"
+          },
+          {
+            "name": "Mushroom City - Ramp Boxes"
+          },
+          {
+            "name": "Mushroom City - Follow Cars Box"
+          }
+        ]
+      },
+      {
+        "name": "TT",
+        "map_locations": [
+          {
+            "map": "Courses",
+            "x": 528,
+            "y": 458
+          }
+        ],
+        "sections": [
+          {
+            "name": "Mushroom City Time Trial in 2:00"
+          },
+          {
+            "name": "Mushroom City Defeat Staff Ghost"
+          },
+          {
+            "name": "Mushroom City Custom Time 1"
+          },
+          {
+            "name": "Mushroom City Custom Time 2"
+          },
+          {
+            "name": "Mushroom City Custom Time 3"
+          },
+          {
+            "name": "Mushroom City Custom Time 4"
+          },
+          {
+            "name": "Mushroom City Custom Time 5"
+          }
+        ]
+      },
+      {
+        "name": "Routes",
+        "map_locations": [
+          {
+            "map": "Courses",
+            "x": 590,
+            "y": 458
+          }
+        ],
+        "sections": [
+          {
+            "name": "Mushroom City - Bridge Shortcut"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "Yoshi Circuit",
+    "children": [
+      {
+        "name": "Race",
+        "map_locations": [
+          {
+            "map": "Courses",
+            "x": 730,
+            "y": 458
+          }
+        ],
+        "sections": [
+          {
+            "name": "Yoshi Circuit Finish"
+          },
+          {
+            "name": "Yoshi Circuit Take The Lead"
+          },
+          {
+            "name": "Yoshi Circuit 1st"
+          },
+          {
+            "name": "Win in Yoshi Circuit With Yoshi"
+          },
+          {
+            "name": "Win in Yoshi Circuit With Yoshi, Birdo and Turbo Yoshi"
+          }
+        ]
+      },
+      {
+        "name": "Boxes",
+        "map_locations": [
+          {
+            "map": "Courses",
+            "x": 792,
+            "y": 458
+          }
+        ],
+        "sections": [
+          {
+            "name": "Yoshi Circuit - First Turn Box 1"
+          },
+          {
+            "name": "Yoshi Circuit - First Turn Box 2"
+          },
+          {
+            "name": "Yoshi Circuit - First Turn Box 3"
+          },
+          {
+            "name": "Yoshi Circuit - First Turn Box 4"
+          },
+          {
+            "name": "Yoshi Circuit - First Turn Boxes"
+          },
+          {
+            "name": "Yoshi Circuit - Before Tunnel Box 1"
+          },
+          {
+            "name": "Yoshi Circuit - Before Tunnel Box 2"
+          },
+          {
+            "name": "Yoshi Circuit - Before Tunnel Box 3"
+          },
+          {
+            "name": "Yoshi Circuit - Before Tunnel Box 4"
+          },
+          {
+            "name": "Yoshi Circuit - Before Tunnel Boxes"
+          },
+          {
+            "name": "Yoshi Circuit - After Tunnel Box 1"
+          },
+          {
+            "name": "Yoshi Circuit - After Tunnel Box 2"
+          },
+          {
+            "name": "Yoshi Circuit - After Tunnel Box 3"
+          },
+          {
+            "name": "Yoshi Circuit - After Tunnel Box 4"
+          },
+          {
+            "name": "Yoshi Circuit - After Tunnel Boxes"
+          },
+          {
+            "name": "Yoshi Circuit - Before U-turn Box 1"
+          },
+          {
+            "name": "Yoshi Circuit - Before U-turn Box 2"
+          },
+          {
+            "name": "Yoshi Circuit - Before U-turn Box 3"
+          },
+          {
+            "name": "Yoshi Circuit - Before U-turn Box 4"
+          },
+          {
+            "name": "Yoshi Circuit - Before U-turn Boxes"
+          },
+          {
+            "name": "Yoshi Circuit - Tunnel Shortcut Box 1"
+          },
+          {
+            "name": "Yoshi Circuit - Tunnel Shortcut Box 2"
+          },
+          {
+            "name": "Yoshi Circuit - Tunnel Shortcut Boxes"
+          },
+          {
+            "name": "Yoshi Circuit - Last Straight Box 1"
+          },
+          {
+            "name": "Yoshi Circuit - Last Straight Box 2"
+          },
+          {
+            "name": "Yoshi Circuit - Last Straight Box 3"
+          },
+          {
+            "name": "Yoshi Circuit - Last Straight Box 4"
+          },
+          {
+            "name": "Yoshi Circuit - Last Straight Box 5"
+          },
+          {
+            "name": "Yoshi Circuit - Last Straight Boxes"
+          }
+        ]
+      },
+      {
+        "name": "TT",
+        "map_locations": [
+          {
+            "map": "Courses",
+            "x": 854,
+            "y": 458
+          }
+        ],
+        "sections": [
+          {
+            "name": "Yoshi Circuit Time Trial in 2:15"
+          },
+          {
+            "name": "Yoshi Circuit Defeat Staff Ghost"
+          },
+          {
+            "name": "Yoshi Circuit Custom Time 1"
+          },
+          {
+            "name": "Yoshi Circuit Custom Time 2"
+          },
+          {
+            "name": "Yoshi Circuit Custom Time 3"
+          },
+          {
+            "name": "Yoshi Circuit Custom Time 4"
+          },
+          {
+            "name": "Yoshi Circuit Custom Time 5"
+          }
+        ]
+      },
+      {
+        "name": "Routes",
+        "map_locations": [
+          {
+            "map": "Courses",
+            "x": 916,
+            "y": 458
+          }
+        ],
+        "sections": [
+          {
+            "name": "Yoshi Circuit - Arc Shortcut"
+          },
+          {
+            "name": "Yoshi Circuit - Tunnel Shortcut"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "DK Mountain",
+    "children": [
+      {
+        "name": "Race",
+        "map_locations": [
+          {
+            "map": "Courses",
+            "x": 1056,
+            "y": 458
+          }
+        ],
+        "sections": [
+          {
+            "name": "DK Mountain Finish"
+          },
+          {
+            "name": "DK Mountain Take The Lead"
+          },
+          {
+            "name": "DK Mountain 1st"
+          },
+          {
+            "name": "Win in DK Mountain With Donkey Kong"
+          },
+          {
+            "name": "Win in DK Mountain With Donkey Kong, Diddy Kong and DK Jumbo"
+          }
+        ]
+      },
+      {
+        "name": "Boxes",
+        "map_locations": [
+          {
+            "map": "Courses",
+            "x": 1118,
+            "y": 458
+          }
+        ],
+        "sections": [
+          {
+            "name": "DK Mountain - Start Box 1"
+          },
+          {
+            "name": "DK Mountain - Start Box 2"
+          },
+          {
+            "name": "DK Mountain - Start Box 3"
+          },
+          {
+            "name": "DK Mountain - Start Box 4"
+          },
+          {
+            "name": "DK Mountain - Start Boxes"
+          },
+          {
+            "name": "DK Mountain - Mountain Top Box 1"
+          },
+          {
+            "name": "DK Mountain - Mountain Top Box 2"
+          },
+          {
+            "name": "DK Mountain - Mountain Top Box 3"
+          },
+          {
+            "name": "DK Mountain - Mountain Top Box 4"
+          },
+          {
+            "name": "DK Mountain - Mountain Top Boxes"
+          },
+          {
+            "name": "DK Mountain - Cliff U-turn Box 1"
+          },
+          {
+            "name": "DK Mountain - Cliff U-turn Box 2"
+          },
+          {
+            "name": "DK Mountain - Cliff U-turn Box 3"
+          },
+          {
+            "name": "DK Mountain - Cliff U-turn Box 4"
+          },
+          {
+            "name": "DK Mountain - Cliff U-turn Boxes"
+          },
+          {
+            "name": "DK Mountain - Hairpin Turn Box 1"
+          },
+          {
+            "name": "DK Mountain - Hairpin Turn Box 2"
+          },
+          {
+            "name": "DK Mountain - Hairpin Turn Box 3"
+          },
+          {
+            "name": "DK Mountain - Hairpin Turn Box 4"
+          },
+          {
+            "name": "DK Mountain - Hairpin Turn Box 5"
+          },
+          {
+            "name": "DK Mountain - Hairpin Turn Boxes"
+          },
+          {
+            "name": "DK Mountain - Mountain Top Box"
+          }
+        ]
+      },
+      {
+        "name": "TT",
+        "map_locations": [
+          {
+            "map": "Courses",
+            "x": 1180,
+            "y": 458
+          }
+        ],
+        "sections": [
+          {
+            "name": "DK Mountain Time Trial in 2:25"
+          },
+          {
+            "name": "DK Mountain Defeat Staff Ghost"
+          },
+          {
+            "name": "DK Mountain Custom Time 1"
+          },
+          {
+            "name": "DK Mountain Custom Time 2"
+          },
+          {
+            "name": "DK Mountain Custom Time 3"
+          },
+          {
+            "name": "DK Mountain Custom Time 4"
+          },
+          {
+            "name": "DK Mountain Custom Time 5"
+          }
+        ]
+      },
+      {
+        "name": "Routes",
+        "map_locations": [
+          {
+            "map": "Courses",
+            "x": 1242,
+            "y": 458
+          }
+        ],
+        "sections": [
+          {
+            "name": "DK Mountain - Hairpin Turn Shortcut"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "Wario Colosseum",
+    "children": [
+      {
+        "name": "Race",
+        "map_locations": [
+          {
+            "map": "Courses",
+            "x": 93,
+            "y": 624
+          }
+        ],
+        "sections": [
+          {
+            "name": "Wario Colosseum Finish"
+          },
+          {
+            "name": "Wario Colosseum Take The Lead"
+          },
+          {
+            "name": "Wario Colosseum 1st"
+          },
+          {
+            "name": "Win in Wario Colosseum With Wario"
+          },
+          {
+            "name": "Win in Wario Colosseum With Wario, Waluigi and Wario Car"
+          }
+        ]
+      },
+      {
+        "name": "Boxes",
+        "map_locations": [
+          {
+            "map": "Courses",
+            "x": 171,
+            "y": 624
+          }
+        ],
+        "sections": [
+          {
+            "name": "Wario Colosseum - First Jump Box"
+          },
+          {
+            "name": "Wario Colosseum - Second Jump Box"
+          },
+          {
+            "name": "Wario Colosseum - Before Big Jump Box 1"
+          },
+          {
+            "name": "Wario Colosseum - Before Big Jump Box 2"
+          },
+          {
+            "name": "Wario Colosseum - Before Big Jump Box 3"
+          },
+          {
+            "name": "Wario Colosseum - Before Big Jump Box 4"
+          },
+          {
+            "name": "Wario Colosseum - Before Big Jump Box 5"
+          },
+          {
+            "name": "Wario Colosseum - Before Big Jump Boxes"
+          },
+          {
+            "name": "Wario Colosseum - After Spiral Box 1"
+          },
+          {
+            "name": "Wario Colosseum - After Spiral Box 2"
+          },
+          {
+            "name": "Wario Colosseum - After Spiral Box 3"
+          },
+          {
+            "name": "Wario Colosseum - After Spiral Box 4"
+          },
+          {
+            "name": "Wario Colosseum - After Spiral Boxes"
+          },
+          {
+            "name": "Wario Colosseum - Wide Curve Box 1"
+          },
+          {
+            "name": "Wario Colosseum - Wide Curve Box 2"
+          },
+          {
+            "name": "Wario Colosseum - Wide Curve Box 3"
+          },
+          {
+            "name": "Wario Colosseum - Wide Curve Box 4"
+          },
+          {
+            "name": "Wario Colosseum - Wide Curve Box 5"
+          },
+          {
+            "name": "Wario Colosseum - Wide Curve Boxes"
+          },
+          {
+            "name": "Wario Colosseum - Before Pit Box 1"
+          },
+          {
+            "name": "Wario Colosseum - Before Pit Box 2"
+          },
+          {
+            "name": "Wario Colosseum - Before Pit Box 3"
+          },
+          {
+            "name": "Wario Colosseum - Before Pit Box 4"
+          },
+          {
+            "name": "Wario Colosseum - Before Pit Boxes"
+          },
+          {
+            "name": "Wario Colosseum - Pit Left Box 1"
+          },
+          {
+            "name": "Wario Colosseum - Pit Left Box 2"
+          },
+          {
+            "name": "Wario Colosseum - Pit Left Boxes"
+          },
+          {
+            "name": "Wario Colosseum - Pit Jump Box"
+          },
+          {
+            "name": "Wario Colosseum - Pit Right Box 1"
+          },
+          {
+            "name": "Wario Colosseum - Pit Right Box 2"
+          },
+          {
+            "name": "Wario Colosseum - Pit Right Boxes"
+          },
+          {
+            "name": "Wario Colosseum - After Pit Box 1"
+          },
+          {
+            "name": "Wario Colosseum - After Pit Box 2"
+          },
+          {
+            "name": "Wario Colosseum - After Pit Box 3"
+          },
+          {
+            "name": "Wario Colosseum - After Pit Box 4"
+          },
+          {
+            "name": "Wario Colosseum - After Pit Box 5"
+          },
+          {
+            "name": "Wario Colosseum - After Pit Box 6"
+          },
+          {
+            "name": "Wario Colosseum - After Pit Boxes"
+          },
+          {
+            "name": "Wario Colosseum - Last Jump Box 1"
+          },
+          {
+            "name": "Wario Colosseum - Last Jump Box 2"
+          },
+          {
+            "name": "Wario Colosseum - Last Jump Box 3"
+          },
+          {
+            "name": "Wario Colosseum - Last Jump Box 4"
+          },
+          {
+            "name": "Wario Colosseum - Last Jump Boxes"
+          },
+          {
+            "name": "Wario Colosseum - Cage Top Box"
+          }
+        ]
+      },
+      {
+        "name": "TT",
+        "map_locations": [
+          {
+            "map": "Courses",
+            "x": 248,
+            "y": 624
+          }
+        ],
+        "sections": [
+          {
+            "name": "Wario Colosseum Time Trial in 2:35"
+          },
+          {
+            "name": "Wario Colosseum Defeat Staff Ghost"
+          },
+          {
+            "name": "Wario Colosseum Custom Time 1"
+          },
+          {
+            "name": "Wario Colosseum Custom Time 2"
+          },
+          {
+            "name": "Wario Colosseum Custom Time 3"
+          },
+          {
+            "name": "Wario Colosseum Custom Time 4"
+          },
+          {
+            "name": "Wario Colosseum Custom Time 5"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "Dino Dino Jungle",
+    "children": [
+      {
+        "name": "Race",
+        "map_locations": [
+          {
+            "map": "Courses",
+            "x": 404,
+            "y": 624
+          }
+        ],
+        "sections": [
+          {
+            "name": "Dino Dino Jungle Finish"
+          },
+          {
+            "name": "Dino Dino Jungle Take The Lead"
+          },
+          {
+            "name": "Dino Dino Jungle 1st"
+          },
+          {
+            "name": "Win in Dino Dino Jungle With Diddy Kong, Donkey Kong and DK Jumbo"
+          }
+        ]
+      },
+      {
+        "name": "Boxes",
+        "map_locations": [
+          {
+            "map": "Courses",
+            "x": 466,
+            "y": 624
+          }
+        ],
+        "sections": [
+          {
+            "name": "Dino Dino Jungle - First Turn Box 1"
+          },
+          {
+            "name": "Dino Dino Jungle - First Turn Box 2"
+          },
+          {
+            "name": "Dino Dino Jungle - First Turn Box 3"
+          },
+          {
+            "name": "Dino Dino Jungle - First Turn Box 4"
+          },
+          {
+            "name": "Dino Dino Jungle - First Turn Boxes"
+          },
+          {
+            "name": "Dino Dino Jungle - Over Logs Box 1"
+          },
+          {
+            "name": "Dino Dino Jungle - Over Logs Box 2"
+          },
+          {
+            "name": "Dino Dino Jungle - Over Logs Boxes"
+          },
+          {
+            "name": "Dino Dino Jungle - Under Dino Box 1"
+          },
+          {
+            "name": "Dino Dino Jungle - Under Dino Box 2"
+          },
+          {
+            "name": "Dino Dino Jungle - Under Dino Box 3"
+          },
+          {
+            "name": "Dino Dino Jungle - Under Dino Box 4"
+          },
+          {
+            "name": "Dino Dino Jungle - Under Dino Boxes"
+          },
+          {
+            "name": "Dino Dino Jungle - Bridge Box 1"
+          },
+          {
+            "name": "Dino Dino Jungle - Bridge Box 2"
+          },
+          {
+            "name": "Dino Dino Jungle - Bridge Boxes"
+          },
+          {
+            "name": "Dino Dino Jungle - Cave Box 1"
+          },
+          {
+            "name": "Dino Dino Jungle - Cave Box 2"
+          },
+          {
+            "name": "Dino Dino Jungle - Cave Box 3"
+          },
+          {
+            "name": "Dino Dino Jungle - Cave Boxes"
+          },
+          {
+            "name": "Dino Dino Jungle - Cave Shortcut Box"
+          },
+          {
+            "name": "Dino Dino Jungle - After Cave Box 1"
+          },
+          {
+            "name": "Dino Dino Jungle - After Cave Box 2"
+          },
+          {
+            "name": "Dino Dino Jungle - After Cave Box 3"
+          },
+          {
+            "name": "Dino Dino Jungle - After Cave Box 4"
+          },
+          {
+            "name": "Dino Dino Jungle - After Cave Boxes"
+          },
+          {
+            "name": "Dino Dino Jungle - Last Straight Box 1"
+          },
+          {
+            "name": "Dino Dino Jungle - Last Straight Box 2"
+          },
+          {
+            "name": "Dino Dino Jungle - Last Straight Box 3"
+          },
+          {
+            "name": "Dino Dino Jungle - Last Straight Box 4"
+          },
+          {
+            "name": "Dino Dino Jungle - Last Straight Boxes"
+          }
+        ]
+      },
+      {
+        "name": "TT",
+        "map_locations": [
+          {
+            "map": "Courses",
+            "x": 528,
+            "y": 624
+          }
+        ],
+        "sections": [
+          {
+            "name": "Dino Dino Jungle Time Trial in 2:20"
+          },
+          {
+            "name": "Dino Dino Jungle Defeat Staff Ghost"
+          },
+          {
+            "name": "Dino Dino Jungle Custom Time 1"
+          },
+          {
+            "name": "Dino Dino Jungle Custom Time 2"
+          },
+          {
+            "name": "Dino Dino Jungle Custom Time 3"
+          },
+          {
+            "name": "Dino Dino Jungle Custom Time 4"
+          },
+          {
+            "name": "Dino Dino Jungle Custom Time 5"
+          }
+        ]
+      },
+      {
+        "name": "Routes",
+        "map_locations": [
+          {
+            "map": "Courses",
+            "x": 590,
+            "y": 624
+          }
+        ],
+        "sections": [
+          {
+            "name": "Dino Dino Jungle - Bridge Shortcut"
+          },
+          {
+            "name": "Dino Dino Jungle - Cave Shortcut"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "Bowser's Castle",
+    "children": [
+      {
+        "name": "Race",
+        "map_locations": [
+          {
+            "map": "Courses",
+            "x": 730,
+            "y": 624
+          }
+        ],
+        "sections": [
+          {
+            "name": "Bowser's Castle Finish"
+          },
+          {
+            "name": "Bowser's Castle Take The Lead"
+          },
+          {
+            "name": "Bowser's Castle 1st"
+          },
+          {
+            "name": "Win in Bowser's Castle With Bowser"
+          },
+          {
+            "name": "Win in Bowser's Castle With Bowser, Bowser Jr. and Koopa King"
+          }
+        ]
+      },
+      {
+        "name": "Boxes",
+        "map_locations": [
+          {
+            "map": "Courses",
+            "x": 792,
+            "y": 624
+          }
+        ],
+        "sections": [
+          {
+            "name": "Bowser's Castle - Entrance Box 1"
+          },
+          {
+            "name": "Bowser's Castle - Entrance Box 2"
+          },
+          {
+            "name": "Bowser's Castle - Entrance Box 3"
+          },
+          {
+            "name": "Bowser's Castle - Entrance Box 4"
+          },
+          {
+            "name": "Bowser's Castle - Entrance Boxes"
+          },
+          {
+            "name": "Bowser's Castle - Lava Room Left Box 1"
+          },
+          {
+            "name": "Bowser's Castle - Lava Room Left Box 2"
+          },
+          {
+            "name": "Bowser's Castle - Lava Room Left Boxes"
+          },
+          {
+            "name": "Bowser's Castle - Lava Room Right Box 1"
+          },
+          {
+            "name": "Bowser's Castle - Lava Room Right Box 2"
+          },
+          {
+            "name": "Bowser's Castle - Lava Room Right Boxes"
+          },
+          {
+            "name": "Bowser's Castle - Spinning Fire Box 1"
+          },
+          {
+            "name": "Bowser's Castle - Spinning Fire Box 2"
+          },
+          {
+            "name": "Bowser's Castle - Spinning Fire Box 3"
+          },
+          {
+            "name": "Bowser's Castle - Spinning Fire Box 4"
+          },
+          {
+            "name": "Bowser's Castle - Spinning Fire Boxes"
+          },
+          {
+            "name": "Bowser's Castle - Balcon Box 1"
+          },
+          {
+            "name": "Bowser's Castle - Balcon Box 2"
+          },
+          {
+            "name": "Bowser's Castle - Balcon Box 3"
+          },
+          {
+            "name": "Bowser's Castle - Balcon Box 4"
+          },
+          {
+            "name": "Bowser's Castle - Balcon Boxes"
+          },
+          {
+            "name": "Bowser's Castle - Cannon Room First Box 1"
+          },
+          {
+            "name": "Bowser's Castle - Cannon Room First Box 2"
+          },
+          {
+            "name": "Bowser's Castle - Cannon Room First Box 3"
+          },
+          {
+            "name": "Bowser's Castle - Cannon Room First Boxes"
+          },
+          {
+            "name": "Bowser's Castle - Cannon Room Second Box 1"
+          },
+          {
+            "name": "Bowser's Castle - Cannon Room Second Box 2"
+          },
+          {
+            "name": "Bowser's Castle - Cannon Room Second Box 3"
+          },
+          {
+            "name": "Bowser's Castle - Cannon Room Second Boxes"
+          },
+          {
+            "name": "Bowser's Castle - Behind Start Box"
+          }
+        ]
+      },
+      {
+        "name": "TT",
+        "map_locations": [
+          {
+            "map": "Courses",
+            "x": 854,
+            "y": 624
+          }
+        ],
+        "sections": [
+          {
+            "name": "Bowser's Castle Time Trial in 3:05"
+          },
+          {
+            "name": "Bowser's Castle Defeat Staff Ghost"
+          },
+          {
+            "name": "Bowser's Castle Custom Time 1"
+          },
+          {
+            "name": "Bowser's Castle Custom Time 2"
+          },
+          {
+            "name": "Bowser's Castle Custom Time 3"
+          },
+          {
+            "name": "Bowser's Castle Custom Time 4"
+          },
+          {
+            "name": "Bowser's Castle Custom Time 5"
+          }
+        ]
+      },
+      {
+        "name": "Routes",
+        "map_locations": [
+          {
+            "map": "Courses",
+            "x": 916,
+            "y": 624
+          }
+        ],
+        "sections": [
+          {
+            "name": "Bowser's Castle - Cannon Room Shortcut"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "Rainbow Road",
+    "children": [
+      {
+        "name": "Race",
+        "map_locations": [
+          {
+            "map": "Courses",
+            "x": 1071,
+            "y": 624
+          }
+        ],
+        "sections": [
+          {
+            "name": "Rainbow Road Finish"
+          },
+          {
+            "name": "Rainbow Road Take The Lead"
+          },
+          {
+            "name": "Rainbow Road 1st"
+          },
+          {
+            "name": "Win in Rainbow Road With Mario, Peach and Red Fire"
+          }
+        ]
+      },
+      {
+        "name": "Boxes",
+        "map_locations": [
+          {
+            "map": "Courses",
+            "x": 1149,
+            "y": 624
+          }
+        ],
+        "sections": [
+          {
+            "name": "Rainbow Road - Downhill Box 1"
+          },
+          {
+            "name": "Rainbow Road - Downhill Box 2"
+          },
+          {
+            "name": "Rainbow Road - Downhill Box 3"
+          },
+          {
+            "name": "Rainbow Road - Downhill Box 4"
+          },
+          {
+            "name": "Rainbow Road - Downhill Boxes"
+          },
+          {
+            "name": "Rainbow Road - U-turn Box 1"
+          },
+          {
+            "name": "Rainbow Road - U-turn Box 2"
+          },
+          {
+            "name": "Rainbow Road - U-turn Box 3"
+          },
+          {
+            "name": "Rainbow Road - U-turn Box 4"
+          },
+          {
+            "name": "Rainbow Road - U-turn Box 5"
+          },
+          {
+            "name": "Rainbow Road - U-turn Boxes"
+          },
+          {
+            "name": "Rainbow Road - Spiral Box 1"
+          },
+          {
+            "name": "Rainbow Road - Spiral Box 2"
+          },
+          {
+            "name": "Rainbow Road - Spiral Box 3"
+          },
+          {
+            "name": "Rainbow Road - Spiral Box 4"
+          },
+          {
+            "name": "Rainbow Road - Spiral Boxes"
+          },
+          {
+            "name": "Rainbow Road - After Spiral Box 1"
+          },
+          {
+            "name": "Rainbow Road - After Spiral Box 2"
+          },
+          {
+            "name": "Rainbow Road - After Spiral Box 3"
+          },
+          {
+            "name": "Rainbow Road - After Spiral Box 4"
+          },
+          {
+            "name": "Rainbow Road - After Spiral Boxes"
+          },
+          {
+            "name": "Rainbow Road - Big Pipe Box 1"
+          },
+          {
+            "name": "Rainbow Road - Big Pipe Box 2"
+          },
+          {
+            "name": "Rainbow Road - Big Pipe Box 3"
+          },
+          {
+            "name": "Rainbow Road - Big Pipe Box 4"
+          },
+          {
+            "name": "Rainbow Road - Big Pipe Box 5"
+          },
+          {
+            "name": "Rainbow Road - Big Pipe Boxes"
+          },
+          {
+            "name": "Rainbow Road - Last Jump Box 1"
+          },
+          {
+            "name": "Rainbow Road - Last Jump Box 2"
+          },
+          {
+            "name": "Rainbow Road - Last Jump Box 3"
+          },
+          {
+            "name": "Rainbow Road - Last Jump Box 4"
+          },
+          {
+            "name": "Rainbow Road - Last Jump Boxes"
+          },
+          {
+            "name": "Rainbow Road - Under Jump Box"
+          }
+        ]
+      },
+      {
+        "name": "TT",
+        "map_locations": [
+          {
+            "map": "Courses",
+            "x": 1226,
+            "y": 624
+          }
+        ],
+        "sections": [
+          {
+            "name": "Rainbow Road Time Trial in 3:30"
+          },
+          {
+            "name": "Rainbow Road Defeat Staff Ghost"
+          },
+          {
+            "name": "Rainbow Road Custom Time 1"
+          },
+          {
+            "name": "Rainbow Road Custom Time 2"
+          },
+          {
+            "name": "Rainbow Road Custom Time 3"
+          },
+          {
+            "name": "Rainbow Road Custom Time 4"
+          },
+          {
+            "name": "Rainbow Road Custom Time 5"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "Mushroom Cup",
+    "children": [
+      {
+        "name": "Checks",
+        "map_locations": [
+          {
+            "map": "Courses",
+            "x": 232,
+            "y": 790
+          }
+        ],
+        "sections": [
+          {
+            "name": "Mushroom Cup Finish"
+          },
+          {
+            "name": "Mushroom Cup Perfect"
+          },
+          {
+            "name": "Mushroom Cup Bronze 50cc"
+          },
+          {
+            "name": "Mushroom Cup Silver 50cc"
+          },
+          {
+            "name": "Mushroom Cup Gold 50cc"
+          },
+          {
+            "name": "Mushroom Cup Gold 50cc (Trophy)"
+          },
+          {
+            "name": "Mushroom Cup Bronze 100cc"
+          },
+          {
+            "name": "Mushroom Cup Silver 100cc"
+          },
+          {
+            "name": "Mushroom Cup Gold 100cc"
+          },
+          {
+            "name": "Mushroom Cup Gold 100cc (Trophy)"
+          },
+          {
+            "name": "Mushroom Cup Bronze 150cc"
+          },
+          {
+            "name": "Mushroom Cup Silver 150cc"
+          },
+          {
+            "name": "Mushroom Cup Gold 150cc"
+          },
+          {
+            "name": "Mushroom Cup Gold 150cc (Trophy)"
+          },
+          {
+            "name": "Mushroom Cup Bronze Mirror"
+          },
+          {
+            "name": "Mushroom Cup Silver Mirror"
+          },
+          {
+            "name": "Mushroom Cup Gold Mirror"
+          },
+          {
+            "name": "Mushroom Cup Gold Mirror (Trophy)"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "Flower Cup",
+    "children": [
+      {
+        "name": "Checks",
+        "map_locations": [
+          {
+            "map": "Courses",
+            "x": 666,
+            "y": 790
+          }
+        ],
+        "sections": [
+          {
+            "name": "Flower Cup Finish"
+          },
+          {
+            "name": "Flower Cup Perfect"
+          },
+          {
+            "name": "Flower Cup Bronze 50cc"
+          },
+          {
+            "name": "Flower Cup Silver 50cc"
+          },
+          {
+            "name": "Flower Cup Gold 50cc"
+          },
+          {
+            "name": "Flower Cup Gold 50cc (Trophy)"
+          },
+          {
+            "name": "Flower Cup Bronze 100cc"
+          },
+          {
+            "name": "Flower Cup Silver 100cc"
+          },
+          {
+            "name": "Flower Cup Gold 100cc"
+          },
+          {
+            "name": "Flower Cup Gold 100cc (Trophy)"
+          },
+          {
+            "name": "Flower Cup Bronze 150cc"
+          },
+          {
+            "name": "Flower Cup Silver 150cc"
+          },
+          {
+            "name": "Flower Cup Gold 150cc"
+          },
+          {
+            "name": "Flower Cup Gold 150cc (Trophy)"
+          },
+          {
+            "name": "Flower Cup Bronze Mirror"
+          },
+          {
+            "name": "Flower Cup Silver Mirror"
+          },
+          {
+            "name": "Flower Cup Gold Mirror"
+          },
+          {
+            "name": "Flower Cup Gold Mirror (Trophy)"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "Star Cup",
+    "children": [
+      {
+        "name": "Checks",
+        "map_locations": [
+          {
+            "map": "Courses",
+            "x": 1100,
+            "y": 790
+          }
+        ],
+        "sections": [
+          {
+            "name": "Star Cup Finish"
+          },
+          {
+            "name": "Star Cup Perfect"
+          },
+          {
+            "name": "Star Cup Bronze 50cc"
+          },
+          {
+            "name": "Star Cup Silver 50cc"
+          },
+          {
+            "name": "Star Cup Gold 50cc"
+          },
+          {
+            "name": "Star Cup Gold 50cc (Trophy)"
+          },
+          {
+            "name": "Star Cup Bronze 100cc"
+          },
+          {
+            "name": "Star Cup Silver 100cc"
+          },
+          {
+            "name": "Star Cup Gold 100cc"
+          },
+          {
+            "name": "Star Cup Gold 100cc (Trophy)"
+          },
+          {
+            "name": "Star Cup Bronze 150cc"
+          },
+          {
+            "name": "Star Cup Silver 150cc"
+          },
+          {
+            "name": "Star Cup Gold 150cc"
+          },
+          {
+            "name": "Star Cup Gold 150cc (Trophy)"
+          },
+          {
+            "name": "Star Cup Bronze Mirror"
+          },
+          {
+            "name": "Star Cup Silver Mirror"
+          },
+          {
+            "name": "Star Cup Gold Mirror"
+          },
+          {
+            "name": "Star Cup Gold Mirror (Trophy)"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "Special Cup",
+    "children": [
+      {
+        "name": "Checks",
+        "map_locations": [
+          {
+            "map": "Courses",
+            "x": 232,
+            "y": 956
+          }
+        ],
+        "sections": [
+          {
+            "name": "Special Cup Finish"
+          },
+          {
+            "name": "Special Cup Perfect"
+          },
+          {
+            "name": "Special Cup Bronze 50cc"
+          },
+          {
+            "name": "Special Cup Silver 50cc"
+          },
+          {
+            "name": "Special Cup Gold 50cc"
+          },
+          {
+            "name": "Special Cup Gold 50cc (Trophy)"
+          },
+          {
+            "name": "Special Cup Bronze 100cc"
+          },
+          {
+            "name": "Special Cup Silver 100cc"
+          },
+          {
+            "name": "Special Cup Gold 100cc"
+          },
+          {
+            "name": "Special Cup Gold 100cc (Trophy)"
+          },
+          {
+            "name": "Special Cup Bronze 150cc"
+          },
+          {
+            "name": "Special Cup Silver 150cc"
+          },
+          {
+            "name": "Special Cup Gold 150cc"
+          },
+          {
+            "name": "Special Cup Gold 150cc (Trophy)"
+          },
+          {
+            "name": "Special Cup Bronze Mirror"
+          },
+          {
+            "name": "Special Cup Silver Mirror"
+          },
+          {
+            "name": "Special Cup Gold Mirror"
+          },
+          {
+            "name": "Special Cup Gold Mirror (Trophy)"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "All Cup Tour",
+    "children": [
+      {
+        "name": "Checks",
+        "map_locations": [
+          {
+            "map": "Courses",
+            "x": 666,
+            "y": 956
+          }
+        ],
+        "sections": [
+          {
+            "name": "All Cup Tour Gold"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "Everything Else",
+    "children": [
+      {
+        "name": "Checks",
+        "map_locations": [
+          {
+            "map": "Courses",
+            "x": 1100,
+            "y": 956
+          }
+        ],
+        "sections": [
+          {
+            "name": "Win With Mario and Luigi"
+          },
+          {
+            "name": "Win With Peach and Daisy"
+          },
+          {
+            "name": "Win With Yoshi and Birdo"
+          },
+          {
+            "name": "Win With Baby Mario and Baby Luigi"
+          },
+          {
+            "name": "Win With Toad and Toadette"
+          },
+          {
+            "name": "Win With Koopa and Paratroopa"
+          },
+          {
+            "name": "Win With Donkey Kong and Diddy Kong"
+          },
+          {
+            "name": "Win With Bowser and Bowser Jr."
+          },
+          {
+            "name": "Win With Wario and Waluigi"
+          },
+          {
+            "name": "Win With Petey Piranha and King Boo"
+          },
+          {
+            "name": "Win With Mario Driving Red Fire"
+          },
+          {
+            "name": "Win With Luigi Driving Green Fire"
+          },
+          {
+            "name": "Win With Peach Driving Heart Coach"
+          },
+          {
+            "name": "Win With Daisy Driving Bloom Coach"
+          },
+          {
+            "name": "Win With Yoshi Driving Turbo Yoshi"
+          },
+          {
+            "name": "Win With Birdo Driving Turbo Birdo"
+          },
+          {
+            "name": "Win With Baby Mario Driving Goo-Goo Buggy"
+          },
+          {
+            "name": "Win With Baby Luigi Driving Rattle Buggy"
+          },
+          {
+            "name": "Win With Toad Driving Toad Kart"
+          },
+          {
+            "name": "Win With Toadette Driving Toadette Kart"
+          },
+          {
+            "name": "Win With Koopa Driving Koopa Dasher"
+          },
+          {
+            "name": "Win With Paratroopa Driving Para-Wing"
+          },
+          {
+            "name": "Win With Donkey Kong Driving DK Jumbo"
+          },
+          {
+            "name": "Win With Diddy Kong Driving Barrel Train"
+          },
+          {
+            "name": "Win With Bowser Driving Koopa King"
+          },
+          {
+            "name": "Win With Bowser Jr. Driving Bullet Blaster"
+          },
+          {
+            "name": "Win With Wario Driving Wario Car"
+          },
+          {
+            "name": "Win With Waluigi Driving Waluigi Racer"
+          },
+          {
+            "name": "Win With Petey Piranha Driving Piranha Pipes"
+          },
+          {
+            "name": "Win With King Boo Driving Boo Pipes"
+          },
+          {
+            "name": "Win Gold With a Light Kart"
+          },
+          {
+            "name": "Win Gold With a Medium Kart"
+          },
+          {
+            "name": "Win Gold With a Heavy Kart"
+          },
+          {
+            "name": "Win Gold With Parade Kart"
+          },
+          {
+            "name": "Trophy Goal Completed"
+          },
+          {
+            "name": "Hit an Opponent With a Green Shell"
+          },
+          {
+            "name": "Hit an Opponent With a Red Shell"
+          },
+          {
+            "name": "Hit an Opponent With Bowser's Shell"
+          },
+          {
+            "name": "Hit an Opponent With a Banana"
+          },
+          {
+            "name": "Hit an Opponent With a Giant Banana"
+          },
+          {
+            "name": "Hit an Opponent With a Bob-omb"
+          },
+          {
+            "name": "Hit an Opponent With a Spiny Shell"
+          },
+          {
+            "name": "Hit an Opponent With a Yoshi Egg"
+          },
+          {
+            "name": "Hit an Opponent With a Fireball"
+          },
+          {
+            "name": "Hit an Opponent With Chain Chomp"
+          },
+          {
+            "name": "Hit Yourself With Your Own Item"
+          }
+        ]
+      }
+    ]
+  }
+]

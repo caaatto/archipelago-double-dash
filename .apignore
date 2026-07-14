@@ -1,6 +1,7 @@
 .ignore/
 asm/
 test/
+tools/
 *.af
 *.af~lock~
 .gitattributes
