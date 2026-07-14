@@ -120,6 +120,10 @@ class MkddContext(CommonContext):
                 
                 if "death_link" in slot_data:
                     Utils.async_start(self.update_death_link(bool(args["slot_data"]["death_link"])))
+
+                if slot_data.get("damage_link"):
+                    self.tags.add("DamageLink")
+                    Utils.async_start(self.send_msgs([{"cmd": "ConnectUpdate", "tags": list(self.tags)}]))
                 
                 self.options.update_from_slot_data(slot_data)
                 self.trophy_requirement = slot_data["trophy_requirement"]
@@ -143,6 +147,12 @@ class MkddContext(CommonContext):
                 self.unhandled_items.sort(key=lambda v: v[1])
             case "RoomUpdate":
                 self.mkdd_locations_checked.update(args.get("checked_locations", set()))
+            case "Bounced":
+                if "DamageLink" in args.get("tags", []):
+                    data: dict = args.get("data", {})
+                    if self.slot is not None and data.get("source") != self.player_names[self.slot]:
+                        self.game_state.damage_link_queue += 1
+                        self.game_state.queue_ingame_message(f"Damage from\n{data.get('source', 'somewhere')}!")
             case "PrintJSON":
                 if args.get("type") == "ItemSend":
                     to_player: int = args["receiving"]
@@ -375,6 +385,20 @@ def update_game(ctx: MkddContext) -> None:
     ctx.game_state.handle_overlapping_start_trap()
     ctx.game_state.handle_rain_traps()
     ctx.game_state.handle_driver_switch_traps()
+    ctx.game_state.handle_damage_link()
+
+
+async def check_damage_link(ctx: MkddContext) -> None:
+    """Sends a damage link bounce when the player has taken damage."""
+    if not ctx.game_state.damage_taken_event:
+        return
+    ctx.game_state.damage_taken_event = False
+    if "DamageLink" in ctx.tags and ctx.slot is not None:
+        await ctx.send_msgs([{"cmd": "Bounce", "tags": ["DamageLink"], "data": {
+            "time": time.time(),
+            "source": ctx.player_names[ctx.slot],
+            "amount": 1.0,
+        }}])
 
 
 async def check_current_course_changed(ctx: MkddContext) -> None:
@@ -414,6 +438,7 @@ async def dolphin_sync_task(ctx: MkddContext) -> None:
 
                     ctx.game_state.update()
                     await check_current_course_changed(ctx)
+                    await check_damage_link(ctx)
                     await check_locations(ctx)
                     update_game(ctx)
 

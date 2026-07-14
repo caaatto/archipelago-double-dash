@@ -227,6 +227,11 @@ Mario Kart Double Dash:
     # 50cc is 200cc if enabled, for people who find the lower classes less interesting.
     # Possible values: true, false
 
+  damage_link: false
+    # When you crash or spin out, everyone else with damage link takes damage too, and vice versa.
+    # Incoming damage arrives as a bob-omb right on your kart.
+    # Possible values: true, false
+
   faster_50cc_100cc: false
     # Makes 50cc as fast as 100cc and 100cc closer to 150cc.
     # Possible values: true, false

@@ -245,6 +245,11 @@ class Cc50Is200cc(Toggle):
     """50cc is 200cc if enabled, for people who find the lower classes less interesting."""
     display_name = "50cc is 200cc"
 
+class DamageLink(Toggle):
+    """When you crash or spin out, everyone else with damage link takes damage too, and vice versa.
+    Incoming damage arrives as a bob-omb right on your kart."""
+    display_name = "Damage Link"
+
 class Faster50cc100cc(Toggle):
     """Makes 50cc as fast as 100cc and 100cc closer to 150cc."""
     display_name = "Faster 50cc and 100cc"
@@ -351,6 +356,7 @@ class MkddOptions(PerGameCommonOptions):
     music_shuffle: MusicShuffle
     mirror_200cc: Mirror200cc
     cc_50_is_200cc: Cc50Is200cc
+    damage_link: DamageLink
     faster_50cc_100cc: Faster50cc100cc
     all_cup_tour_length: AllCupTourLength
     shorter_courses: ShorterCourses
@@ -376,6 +382,7 @@ class MkddOptions(PerGameCommonOptions):
             "music_shuffle",
             "mirror_200cc",
             "cc_50_is_200cc",
+            "damage_link",
             "faster_50cc_100cc",
             "custom_lap_counts",
             "custom_time_trial_times",
@@ -433,6 +440,7 @@ option_groups: list[OptionGroup] = [
         MusicShuffle,
         Mirror200cc,
         Cc50Is200cc,
+        DamageLink,
         Faster50cc100cc,
         AllCupTourLength,
         ShorterCourses,

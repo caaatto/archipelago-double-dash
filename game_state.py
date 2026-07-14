@@ -37,6 +37,10 @@ class MkddGameState():
         self.driver_switch_trap_timer: int = 0
         self.course_music: list[int] = []
         """Music (bgm id low byte) per race course, in RACE_COURSES order. Empty = vanilla."""
+        self.damage_link_queue: int = 0
+        self.damage_taken_event: bool = False
+        self.damage_link_grace: int = 0
+        self.last_crash_timer: int = 0
         self.queued_items: int = 0
         self.state_valid: bool = False
 
@@ -169,10 +173,17 @@ class MkddGameState():
                 dolphin.read_float(kart_address + self.memory_addresses.kart_velocity_fx_offset + 4),
                 dolphin.read_float(kart_address + self.memory_addresses.kart_velocity_fx_offset + 8),
             )
+            # Detect taking damage (crash timer starting) for damage link.
+            crash_timer: int = int.from_bytes(
+                dolphin.read_bytes(kart_address + self.memory_addresses.kart_body_crash_timer_h_offset, 2), "big")
+            if crash_timer > 0 and self.last_crash_timer == 0 and self.race_timer > self.damage_link_grace:
+                self.damage_taken_event = True
+            self.last_crash_timer = crash_timer
         else:
             self.last_kart_position = (0, 0, 0)
             self.kart_position = (0, 0, 0)
             self.kart_velocity = (0, 0, 0)
+            self.last_crash_timer = 0
         
         self.state_valid = self.check_state_validity()
 
@@ -1122,6 +1133,29 @@ class MkddGameState():
         if self.rain_trap_timer < self.race_timer: # Rain finished.
             self.rain_trap_timer = 0
             self.rain_trap_queue.pop(0)
+
+
+    def handle_damage_link(self) -> None:
+        """Spawns a bob-omb on the player when damage link damage is received."""
+        if self.course_changed:
+            self.damage_link_grace = 0
+
+        if self.damage_link_queue == 0 or not self.in_game or self.race_timer_s < .1:
+            return
+        if dolphin.read_word(self.memory_addresses.spawn_item_id_w) != game_data.ITEM_NONE.id:
+            return
+
+        self.damage_link_queue -= 1
+        # Don't send the incoming damage right back.
+        self.damage_link_grace = self.race_timer + 5 * 60
+        dolphin.write_word(self.memory_addresses.spawn_item_id_w, game_data.ITEM_BOBOMB.id)
+        dolphin.write_float(self.memory_addresses.spawn_item_pos_fx, self.kart_position[0])
+        dolphin.write_float(self.memory_addresses.spawn_item_pos_fx + 4, self.kart_position[1] + 400)
+        dolphin.write_float(self.memory_addresses.spawn_item_pos_fx + 8, self.kart_position[2])
+        dolphin.write_float(self.memory_addresses.spawn_item_vel_fx, self.kart_velocity[0])
+        dolphin.write_float(self.memory_addresses.spawn_item_vel_fx + 4, 0)
+        dolphin.write_float(self.memory_addresses.spawn_item_vel_fx + 8, self.kart_velocity[2])
+        logger.debug("Applied damage link damage.")
 
 
     def handle_driver_switch_traps(self) -> None:
