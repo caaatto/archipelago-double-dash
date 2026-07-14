@@ -210,14 +210,17 @@ WriteTo code_cup_right
     nop
     lwz     r4, 0x0390 (r31)    # Default code.
     lfs     f0, -0x5FF4 (rtoc)  # Default code.
-InsertAt 0x8016b098, 7
+InsertAt 0x8016b098, 10
+    li      r5, 5               # Loop guard: with per class cup unlocks
+    mtctr   r5                  # every cup can be locked at once.
     addi    r3, r3, 1           # Move cursor.
     cmpwi   r3, 5               # Wrap around.
     bne     0x8
     li      r3, 0
     lbzx    r5, r4, r3          # Check cup availability, loops if =0.
     cmpwi   r5, 0
-    beq     -6 * 4
+    bne     0x8
+    bdnz    -0x1c
 Return
 
 # Move left
@@ -232,14 +235,17 @@ WriteTo code_cup_left
     li      r0, 0               # Default code.
     lwz     r5, 0x0390 (r31)    # Default code.
     lfs     f0, -0x5FF4 (rtoc)  # Default code.
-InsertAt 0x8016b034, 7
+InsertAt 0x8016b034, 10
+    li      r5, 5               # Loop guard, see above.
+    mtctr   r5
     subi    r3, r3, 1           # Move cursor
     cmpwi   r3, -1              # Wrap around
     bne     0x8
     li      r3, 4
     lbzx    r5, r4, r3          # Check cup availability, loops if =0.
     cmpwi   r5, 0
-    beq     -6 * 4
+    bne     0x8
+    bdnz    -0x1c
 Return
 
 
