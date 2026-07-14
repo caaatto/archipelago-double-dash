@@ -240,6 +240,13 @@ class MkddGameState():
             self.print_ingame(304, 180, "Invalid game state!", 0)
             self.print_ingame(304, 200, "Return to main menu.", 0)
             return False
+        # The menu hooks only gate cursor movement, so with nothing unlocked for
+        # the selected class the confirm button can still enter a locked cup.
+        if (self.mode == game_data.Modes.GRANDPRIX and self.in_game
+                and self.vehicle_class not in self.unlocked_cup_classes.get(self.selected_cup, set())):
+            self.print_ingame(304, 180, "This cup is not unlocked", 0)
+            self.print_ingame(304, 200, "for this vehicle class!", 0)
+            return False
         return True
 
 
@@ -917,17 +924,11 @@ class MkddGameState():
                 elif self.vehicle_class in self.unlocked_cup_classes.get(i_cup, set()):
                     available_cups_courses[i_cup] = gp_selectable_courses
 
-        # Force cup and course selection.
-        if len(available_cups_courses) > 0:
-            if self.selected_cup not in available_cups_courses:
-                direction: int = self.selected_cup - self.last_selected_cup
-                direction = 1 if direction == 0 or direction == 1 else -1
-                for _ in range(5):
-                    self.selected_cup = wrap(self.selected_cup + direction, len(game_data.CUPS))
-                    if self.selected_cup in available_cups_courses:
-                        break
-                dolphin.write_word(self.memory_addresses.cup_w, self.selected_cup)
-
+        # Always write the availability tables for the current mode. Skipping the
+        # update when nothing is available left the other mode's table in place,
+        # e.g. TT course unlock slots gated the GP course selection after a time
+        # trial session (selecting them skipped into the middle of a cup).
+        if self.mode in (game_data.Modes.TIMETRIAL, game_data.Modes.GRANDPRIX):
             for i_cup in range(len(game_data.CUPS)):
                 dolphin.write_byte(self.memory_addresses.available_cups_bx + i_cup, int(i_cup in available_cups_courses))
 
@@ -941,12 +942,23 @@ class MkddGameState():
                         int(i_course in courses_in_cup)
                     )
 
-            if self.selected_course not in available_cups_courses[self.selected_cup]:
+        # Force cup and course selection.
+        if len(available_cups_courses) > 0:
+            if self.selected_cup not in available_cups_courses:
+                direction: int = self.selected_cup - self.last_selected_cup
+                direction = 1 if direction == 0 or direction == 1 else -1
+                for _ in range(5):
+                    self.selected_cup = wrap(self.selected_cup + direction, len(game_data.CUPS))
+                    if self.selected_cup in available_cups_courses:
+                        break
+                dolphin.write_word(self.memory_addresses.cup_w, self.selected_cup)
+
+            if self.selected_course not in available_cups_courses.get(self.selected_cup, set()):
                 direction: int = self.selected_course - self.last_selected_course
                 direction = 1 if direction == 0 or direction == 1 else -1
                 for _ in range(4):
                     self.selected_course = wrap(self.selected_course + direction, 4)
-                    if self.selected_course in available_cups_courses[self.selected_cup]:
+                    if self.selected_course in available_cups_courses.get(self.selected_cup, set()):
                         break
                 dolphin.write_word(self.memory_addresses.menu_course_w, self.selected_course)
 
