@@ -665,6 +665,7 @@ Invalidate 0x8017c53c   # Final lap bgm (music_shuffle region below)
 Invalidate 0x802aec2c   # Item hit watch (item_hit_watch region below)
 Invalidate 0x8020aaf8   # Item vs object hit (obstacle_watch region below)
 Invalidate 0x8029b168   # Star kart vs object (obstacle_watch region below)
+Invalidate 0x802a9404   # Boost flame retrigger (turbo_visuals region below)
 Invalidate 0x80005420   # Lap modifier 1 (AR CODES)
 Invalidate 0x80187BA0   # Lap modifier 2
 Invalidate 0x801CD680   # Unlock everything
@@ -876,3 +877,27 @@ Return
 # Start with a zeroed counter and buffer.
 WriteTo obstacle_hit_count_w
     .long 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+
+
+REGION turbo_visuals
+# The boost flame effect is a one shot with roughly the vanilla boost length,
+# so extended mini-turbos outlast their visuals (issue #9). Retrigger the
+# flame effect every 64 frames while the boost counter is still running.
+# Hooked after the counter decrement (r31 = KartBody, the pending argument
+# r4 = r30 for the call below us is restored after our own call).
+.set code_turbo_visuals, 0x802a9404
+InsertAt code_turbo_visuals, 9
+    lhz     r3, 0x59e (r31)     # Boost frames left.
+    cmplwi  r3, 0
+    beq     0x20
+    andi.   r3, r3, 0x3f        # Every 64th frame.
+    bne     0x18
+    lbz     r4, 0x5b3 (r31)     # Kart number.
+    addi    r5, r31, 0x23c      # Position.
+    li      r3, 0x1a            # Turbo flame effect.
+    li      r6, 0
+BranchLinkAt 0x8022c35c         # JPEffectPerformer::setEffect.
+Write 2
+    mr      r4, r30             # Restore argument for the original call.
+    lwz     r3, -0x4e98 (r13)   # Default code.
+Return
