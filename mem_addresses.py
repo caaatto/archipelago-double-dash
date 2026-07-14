@@ -144,6 +144,8 @@ class MkddMemAddresses():
     """Number of obstacle hit events written by the game so far."""
     obstacle_hit_events_x: int
     """Ring buffer of 16 obstacle hit events (4 bytes each): object id (u16), kart, cause (item kind or 0xfe for star)."""
+    menu_class_cursor_w: int
+    """Live mirror of the vehicle class cursor in the menu."""
     text_sx: int
     """Text to print."""
     text_size: int
@@ -271,6 +273,7 @@ class MkddMemAddressesUsa(MkddMemAddresses):
     item_hit_events_x = 0x800010b8
     obstacle_hit_count_w = 0x800010f8
     obstacle_hit_events_x = 0x800010fc
+    menu_class_cursor_w = 0x8000113c
 
     text_sx = 0x80000da4
     text_size = 0x30

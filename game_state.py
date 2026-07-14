@@ -51,6 +51,8 @@ class MkddGameState():
         """Kart numbers of CPUs that get upgrades this race (cpu_upgrades: some)."""
         self.cpu_upgraded_karts_course: int = 0
         """Course id the CPU upgrade selection was rolled for."""
+        self.last_menu_class_cursor: int = -1
+        """Last seen value of the menu class cursor mirror."""
         self.queued_items: int = 0
         self.state_valid: bool = False
 
@@ -764,15 +766,25 @@ class MkddGameState():
 
     def apply_shuffled_courses(self) -> None:
         """Changes what courses are in what cups."""
-        # Apply shuffled courses upon selecting vehicle class or entering the menu.
-        # The menu trigger is needed because the vehicle class may never change
-        # (e.g. fresh boot with only 50cc unlocked), leaving the vanilla course table in place.
+        # Apply shuffled courses as soon as the class cursor moves in the menu
+        # (mirrored by the class_cursor_mirror patch): reacting to the confirmed
+        # class was too late, the next screen renders its course preview in the
+        # same frame the class gets confirmed.
+        # The confirmed class and menu entry triggers stay as fallback, e.g. for
+        # a fresh boot where the cursor never moves.
         entered_menu: bool = self.course_changed and self.current_course.type == game_data.CourseType.MENU
-        if self.vehicle_class == self.last_selected_vehicle_class and not entered_menu:
+        menu_class: int = dolphin.read_word(self.memory_addresses.menu_class_cursor_w)
+        target_class: int = -1
+        if 0 <= menu_class <= 3 and menu_class != self.last_menu_class_cursor:
+            self.last_menu_class_cursor = menu_class
+            target_class = menu_class
+        elif self.vehicle_class != self.last_selected_vehicle_class or entered_menu:
+            target_class = min(3, max(0, self.vehicle_class))
+        if target_class < 0:
             return
 
         offset = self.memory_addresses.cup_contents_wx
-        for i_cup in self.get_cups_courses():
+        for i_cup in self.cups_courses[target_class]:
             for i_course in i_cup:
                 dolphin.write_word(offset, game_data.COURSES[i_course].id)
                 dolphin.write_word(offset + 4, self.memory_addresses.course_names_s[i_course])

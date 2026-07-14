@@ -666,6 +666,10 @@ Invalidate 0x802aec2c   # Item hit watch (item_hit_watch region below)
 Invalidate 0x8020aaf8   # Item vs object hit (obstacle_watch region below)
 Invalidate 0x8029b168   # Star kart vs object (obstacle_watch region below)
 Invalidate 0x802a9404   # Boost flame retrigger (turbo_visuals region below)
+Invalidate 0x8015eda8   # Class cursor mirror 1 (class_cursor_mirror region below)
+Invalidate 0x8015edc8   # Class cursor mirror 2
+Invalidate 0x8015ee5c   # Class cursor mirror 3
+Invalidate 0x8015ee7c   # Class cursor mirror 4
 Invalidate 0x80005420   # Lap modifier 1 (AR CODES)
 Invalidate 0x80187BA0   # Lap modifier 2
 Invalidate 0x801CD680   # Unlock everything
@@ -909,3 +913,44 @@ Write 2
     mr      r4, r30             # Restore argument for the original call.
     lwz     r3, -0x4e98 (r13)   # Default code.
 Return
+
+
+REGION class_cursor_mirror
+# Mirrors the vehicle class cursor into a custom word whenever the menu moves
+# it. The client watches it and writes the per class course arrangement while
+# the player is still on the class screen; reacting to the confirmed class only
+# was too late, the next screen renders its course preview in the same frame
+# the class gets confirmed (stale preview until the cursor moved).
+.set menu_class_cursor_w, 0x8000113c
+
+# Left, wrap result.
+.set code_class_mirror_1, 0x8015eda8
+InsertAt code_class_mirror_1, 3
+    stw     r0, 0x2104 (r29)    # Default code.
+    lis     r12, menu_class_cursor_w@ha
+    stw     r0, menu_class_cursor_w@l (r12)
+Return
+# Left, clamped to the unlocked maximum.
+.set code_class_mirror_2, 0x8015edc8
+InsertAt code_class_mirror_2, 3
+    stw     r0, 0x2104 (r29)    # Default code.
+    lis     r12, menu_class_cursor_w@ha
+    stw     r0, menu_class_cursor_w@l (r12)
+Return
+# Right, wrap result.
+.set code_class_mirror_3, 0x8015ee5c
+InsertAt code_class_mirror_3, 3
+    stw     r0, 0x2104 (r29)    # Default code.
+    lis     r12, menu_class_cursor_w@ha
+    stw     r0, menu_class_cursor_w@l (r12)
+Return
+# Right, wrapped back to 50cc.
+.set code_class_mirror_4, 0x8015ee7c
+InsertAt code_class_mirror_4, 3
+    stw     r0, 0x2104 (r29)    # Default code.
+    lis     r12, menu_class_cursor_w@ha
+    stw     r0, menu_class_cursor_w@l (r12)
+Return
+
+WriteTo menu_class_cursor_w
+    .long 0

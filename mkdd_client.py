@@ -233,6 +233,7 @@ def apply_patch():
     apply_dict_patch(patches.item_hit_watch)
     apply_dict_patch(patches.obstacle_watch)
     apply_dict_patch(patches.turbo_visuals)
+    apply_dict_patch(patches.class_cursor_mirror)
     apply_dict_patch(patches.spawn_item)
     apply_dict_patch(patches.draw_string)
     apply_dict_patch(patches.invalidate_cache)
