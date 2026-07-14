@@ -99,6 +99,12 @@ class ShortcutsAsLocations(DefaultOnToggle):
     """Grants checks from completing shortcuts. Some shortcuts require items like mushrooms."""
     display_name = "Shortcuts as Locations"
 
+class ItemBoxUnlocks(Toggle):
+    """Adds an Item Boxes unlock for every course to the pool.
+    Item boxes on a course give nothing until its unlock is received.
+    Touching boxes still grants the item box checks."""
+    display_name = "Item Box Unlocks"
+
 class CupUnlocks(Choice):
     """How cups are unlocked.
     Shared: one item per cup unlocks it for every vehicle class.
@@ -334,6 +340,7 @@ class MkddOptions(PerGameCommonOptions):
     item_boxes_as_locations: ItemBoxesAsLocations
     add_custom_item_boxes: AddCustomItemBoxes
     shortcuts_as_locations: ShortcutsAsLocations
+    item_box_unlocks: ItemBoxUnlocks
     course_shuffle: CourseShuffle
     cup_unlocks: CupUnlocks
 
@@ -376,6 +383,7 @@ class MkddOptions(PerGameCommonOptions):
             "cup_unlocks",
             "add_custom_item_boxes",
             "shortcuts_as_locations",
+            "item_box_unlocks",
             "frantic_items",
             "guaranteed_items",
             "all_cup_tour_length",

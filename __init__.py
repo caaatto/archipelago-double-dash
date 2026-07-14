@@ -239,6 +239,11 @@ class MkddWorld(World):
                 for i in range(count):
                     item_pool.append(self.create_item(item.name))
 
+        # Item box unlocks.
+        if self.options.item_box_unlocks:
+            for course in game_data.RACE_COURSES:
+                item_pool.append(self.create_item(items.get_item_name_item_boxes(course.name)))
+
         # Cup unlocks per class / progressive cups.
         if self.options.cup_unlocks == options.CupUnlocks.option_progressive:
             for cup in game_data.NORMAL_CUPS:

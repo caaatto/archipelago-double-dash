@@ -33,6 +33,7 @@ class ItemType(Enum):
     RAIN_TRAP = 7
     CUP_CLASS = 8
     CUP_PROGRESSIVE = 9
+    ITEM_BOXES = 10
 
 class MkddItem(Item):
     game = version.get_game_name()
@@ -73,6 +74,9 @@ def get_item_name_cup_class(cup: str, vehicle_class: int) -> str:
 
 def get_item_name_cup_progressive(cup: str) -> str:
     return f"Progressive {cup}"
+
+def get_item_name_item_boxes(course: str) -> str:
+    return f"Item Boxes in {course}"
 
 def get_item_name_character_item(character: str|None, item: str) -> str:
     if character != None:
@@ -141,6 +145,10 @@ for id, name in enumerate(game_data.NORMAL_CUPS):
             count = 0, meta = vehicle_class, tags = {TAG_CUPS}))
 for id, name in enumerate(game_data.NORMAL_CUPS):
     data_table.append(MkddItemData(get_item_name_cup_progressive(name), PROG, ItemType.CUP_PROGRESSIVE, id, count = 0, tags = {TAG_CUPS}))
+
+# Item box unlocks per course. Counts depend on the item_box_unlocks option.
+for course in game_data.RACE_COURSES:
+    data_table.append(MkddItemData(get_item_name_item_boxes(course.name), USEF, ItemType.ITEM_BOXES, course.id, count = 0, tags = {TAG_ITEMS}))
 
 name_to_id: dict[str, int] = {item.name:id for (id, item) in enumerate(data_table) if id > 0}
 

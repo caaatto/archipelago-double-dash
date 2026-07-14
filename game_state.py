@@ -41,6 +41,8 @@ class MkddGameState():
         self.damage_taken_event: bool = False
         self.damage_link_grace: int = 0
         self.last_crash_timer: int = 0
+        self.unlocked_item_boxes: set[int] = set()
+        """Course ids whose item boxes give items (item_box_unlocks option)."""
         self.queued_items: int = 0
         self.state_valid: bool = False
 
@@ -707,7 +709,16 @@ class MkddGameState():
         """Tells the game what items should come from item boxes."""
         if self.mode != game_data.Modes.GRANDPRIX or not self.in_game:
             return
-        
+
+        # With item box unlocks, boxes on a locked course give nothing.
+        # Queued items from the multiworld are still handed out below.
+        if (self.options.item_box_unlocks
+                and self.current_course.id not in self.unlocked_item_boxes):
+            dolphin.write_byte(self.memory_addresses.gp_next_items_bx + self.active_characters[0].item_offset, game_data.ITEM_NONE.id)
+            dolphin.write_byte(self.memory_addresses.gp_next_items_bx + self.active_characters[1].item_offset, game_data.ITEM_NONE.id)
+            self.handle_queued_items()
+            return
+
         def _calculate_and_apply(adr: int, pool: list[game_data.Item], total_weight: int) -> None:
             item_weights = [item.get_weight(self.in_race_placement, self.options.frantic_items) for item in pool]
             # Yet to be unlocked items still count towards item weights so fill the rest with nothing.
@@ -741,7 +752,12 @@ class MkddGameState():
             total_weight = item_weight_global + item_weight_0 + item_weight_1
             item_pool = self.global_items + item_pool_0 + item_pool_1
             _calculate_and_apply(item_adr_0, item_pool, total_weight)
-        
+
+        self.handle_queued_items()
+
+
+    def handle_queued_items(self) -> None:
+        """Hands out items queued from the multiworld through the item roulette."""
         in_game_queue = dolphin.read_word(self.memory_addresses.shuffle_queue_w)
         if self.queued_items > 0:
             in_game_queue += self.queued_items

@@ -300,6 +300,8 @@ def give_item(ctx: MkddContext, item: MkddItemData) -> None:
         ctx.game_state.overlapping_start_traps += 1
     elif item.name == items.DRIVER_SWITCH_TRAP:
         ctx.game_state.driver_switch_traps += 1
+    elif item.item_type == ItemType.ITEM_BOXES:
+        ctx.game_state.unlocked_item_boxes.add(item.address)
     elif item.item_type == items.ItemType.RAIN_TRAP:
         ctx.game_state.rain_trap_queue.append(item.name)
     elif item.name == items.RANDOM_ITEM:

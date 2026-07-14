@@ -106,6 +106,12 @@ Mario Kart Double Dash:
     # Grants checks from completing shortcuts. Some shortcuts require items like mushrooms.
     # Possible values: true, false
 
+  item_box_unlocks: false
+    # Adds an Item Boxes unlock for every course to the pool.
+    # Item boxes on a course give nothing until its unlock is received.
+    # Touching boxes still grants the item box checks.
+    # Possible values: true, false
+
   course_shuffle: shuffle_once
     # How the courses are shuffled in cups.
     # Shuffle Per Class shuffles the courses separately for each vehicle class,
