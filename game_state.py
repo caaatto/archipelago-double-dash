@@ -886,18 +886,25 @@ class MkddGameState():
 
     def apply_speed_modifiers(self) -> None:
         """Makes 50cc, 100cc and mirror mode faster if options are enabled."""
+        in_200cc: bool = self.mode == game_data.Modes.GRANDPRIX and (
+            (self.vehicle_class == 3 and self.options.mirror_200cc)
+            or (self.vehicle_class == 0 and self.options.cc_50_is_200cc))
+        dolphin.write_float(self.memory_addresses.max_speed_f, 250 if in_200cc else 200)
+
         if self.mode == game_data.Modes.GRANDPRIX and self.vehicle_class == 3 and self.options.mirror_200cc:
             dolphin.write_float(self.memory_addresses.class_speed_multipliers_fx + 8, 1.4)
-            dolphin.write_float(self.memory_addresses.max_speed_f, 250)
         else:
             dolphin.write_float(self.memory_addresses.class_speed_multipliers_fx + 8, 1.15)
-            dolphin.write_float(self.memory_addresses.max_speed_f, 200)
-        
-        if self.options.faster_50cc_100cc:
+
+        if self.mode == game_data.Modes.GRANDPRIX and self.options.cc_50_is_200cc:
+            dolphin.write_float(self.memory_addresses.class_speed_multipliers_fx + 0, 1.4)
+        elif self.options.faster_50cc_100cc:
             dolphin.write_float(self.memory_addresses.class_speed_multipliers_fx + 0, 1.0)
-            dolphin.write_float(self.memory_addresses.class_speed_multipliers_fx + 4, 1.1)
         else:
             dolphin.write_float(self.memory_addresses.class_speed_multipliers_fx + 0, 0.9)
+        if self.options.faster_50cc_100cc:
+            dolphin.write_float(self.memory_addresses.class_speed_multipliers_fx + 4, 1.1)
+        else:
             dolphin.write_float(self.memory_addresses.class_speed_multipliers_fx + 4, 1.0)
 
 
@@ -905,6 +912,8 @@ class MkddGameState():
         """Calculates the speed modifier for current cc."""
         match self.vehicle_class:
             case 0:
+                if self.mode == game_data.Modes.GRANDPRIX and self.options.cc_50_is_200cc:
+                    return 1.4
                 return 1.0 if self.options.faster_50cc_100cc else .9
             case 1:
                 return 1.1 if self.options.faster_50cc_100cc else 1.0

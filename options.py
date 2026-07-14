@@ -241,6 +241,10 @@ class Mirror200cc(Toggle):
     """Mirror mode is 200cc if enabled."""
     display_name = "Mirror is 200cc"
 
+class Cc50Is200cc(Toggle):
+    """50cc is 200cc if enabled, for people who find the lower classes less interesting."""
+    display_name = "50cc is 200cc"
+
 class Faster50cc100cc(Toggle):
     """Makes 50cc as fast as 100cc and 100cc closer to 150cc."""
     display_name = "Faster 50cc and 100cc"
@@ -346,6 +350,7 @@ class MkddOptions(PerGameCommonOptions):
 
     music_shuffle: MusicShuffle
     mirror_200cc: Mirror200cc
+    cc_50_is_200cc: Cc50Is200cc
     faster_50cc_100cc: Faster50cc100cc
     all_cup_tour_length: AllCupTourLength
     shorter_courses: ShorterCourses
@@ -370,6 +375,7 @@ class MkddOptions(PerGameCommonOptions):
             "all_cup_tour_length",
             "music_shuffle",
             "mirror_200cc",
+            "cc_50_is_200cc",
             "faster_50cc_100cc",
             "custom_lap_counts",
             "custom_time_trial_times",
@@ -426,6 +432,7 @@ option_groups: list[OptionGroup] = [
     OptionGroup("Quality of Life", [
         MusicShuffle,
         Mirror200cc,
+        Cc50Is200cc,
         Faster50cc100cc,
         AllCupTourLength,
         ShorterCourses,
