@@ -735,9 +735,11 @@ REGION driver_switch
 # Hooks the change button test in the kart's per-frame change handling: the
 # comparison result must end up in cr0, "not equal" meaning switch requested.
 .set code_driver_switch, 0x802ab000
+# r6 must stay untouched: it holds the kart index * 4 and gets reused later
+# in DoChange (clobbering it made the pad pointer read go wild).
 InsertAt code_driver_switch, 12
-    lis     r6, driver_switch_w@ha
-    lwz     r5, driver_switch_w@l (r6)
+    lis     r12, driver_switch_w@ha
+    lwz     r5, driver_switch_w@l (r12)
     and.    r0, r3, r0          # Default code (change button test).
     bne-    0x24                # Button pressed normally.
     cmplwi  r27, 0              # r27 = kart number, only force the player's kart.
@@ -745,7 +747,7 @@ InsertAt code_driver_switch, 12
     cmplwi  r5, 0               # Switch requested by the client?
     beq-    0x14
     li      r5, 0               # Consume the request, cr0 stays "not equal".
-    stw     r5, driver_switch_w@l (r6)
+    stw     r5, driver_switch_w@l (r12)
     b       0x8
     cmpw    r27, r27            # Not the player: set cr0 back to "equal".
 Return
