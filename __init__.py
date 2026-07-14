@@ -158,6 +158,8 @@ class MkddWorld(World):
                                 continue
                 if not self.options.shortcuts_as_locations and locations.TAG_SHORTCUT in location_data.tags:
                     continue
+                if not self.options.item_hits_as_locations and locations.TAG_ITEM_HIT in location_data.tags:
+                    continue
                 if locations.TAG_TT_CUSTOM in location_data.tags:
                     course_name = location_data.region.removesuffix(" TT")
                     number = int(location_data.name.rsplit(" ", 1)[1]) - 1
@@ -330,11 +332,19 @@ class MkddWorld(World):
                     sum([item.get_weight(i, self.options.frantic_items) for item in items_per_character[character]])
                 )
 
+        # Item unlocks which need to be in the pool for all locations to be reachable.
+        # Each group needs at least one of its items.
+        required_item_groups: list[list[game_data.Item]] = []
+        if self.options.shortcuts_as_locations:
+            required_item_groups.append([game_data.ITEM_STAR])
+        if self.options.item_hits_as_locations:
+            required_item_groups.extend([list(hit.items) for hit in game_data.ITEM_HITS])
+
         remove_items: bool = True
-        ensure_star: bool = True
+        ensure_items: bool = True
         if len(item_pool) > total_locations:
             self.logger.warning(f"{self.player_name}: Too many items, removing {len(item_pool) - total_locations} items from the pool.")
-        while remove_items or ensure_star:
+        while remove_items or ensure_items:
             # Remove some items if there are more items than locations.
             while len(item_pool) > total_locations:
                 item: items.MkddItem = self.random.choice(item_pool)
@@ -343,22 +353,21 @@ class MkddWorld(World):
                     item_pool.remove(item)
                 if item_type == items.ItemType.ITEM_UNLOCK:
                     item_pool.remove(item)
-                    ensure_star = True
+                    ensure_items = True
             remove_items = False
-            
-            # In case the user has specified no items, force at least one boost item for all locations be reachable.
-            if self.options.shortcuts_as_locations and ensure_star:
-                for item in item_pool:
-                    item_data: items.MkddItemData = items.data_table[item.code]
-                    if (
-                            item_data.item_type == items.ItemType.ITEM_UNLOCK
-                            and item_data.meta["item"] == game_data.ITEM_STAR):
-                        ensure_star = False
-                        break
-                if ensure_star:
-                    item_pool.append(self.create_item(items.get_item_name_character_item(game_data.CHARACTERS[0].name, game_data.ITEM_STAR.name)))
-                    remove_items = True
-            ensure_star = False
+
+            # In case the user has specified no items, force enough item unlocks for all locations to be reachable.
+            if ensure_items:
+                pool_items: set[int] = {
+                    items.data_table[item.code].meta["item"].id for item in item_pool
+                    if items.data_table[item.code].item_type == items.ItemType.ITEM_UNLOCK
+                }
+                for group in required_item_groups:
+                    if not any(item.id in pool_items for item in group):
+                        item_pool.append(self.create_item(items.get_item_name_character_item(game_data.CHARACTERS[0].name, group[0].name)))
+                        pool_items.add(group[0].id)
+                        remove_items = True
+            ensure_items = False
 
         remaining_item_count = total_locations - len(item_pool)
         trap_count = int(remaining_item_count * self.options.trap_chance / 100)

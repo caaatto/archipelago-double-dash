@@ -738,6 +738,10 @@ invalidate_cache: dict[int, list[int]] = {
         0x398cc53c,
         0x7c00606c,
         0x7c0067ac,
+        0x3d80802b,
+        0x398cec2c,
+        0x7c00606c,
+        0x7c0067ac,
         0x3d808000,
         0x398c5420,
         0x7c00606c,
@@ -765,16 +769,16 @@ invalidate_cache: dict[int, list[int]] = {
     0x8011510c: [
         0x4beed1cc,
     ],
-    0x800026a8: [
+    0x800026b8: [
         0x4c00012c,
         0x4e800020,
     ],
 }
 course_selection: dict[int, list[int]] = {
     0x8016af84: [
-        0x4be9772c,
+        0x4be9773c,
     ],
-    0x800026b0: [
+    0x800026c0: [
         0x806da38c,
         0x808da388,
         0x5484103a,
@@ -791,12 +795,12 @@ course_selection: dict[int, list[int]] = {
         0x4181ffe8,
         0x906da38c,
         0xc002a00c,
-        0x481688b8,
+        0x481688a8,
     ],
     0x8016afdc: [
-        0x4be97718,
+        0x4be97728,
     ],
-    0x800026f4: [
+    0x80002704: [
         0x806da38c,
         0x808da388,
         0x5484103a,
@@ -813,14 +817,14 @@ course_selection: dict[int, list[int]] = {
         0x4181ffe8,
         0x906da38c,
         0xc002a00c,
-        0x481688cc,
+        0x481688bc,
     ],
 }
 driver_switch: dict[int, list[int]] = {
     0x802ab000: [
-        0x4bd57738,
+        0x4bd57748,
     ],
-    0x80002738: [
+    0x80002748: [
         0x3cc08000,
         0x80a6109c,
         0x7c600039,
@@ -833,14 +837,14 @@ driver_switch: dict[int, list[int]] = {
         0x90a6109c,
         0x48000008,
         0x7c1bd800,
-        0x482a889c,
+        0x482a888c,
     ],
 }
 music_shuffle: dict[int, list[int]] = {
     0x8017c3dc: [
-        0x4be86390,
+        0x4be863a0,
     ],
-    0x8000276c: [
+    0x8000277c: [
         0x80c30000,
         0x3ca08000,
         0x38a510a0,
@@ -852,12 +856,12 @@ music_shuffle: dict[int, list[int]] = {
         0x4182000c,
         0x64a30200,
         0x4e800020,
-        0x48179c48,
+        0x48179c38,
     ],
     0x8017c53c: [
-        0x4be86260,
+        0x4be86270,
     ],
-    0x8000279c: [
+    0x800027ac: [
         0x80830000,
         0x3ca08000,
         0x38a510a0,
@@ -870,6 +874,51 @@ music_shuffle: dict[int, list[int]] = {
         0x38a50010,
         0x64a30200,
         0x4e800020,
-        0x48179d74,
+        0x48179d64,
+    ],
+}
+item_hit_watch: dict[int, list[int]] = {
+    0x802aec2c: [
+        0x4bd53bb4,
+    ],
+    0x800027e0: [
+        0x9421ffe0,
+        0x28040000,
+        0x41820040,
+        0x80a30000,
+        0x88a505b3,
+        0x80c40120,
+        0x80e4007c,
+        0x54a5c00e,
+        0x50c5821e,
+        0x50e5442e,
+        0x60a50001,
+        0x3d008000,
+        0x812810b4,
+        0x552a16ba,
+        0x396810b8,
+        0x7cab512e,
+        0x39290001,
+        0x912810b4,
+        0x482ac408,
+    ],
+    0x800010b4: [
+        0x00000000,
+        0x00000000,
+        0x00000000,
+        0x00000000,
+        0x00000000,
+        0x00000000,
+        0x00000000,
+        0x00000000,
+        0x00000000,
+        0x00000000,
+        0x00000000,
+        0x00000000,
+        0x00000000,
+        0x00000000,
+        0x00000000,
+        0x00000000,
+        0x00000000,
     ],
 }

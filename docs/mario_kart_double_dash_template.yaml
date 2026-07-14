@@ -106,6 +106,11 @@ Mario Kart Double Dash:
     # Grants checks from completing shortcuts. Some shortcuts require items like mushrooms.
     # Possible values: true, false
 
+  item_hits_as_locations: true
+    # Grants checks for hitting an opponent with different items, plus one for hitting yourself.
+    # An unlock for every needed item is guaranteed to be in the pool.
+    # Possible values: true, false
+
   item_box_unlocks: false
     # Adds an Item Boxes unlock for every course to the pool.
     # Item boxes on a course give nothing until its unlock is received.

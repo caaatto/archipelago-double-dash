@@ -252,6 +252,31 @@ TT_ITEM_TABLE = [
 ]
 
 
+class ItemHit(NamedTuple):
+    """An item the player can hit an opponent with (item hit locations)."""
+    name: str
+    """Item name with an article, used in the location name."""
+    items: list[Item]
+    """Item unlocks that make this hit possible."""
+    kinds: list[int]
+    """Item kinds of the hitting item object as reported by the game."""
+
+# Items that cause a crash with attribution to the item's owner. Not every item
+# qualifies: star and lightning hits carry no item object in the crash code.
+ITEM_HITS = [
+    ItemHit("a Green Shell", [ITEM_GREEN_SHELL, ITEM_TRIPLE_GREEN_SHELLS], [0, 17]),
+    ItemHit("a Red Shell", [ITEM_RED_SHELL, ITEM_TRIPLE_RED_SHELLS], [2, 19]),
+    ItemHit("Bowser's Shell", [ITEM_BOWSER_SHELL], [1]),
+    ItemHit("a Banana", [ITEM_BANANA], [3]),
+    ItemHit("a Giant Banana", [ITEM_GIANT_BANANA], [4]),
+    ItemHit("a Bob-omb", [ITEM_BOBOMB], [8]),
+    ItemHit("a Spiny Shell", [ITEM_SPINY_SHELL], [13]),
+    ItemHit("a Yoshi Egg", [ITEM_YOSHI_EGG], [11]),
+    ItemHit("a Fireball", [ITEM_FIREBALLS], [21, 9]),
+    ItemHit("Chain Chomp", [ITEM_CHAIN_CHOMP], [7]),
+]
+
+
 class KartUpgrade(NamedTuple):
     id: int
     name: str

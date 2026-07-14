@@ -662,6 +662,7 @@ Invalidate 0x8016afdc   # Course selection down (course_selection region below)
 Invalidate 0x802ab000   # Driver switch (driver_switch region below)
 Invalidate 0x8017c3dc   # Course bgm (music_shuffle region below)
 Invalidate 0x8017c53c   # Final lap bgm (music_shuffle region below)
+Invalidate 0x802aec2c   # Item hit watch (item_hit_watch region below)
 Invalidate 0x80005420   # Lap modifier 1 (AR CODES)
 Invalidate 0x80187BA0   # Lap modifier 2
 Invalidate 0x801CD680   # Unlock everything
@@ -785,3 +786,39 @@ InsertAt code_final_lap_bgm, 12
     oris    r3, r5, 0x200
     blr
 Return
+
+
+REGION item_hit_watch
+# Records item caused crashes into a ring buffer the client reads (issue #27).
+# KartGame::ItemWatchMan is called by every crash maker that knows the causing
+# item object: spin, half spin, shell roll, bomb crash, burn and the chain
+# chomp / Bowser shell tumbles. r3 = victim's KartGame, r4 = ItemObj (0 for
+# thunder spins, those carry no item object).
+.set item_hit_count_w, 0x800010b4
+.set item_hit_events_x, 0x800010b8 # Size 64 (16 events x 4 bytes)
+
+.set code_item_hit_watch, 0x802aec2c
+InsertAt code_item_hit_watch, 18
+    stwu    r1, -0x20 (r1)      # Default code.
+    cmplwi  r4, 0
+    beq     0x40                # No item object, nothing to record.
+    lwz     r5, 0 (r3)          # Victim's KartBody.
+    lbz     r5, 0x5b3 (r5)      # Victim's kart number.
+    lwz     r6, 0x120 (r4)      # Item's owner kart number.
+    lwz     r7, 0x7c (r4)       # Item kind.
+    slwi    r5, r5, 24
+    rlwimi  r5, r6, 16, 8, 15
+    rlwimi  r5, r7, 8, 16, 23
+    ori     r5, r5, 1           # Event word: victim, owner, kind, valid marker.
+    lis     r8, item_hit_count_w@ha
+    lwz     r9, item_hit_count_w@l (r8)
+    rlwinm  r10, r9, 2, 26, 29  # (count % 16) * 4
+    addi    r11, r8, item_hit_events_x@l
+    stwx    r5, r11, r10
+    addi    r9, r9, 1
+    stw     r9, item_hit_count_w@l (r8)
+Return
+
+# Start with a zeroed counter and buffer.
+WriteTo item_hit_count_w
+    .long 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0

@@ -34,6 +34,7 @@ TAG_REQUIRES_BOOST = "*Requires Boost"
 TAG_CHAIN_CHOMP = "*Requires Chain Chomp"
 TAG_REQUIRES_STAR = "*Requires Star"
 TAG_NO_SLOW_KARTS = "*Requires 100cc"
+TAG_ITEM_HIT = "Item Hit"
 
 
 class MkddLocation(Location):
@@ -98,6 +99,9 @@ def get_loc_name_win_ghost_combo(course: game_data.Course) -> str:
 
 def get_loc_name_custom_time(course: str, number: int) -> str:
     return f"{course} Custom Time {number + 1}"
+
+def get_loc_name_item_hit(hit: game_data.ItemHit) -> str:
+    return f"Hit an Opponent With {hit.name}"
 
 
 data_table: list[MkddLocationData] = [MkddLocationData("", 0)] # Id 0 is reserved.
@@ -202,6 +206,15 @@ for course in game_data.RACE_COURSES:
 for course in game_data.RACE_COURSES:
     for i in range(5):
         data_table.append(MkddLocationData(get_loc_name_custom_time(course.name, i), 0, course.name + " TT", tags = {course.name, TAG_TT, TAG_TT_CUSTOM}))
+
+# Item hits (issue #27). The needed item unlock is handled in rules, since any
+# character's unlock (or the global one) works.
+HIT_YOURSELF = "Hit Yourself With Your Own Item"
+
+ITEM_HIT_LOCATIONS: dict[str, game_data.ItemHit] = {get_loc_name_item_hit(hit): hit for hit in game_data.ITEM_HITS}
+for name in ITEM_HIT_LOCATIONS:
+    data_table.append(MkddLocationData(name, 0, "Menu", tags = {TAG_ITEM_HIT}))
+data_table.append(MkddLocationData(HIT_YOURSELF, 0, "Menu", tags = {TAG_ITEM_HIT}))
 
 name_to_id: dict[str, int] = {data.name:id for (id, data) in enumerate(data_table) if id > 0}
 

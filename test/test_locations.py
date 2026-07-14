@@ -2,7 +2,7 @@
 Tests that the correct locations are generated depending on options.
 """
 from . import MkddTestBase
-from worlds.mario_kart_double_dash import locations as mkdd_locs, game_data
+from worlds.mario_kart_double_dash import locations as mkdd_locs, items as mkdd_items, game_data
 
 
 def _location_names(test_base) -> set:
@@ -154,3 +154,36 @@ class TestCustomTimeTrialTimesDisabled(MkddTestBase):
     def test_no_time_locations_without_time_trials(self) -> None:
         location_names = _location_names(self)
         self.assertNotIn(mkdd_locs.get_loc_name_custom_time("Luigi Circuit", 0), location_names)
+
+
+class TestItemHitLocations(MkddTestBase):
+    # Note: no item unlocks configured, so the pool ensure mechanism has to kick in.
+    options = {**BASE_OPTIONS, "time_trials": "disable"}
+
+    def test_all_item_hit_locations_exist(self) -> None:
+        location_names = _location_names(self)
+        for hit in game_data.ITEM_HITS:
+            self.assertIn(mkdd_locs.get_loc_name_item_hit(hit), location_names)
+        self.assertIn(mkdd_locs.HIT_YOURSELF, location_names)
+
+    def test_hit_item_unlocks_are_in_the_pool(self) -> None:
+        pool_names = {item.name for item in self.multiworld.itempool}
+        for hit in game_data.ITEM_HITS:
+            unlock_names = []
+            for item in hit.items:
+                unlock_names.append(mkdd_items.get_item_name_character_item(None, item.name))
+                unlock_names.extend(
+                    mkdd_items.get_item_name_character_item(character.name, item.name)
+                    for character in game_data.CHARACTERS)
+            self.assertTrue(any(name in pool_names for name in unlock_names),
+                            f"No unlock enabling '{hit.name}' hits in the pool")
+
+
+class TestItemHitLocationsDisabled(MkddTestBase):
+    options = {**BASE_OPTIONS, "time_trials": "disable", "item_hits_as_locations": False}
+
+    def test_no_item_hit_locations(self) -> None:
+        location_names = _location_names(self)
+        for hit in game_data.ITEM_HITS:
+            self.assertNotIn(mkdd_locs.get_loc_name_item_hit(hit), location_names)
+        self.assertNotIn(mkdd_locs.HIT_YOURSELF, location_names)

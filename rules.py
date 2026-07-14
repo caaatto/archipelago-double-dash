@@ -46,6 +46,14 @@ class MkddRules:
                 self.add_loc_rule(location.name, lambda state, tt_course = items.get_item_name_tt_course(location.region), gp_course = f"{location.region} GP":
                                   (has_star(state, self.player) and state.can_reach_region(gp_course, self.player))
                                   or state.has_all_counts({tt_course: 1, items.PROGRESSIVE_TIME_TRIAL_ITEM: 3}, self.player))
+            if locations.TAG_ITEM_HIT in location.tags:
+                if location.name in locations.ITEM_HIT_LOCATIONS:
+                    hits = [locations.ITEM_HIT_LOCATIONS[location.name]]
+                else:
+                    # Hitting yourself works with any of the items.
+                    hits = game_data.ITEM_HITS
+                self.add_loc_rule(location.name,
+                        lambda state, hits = hits: any(has_hit_item(state, self.player, hit) for hit in hits))
             if locations.TAG_TT in location.tags:
                 tt_difficulty: int = location.difficulty
                 if locations.TAG_TT_CUSTOM in location.tags:
@@ -360,6 +368,19 @@ def has_chain_chomp(state: CollectionState, player: int) -> bool:
     for character_id, chain_chomp in enumerate(state.mkdd_character_has_chain_chomp[player]):
         if chain_chomp > 0 and state.mkdd_unlocked_characters[player][character_id] > 0:
             return True
+    return False
+
+
+def has_hit_item(state: CollectionState, player: int, hit: game_data.ItemHit) -> bool:
+    """Checks if any unlock enabling this item hit is obtained,
+    either globally or for an unlocked character."""
+    for item in hit.items:
+        if state.has(items.get_item_name_character_item(None, item.name), player):
+            return True
+        for character in game_data.CHARACTERS:
+            if (state.mkdd_unlocked_characters[player][character.id] > 0
+                    and state.has(items.get_item_name_character_item(character.name, item.name), player)):
+                return True
     return False
 
 

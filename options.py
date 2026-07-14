@@ -99,6 +99,11 @@ class ShortcutsAsLocations(DefaultOnToggle):
     """Grants checks from completing shortcuts. Some shortcuts require items like mushrooms."""
     display_name = "Shortcuts as Locations"
 
+class ItemHitsAsLocations(DefaultOnToggle):
+    """Grants checks for hitting an opponent with different items, plus one for hitting yourself.
+    An unlock for every needed item is guaranteed to be in the pool."""
+    display_name = "Item Hits as Locations"
+
 class ItemBoxUnlocks(Toggle):
     """Adds an Item Boxes unlock for every course to the pool.
     Item boxes on a course give nothing until its unlock is received.
@@ -340,6 +345,7 @@ class MkddOptions(PerGameCommonOptions):
     item_boxes_as_locations: ItemBoxesAsLocations
     add_custom_item_boxes: AddCustomItemBoxes
     shortcuts_as_locations: ShortcutsAsLocations
+    item_hits_as_locations: ItemHitsAsLocations
     item_box_unlocks: ItemBoxUnlocks
     course_shuffle: CourseShuffle
     cup_unlocks: CupUnlocks
@@ -383,6 +389,7 @@ class MkddOptions(PerGameCommonOptions):
             "cup_unlocks",
             "add_custom_item_boxes",
             "shortcuts_as_locations",
+            "item_hits_as_locations",
             "item_box_unlocks",
             "frantic_items",
             "guaranteed_items",
@@ -422,6 +429,7 @@ option_groups: list[OptionGroup] = [
         ItemBoxesAsLocations,
         AddCustomItemBoxes,
         ShortcutsAsLocations,
+        ItemHitsAsLocations,
         CourseShuffle,
         CustomTimeTrialTimes,
     ]),

@@ -136,6 +136,10 @@ class MkddMemAddresses():
     """Set to 1 to force a driver/rider switch on the player's kart. Consumed by the game."""
     course_music_bx: int
     """Course music override table (size 19). Index = course id - 0x21, value = bgm id low byte, 0xff = vanilla."""
+    item_hit_count_w: int
+    """Number of item hit events written by the game so far."""
+    item_hit_events_x: int
+    """Ring buffer of 16 item hit events (4 bytes each): victim kart, owner kart, item kind, 1."""
     text_sx: int
     """Text to print."""
     text_size: int
@@ -259,6 +263,8 @@ class MkddMemAddressesUsa(MkddMemAddresses):
     available_courses_bx = 0x80001088
     driver_switch_w = 0x8000109c
     course_music_bx = 0x800010a0
+    item_hit_count_w = 0x800010b4
+    item_hit_events_x = 0x800010b8
 
     text_sx = 0x80000da4
     text_size = 0x30

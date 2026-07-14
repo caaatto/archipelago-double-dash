@@ -110,7 +110,9 @@ for id, kart in enumerate(game_data.KARTS):
         data_table.append(MkddItemData(name, PROG, ItemType.KART_UPGRADE, id, 0, upgrade, tags = TAG_KART_UPGRADES_FOR_X))
 
 for item in game_data.ITEMS:
-    classification = PROG if item.usefulness > 0 else FILL
+    # Items with no usefulness can still be progression through item hit locations (Spiny Shell).
+    enables_hit = any(item in hit.items for hit in game_data.ITEM_HITS)
+    classification = PROG if item.usefulness > 0 or enables_hit else FILL
     if item != game_data.ITEM_NONE:
         data_table.append(MkddItemData(
             get_item_name_character_item(None, item.name), classification,

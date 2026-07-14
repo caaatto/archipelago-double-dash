@@ -43,6 +43,8 @@ class MkddGameState():
         self.last_crash_timer: int = 0
         self.unlocked_item_boxes: set[int] = set()
         """Course ids whose item boxes give items (item_box_unlocks option)."""
+        self.last_item_hit_counter: int = -1
+        """Item hit events processed so far, -1 = not synced yet."""
         self.queued_items: int = 0
         self.state_valid: bool = False
 
@@ -480,6 +482,41 @@ class MkddGameState():
                 new_locations.add(locations.get_loc_name_custom_time(self.current_course.name, i))
         if self.race_timer_s < self.current_course.staff_time:
             new_locations.add(locations.get_loc_name_ghost(self.current_course.name))
+        return new_locations
+
+
+    def check_item_hit_locations(self) -> set[str]:
+        """Checks for hitting karts with items, read from an event buffer the
+        item_hit_watch patch fills (issue #27)."""
+        new_locations: set[str] = set()
+        counter: int = dolphin.read_word(self.memory_addresses.item_hit_count_w)
+        if counter == self.last_item_hit_counter:
+            return new_locations
+        if counter < self.last_item_hit_counter or self.last_item_hit_counter < 0:
+            # First sync or the game was rebooted, skip any backlog.
+            self.last_item_hit_counter = counter
+            return new_locations
+        # Only the last 16 events are still in the buffer.
+        start: int = max(self.last_item_hit_counter, counter - 16)
+        self.last_item_hit_counter = counter
+        if not self.in_game or self.mode != game_data.Modes.GRANDPRIX:
+            return new_locations
+        for i in range(start, counter):
+            event: int = dolphin.read_word(self.memory_addresses.item_hit_events_x + (i % 16) * 4)
+            victim: int = event >> 24
+            owner: int = (event >> 16) & 0xff
+            kind: int = (event >> 8) & 0xff
+            if event & 0xff != 1 or owner != 0:
+                continue
+            if victim == 0:
+                new_locations.add(locations.HIT_YOURSELF)
+                continue
+            for hit in game_data.ITEM_HITS:
+                if kind in hit.kinds:
+                    new_locations.add(locations.get_loc_name_item_hit(hit))
+                    break
+            else:
+                logger.debug(f"Item hit with unmapped item kind {kind}")
         return new_locations
 
 
