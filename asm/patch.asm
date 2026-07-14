@@ -835,10 +835,14 @@ REGION obstacle_watch
 
 # Item vs object: the collision loop in ItemObjMgr just decided on a hit and
 # stores the item into the object's mColItemObj. r0 = ItemObj, r3 = GeographyObj.
+# Objects spawned by code (thrown items etc.) have no course object data,
+# those are skipped (null check, crashed without it).
 .set code_obstacle_item, 0x8020aaf8
-InsertAt code_obstacle_item, 16
+InsertAt code_obstacle_item, 18
     stw     r0, 0x114 (r3)      # Default code (mColItemObj).
     lwz     r4, 0xe8 (r3)       # Course object data.
+    cmplwi  r4, 0
+    beq     0x3c                # Not a course object, nothing to record.
     lhz     r4, 0x24 (r4)       # Object id.
     mr      r12, r0             # r0 can't be a base register (reads as 0).
     lwz     r5, 0x120 (r12)     # Item owner kart.
@@ -858,9 +862,11 @@ Return
 # Star kart vs object: KartBody::StarReact right after the star status check
 # passed. r31 = KartBody, r4 = GeographyObj, r3/r5/r6/r12 are free here.
 .set code_obstacle_star, 0x8029b168
-InsertAt code_obstacle_star, 13
+InsertAt code_obstacle_star, 15
     lbz     r0, 0x5b3 (r31)     # Default code (kart number).
     lwz     r3, 0xe8 (r4)       # Course object data.
+    cmplwi  r3, 0
+    beq     0x30                # Not a course object, nothing to record.
     lhz     r3, 0x24 (r3)       # Object id.
     slwi    r3, r3, 16
     rlwimi  r3, r0, 8, 16, 23

@@ -941,6 +941,8 @@ obstacle_watch: dict[int, list[int]] = {
     0x8000285c: [
         0x90030114,
         0x808300e8,
+        0x28040000,
+        0x4182003c,
         0xa0840024,
         0x7c0c0378,
         0x80ac0120,
@@ -955,14 +957,16 @@ obstacle_watch: dict[int, list[int]] = {
         0x7c8c292e,
         0x38c60001,
         0x90cc10f8,
-        0x48208260,
+        0x48208258,
     ],
     0x8029b168: [
-        0x4bd67738,
+        0x4bd67740,
     ],
-    0x800028a0: [
+    0x800028a8: [
         0x881f05b3,
         0x806400e8,
+        0x28030000,
+        0x41820030,
         0xa0630024,
         0x5463801e,
         0x5003442e,
@@ -974,7 +978,7 @@ obstacle_watch: dict[int, list[int]] = {
         0x7c6c292e,
         0x38c60001,
         0x90cc10f8,
-        0x48298898,
+        0x48298888,
     ],
     0x800010f8: [
         0x00000000,
@@ -998,9 +1002,9 @@ obstacle_watch: dict[int, list[int]] = {
 }
 turbo_visuals: dict[int, list[int]] = {
     0x802a9404: [
-        0x4bd594d4,
+        0x4bd594e4,
     ],
-    0x800028d8: [
+    0x800028e8: [
         0xa07f059e,
         0x28030000,
         0x41820020,
@@ -1010,11 +1014,11 @@ turbo_visuals: dict[int, list[int]] = {
         0x38bf023c,
         0x3860001a,
         0x38c00000,
-        0x48229a61,
+        0x48229a51,
     ],
-    0x80002900: [
+    0x80002910: [
         0x7fc4f378,
         0x806db168,
-        0x482a6b00,
+        0x482a6af0,
     ],
 }
