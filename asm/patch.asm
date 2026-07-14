@@ -676,6 +676,7 @@ Invalidate 0x8015eda8   # Class cursor mirror 1 (class_cursor_mirror region belo
 Invalidate 0x8015edc8   # Class cursor mirror 2
 Invalidate 0x8015ee5c   # Class cursor mirror 3
 Invalidate 0x8015ee7c   # Class cursor mirror 4
+Invalidate 0x802aed5c   # Death link rescue (death_link region below)
 Invalidate 0x80005420   # Lap modifier 1 (AR CODES)
 Invalidate 0x80187BA0   # Lap modifier 2
 Invalidate 0x801CD680   # Unlock everything
@@ -959,4 +960,32 @@ InsertAt code_class_mirror_4, 3
 Return
 
 WriteTo menu_class_cursor_w
+    .long 0
+
+
+REGION death_link
+# Lets the client force a lakitu rescue on the player's kart (death link).
+# Hooked into the per frame out of bounds wheel checks, right before the last
+# wheel test: with the flag set we jump straight into the function's own
+# MakeRescue(rescue, 0, pose 6) call at 0x802aed74. r27 = KartBody, the rescue
+# object lives at KartBody+0xb4, r0/r3 are dead on both original paths.
+.set death_link_w, 0x80001140
+
+.set code_death_link, 0x802aed5c
+InsertAt code_death_link, 9
+    lis     r3, death_link_w@ha
+    lwz     r0, death_link_w@l (r3)
+    cmplwi  r0, 0
+    beq     0x1c                # No death queued, run the normal checks.
+    lbz     r0, 0x5b3 (r27)     # Kart number, only the player's kart.
+    cmplwi  r0, 0
+    bne     0x10
+    li      r0, 0               # Consume the request.
+    stw     r0, death_link_w@l (r3)
+ReturnAt 0x802aed74             # Take the rescue call.
+Write 1
+    lwz     r0, 0x60 (r28)      # Default code.
+Return
+
+WriteTo death_link_w
     .long 0

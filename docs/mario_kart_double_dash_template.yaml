@@ -256,6 +256,11 @@ Mario Kart Double Dash:
     # Incoming damage arrives as a bob-omb right on your kart.
     # Possible values: true, false
 
+  death_link: false
+    # When you die, everyone who enabled death link dies. Of course, the reverse is true too.
+    # Dying means falling off the track: incoming deaths send lakitu after you.
+    # Possible values: true, false
+
   faster_50cc_100cc: false
     # Makes 50cc as fast as 100cc and 100cc closer to 150cc.
     # Possible values: true, false

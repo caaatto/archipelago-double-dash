@@ -148,6 +148,10 @@ class MkddMemAddresses():
     """Ring buffer of 16 obstacle hit events (4 bytes each): object id (u16), kart, cause (item kind or 0xfe for star)."""
     menu_class_cursor_w: int
     """Live mirror of the vehicle class cursor in the menu."""
+    death_link_w: int
+    """Set to 1 to force a lakitu rescue on the player's kart. Consumed by the game."""
+    kart_body_crash_type_w_offset: int
+    """Crash type of the kart instance, 9 = lakitu rescue (fell off / water)."""
     text_sx: int
     """Text to print."""
     text_size: int
@@ -241,6 +245,7 @@ class MkddMemAddressesUsa(MkddMemAddresses):
     kart_body_steer_f_offset = 0x484
     kart_body_kart_id_w_offset = 0x5a8
     kart_body_mynum_b_offset = 0x5b3
+    kart_body_crash_type_w_offset = 0x584
     kart_body_class_b_offset = 0x5c4
     kart_body_crash_timer_h_offset = 0x594
 
@@ -277,6 +282,7 @@ class MkddMemAddressesUsa(MkddMemAddresses):
     obstacle_hit_count_w = 0x800010f8
     obstacle_hit_events_x = 0x800010fc
     menu_class_cursor_w = 0x8000113c
+    death_link_w = 0x80001140
 
     text_sx = 0x80000da4
     text_size = 0x30

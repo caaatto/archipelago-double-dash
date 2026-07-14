@@ -99,6 +99,11 @@ class MkddContext(CommonContext):
         await self.send_connect()
 
 
+    def on_deathlink(self, data: dict[str, Any]) -> None:
+        super().on_deathlink(data)
+        self.game_state.death_link_pending = True
+        self.game_state.queue_ingame_message(f"Death from\n{data.get('source', 'somewhere')}!")
+
     def on_package(self, cmd: str, args: dict[str, Any]) -> None:
         """
         Handle incoming packages from the server.
@@ -234,6 +239,7 @@ def apply_patch():
     apply_dict_patch(patches.obstacle_watch)
     apply_dict_patch(patches.turbo_visuals)
     apply_dict_patch(patches.class_cursor_mirror)
+    apply_dict_patch(patches.death_link)
     apply_dict_patch(patches.spawn_item)
     apply_dict_patch(patches.draw_string)
     apply_dict_patch(patches.invalidate_cache)
@@ -394,6 +400,7 @@ def update_game(ctx: MkddContext) -> None:
     ctx.game_state.handle_rain_traps()
     ctx.game_state.handle_driver_switch_traps()
     ctx.game_state.handle_damage_link()
+    ctx.game_state.handle_death_link()
 
 
 async def check_damage_link(ctx: MkddContext) -> None:
@@ -407,6 +414,15 @@ async def check_damage_link(ctx: MkddContext) -> None:
             "source": ctx.player_names[ctx.slot],
             "amount": 1.0,
         }}])
+
+
+async def check_death_link(ctx: MkddContext) -> None:
+    """Sends a death link death when lakitu had to fish the player out."""
+    if not ctx.game_state.death_event:
+        return
+    ctx.game_state.death_event = False
+    if "DeathLink" in ctx.tags and ctx.slot is not None:
+        await ctx.send_death(f"{ctx.player_names[ctx.slot]} fell off the track.")
 
 
 async def check_current_course_changed(ctx: MkddContext) -> None:
@@ -447,6 +463,7 @@ async def dolphin_sync_task(ctx: MkddContext) -> None:
                     ctx.game_state.update()
                     await check_current_course_changed(ctx)
                     await check_damage_link(ctx)
+                    await check_death_link(ctx)
                     await check_locations(ctx)
                     update_game(ctx)
 

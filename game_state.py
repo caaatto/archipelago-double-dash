@@ -41,6 +41,10 @@ class MkddGameState():
         self.damage_taken_event: bool = False
         self.damage_link_grace: int = 0
         self.last_crash_timer: int = 0
+        self.death_link_pending: bool = False
+        self.death_event: bool = False
+        self.death_link_grace: int = 0
+        self.last_crash_type: int = 0
         self.unlocked_item_boxes: set[int] = set()
         """Course ids whose item boxes give items (item_box_unlocks option)."""
         self.last_item_hit_counter: int = -1
@@ -191,11 +195,17 @@ class MkddGameState():
             if crash_timer > 0 and self.last_crash_timer == 0 and self.race_timer > self.damage_link_grace:
                 self.damage_taken_event = True
             self.last_crash_timer = crash_timer
+            # Detect a lakitu rescue (crash type 9) for death link.
+            crash_type: int = dolphin.read_word(kart_address + self.memory_addresses.kart_body_crash_type_w_offset)
+            if crash_type == 9 and self.last_crash_type != 9 and self.race_timer > self.death_link_grace:
+                self.death_event = True
+            self.last_crash_type = crash_type
         else:
             self.last_kart_position = (0, 0, 0)
             self.kart_position = (0, 0, 0)
             self.kart_velocity = (0, 0, 0)
             self.last_crash_timer = 0
+            self.last_crash_type = 0
         
         self.state_valid = self.check_state_validity()
 
@@ -1329,6 +1339,21 @@ class MkddGameState():
         dolphin.write_float(self.memory_addresses.spawn_item_vel_fx + 4, 0)
         dolphin.write_float(self.memory_addresses.spawn_item_vel_fx + 8, self.kart_velocity[2])
         logger.debug("Applied damage link damage.")
+
+
+    def handle_death_link(self) -> None:
+        """Forces a lakitu rescue when a death link death is received."""
+        if self.course_changed:
+            self.death_link_grace = 0
+
+        if not self.death_link_pending or not self.in_game or self.race_timer_s < .1:
+            return
+
+        self.death_link_pending = False
+        # Don't send the incoming death right back.
+        self.death_link_grace = self.race_timer + 5 * 60
+        dolphin.write_word(self.memory_addresses.death_link_w, 1)
+        logger.debug("Applied death link death.")
 
 
     def handle_driver_switch_traps(self) -> None:

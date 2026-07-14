@@ -1,5 +1,5 @@
 from dataclasses import dataclass
-from Options import Choice, DefaultOnToggle, NamedRange, OptionCounter, OptionDict, OptionGroup, PerGameCommonOptions, Range, StartInventoryPool, Toggle
+from Options import Choice, DeathLink, DefaultOnToggle, NamedRange, OptionCounter, OptionDict, OptionGroup, PerGameCommonOptions, Range, StartInventoryPool, Toggle
 from schema import And, Optional, Schema
 
 # Goal
@@ -390,6 +390,7 @@ class MkddOptions(PerGameCommonOptions):
     mirror_200cc: Mirror200cc
     cc_50_is_200cc: Cc50Is200cc
     damage_link: DamageLink
+    death_link: DeathLink
     faster_50cc_100cc: Faster50cc100cc
     all_cup_tour_length: AllCupTourLength
     shorter_courses: ShorterCourses
@@ -420,6 +421,7 @@ class MkddOptions(PerGameCommonOptions):
             "mirror_200cc",
             "cc_50_is_200cc",
             "damage_link",
+            "death_link",
             "faster_50cc_100cc",
             "custom_lap_counts",
             "custom_time_trial_times",
@@ -481,6 +483,7 @@ option_groups: list[OptionGroup] = [
         Mirror200cc,
         Cc50Is200cc,
         DamageLink,
+        DeathLink,
         Faster50cc100cc,
         AllCupTourLength,
         ShorterCourses,
