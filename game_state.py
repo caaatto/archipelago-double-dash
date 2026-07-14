@@ -1146,6 +1146,11 @@ class MkddGameState():
         # Make sure the kart instance is initialized and drives the kart we think it does.
         if dolphin.read_word(kart_address + self.memory_addresses.kart_body_kart_id_w_offset) != self.active_kart.id:
             return
+        # During race init the pointer slot can briefly hold another kart's body.
+        # If it drives the same kart model the id check won't catch it, which gave
+        # the player's upgrades to same-kart time trial ghosts (issue #41 again).
+        if dolphin.read_byte(kart_address + self.memory_addresses.kart_body_mynum_b_offset) != 0:
+            return
         self.apply_kart_body_stats(kart_address, self.active_kart.id, apply_engine = True)
 
 
@@ -1162,6 +1167,9 @@ class MkddGameState():
             kart_address: int = dolphin.read_word(
                 kart_ctrl + self.memory_addresses.kart_control_kart_pointers_offset + kart_no * 4)
             if kart_address == 0:
+                continue
+            # Never write the player's body through a CPU slot (see above).
+            if dolphin.read_byte(kart_address + self.memory_addresses.kart_body_mynum_b_offset) == 0:
                 continue
             kart_id: int = dolphin.read_word(kart_address + self.memory_addresses.kart_body_kart_id_w_offset)
             if not 0 <= kart_id < len(game_data.KARTS):

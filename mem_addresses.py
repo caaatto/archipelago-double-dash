@@ -86,6 +86,8 @@ class MkddMemAddresses():
     """Kart instance steer, copied from stat table at race init."""
     kart_body_kart_id_w_offset: int
     """Kart id (0-20) of the kart instance."""
+    kart_body_mynum_b_offset: int
+    """Kart number of the kart instance (0 = player)."""
     kart_body_crash_timer_h_offset: int
     """Crash/spin-out timer of the kart instance (halfword), counts while crashing."""
     kart_body_class_b_offset: int
@@ -238,6 +240,7 @@ class MkddMemAddressesUsa(MkddMemAddresses):
     kart_body_mass_f_offset = 0x420
     kart_body_steer_f_offset = 0x484
     kart_body_kart_id_w_offset = 0x5a8
+    kart_body_mynum_b_offset = 0x5b3
     kart_body_class_b_offset = 0x5c4
     kart_body_crash_timer_h_offset = 0x594
 
