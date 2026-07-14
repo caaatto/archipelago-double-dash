@@ -99,6 +99,17 @@ class ShortcutsAsLocations(DefaultOnToggle):
     """Grants checks from completing shortcuts. Some shortcuts require items like mushrooms."""
     display_name = "Shortcuts as Locations"
 
+class CupUnlocks(Choice):
+    """How cups are unlocked.
+    Shared: one item per cup unlocks it for every vehicle class.
+    Progressive: each cup has 4 progressive items, every one unlocks the next class (50cc first).
+    Per Class: every cup and class combination is its own item (e.g. Flower Cup 100cc)."""
+    display_name = "Cup Unlocks"
+    option_shared = 0
+    option_progressive = 1
+    option_per_class = 2
+    default = 0
+
 class CourseShuffle(Choice):
     """How the courses are shuffled in cups.
     Shuffle Per Class shuffles the courses separately for each vehicle class,
@@ -315,6 +326,7 @@ class MkddOptions(PerGameCommonOptions):
     add_custom_item_boxes: AddCustomItemBoxes
     shortcuts_as_locations: ShortcutsAsLocations
     course_shuffle: CourseShuffle
+    cup_unlocks: CupUnlocks
 
     items_for_everybody: ItemsForEverybody
     items_per_character: ItemsPerCharacter
@@ -350,6 +362,7 @@ class MkddOptions(PerGameCommonOptions):
             "logic_difficulty",
             "time_trials",
             "item_boxes_as_locations",
+            "cup_unlocks",
             "add_custom_item_boxes",
             "shortcuts_as_locations",
             "frantic_items",

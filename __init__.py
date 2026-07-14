@@ -58,7 +58,7 @@ class MkddWorld(World):
         self.current_entrances: set[str] = set()
 
         self.cups_courses: list[list[list[int]]] = []
-        self.cup_course_classes: dict[str, dict[int, int]] = {}
+        self.cup_course_classes: dict[str, dict[int, list[int]]] = {}
         self.character_item_total_weights: dict[str, list[int]] = {}
         self.global_items_total_weights: list[int] = []
 
@@ -123,12 +123,12 @@ class MkddWorld(World):
             region.add_exits([exit for exit in region_data.connecting_regions if exit in self.current_regions.keys()])
             if region_name in game_data.NORMAL_CUPS:
                 cup_no = game_data.CUPS.index(region_name)
-                # A cup can contain different courses per vehicle class. Collect the minimum
-                # class needed for each course; the class requirements are set in rules.
-                course_classes: dict[int, int] = {}
-                for vehicle_class in range(3, -1, -1):
+                # A cup can contain different courses per vehicle class. Collect all classes
+                # each course appears in; the class requirements are set in rules.
+                course_classes: dict[int, list[int]] = {}
+                for vehicle_class in range(4):
                     for i_course in self.cups_courses[vehicle_class][cup_no]:
-                        course_classes[i_course] = vehicle_class
+                        course_classes.setdefault(i_course, []).append(vehicle_class)
                 self.cup_course_classes[region_name] = course_classes
                 region.add_exits([game_data.RACE_COURSES[i].name + " GP" for i in course_classes])
             self.current_entrances.update([e.name for e in region.exits])
@@ -201,7 +201,14 @@ class MkddWorld(World):
         # (item_name, count)
         precollected: list[str] = []
         # Give 1 cup, can't be All Star Cup.
-        precollected.extend(self._random_from(game_data.NORMAL_CUPS.copy()))
+        starting_cup: str = self._random_from(game_data.NORMAL_CUPS.copy())[0]
+        match self.options.cup_unlocks.value:
+            case options.CupUnlocks.option_progressive:
+                precollected.append(items.get_item_name_cup_progressive(starting_cup))
+            case options.CupUnlocks.option_per_class:
+                precollected.append(items.get_item_name_cup_class(starting_cup, 0))
+            case _:
+                precollected.append(starting_cup)
         # Give 1 time trial track.
         if self.options.time_trials != options.TimeTrials.option_disable:
             precollected.extend(self._random_from([items.get_item_name_tt_course(c.name) for c in game_data.RACE_COURSES]))
@@ -224,11 +231,25 @@ class MkddWorld(World):
         for item in items.data_table:
             if self.options.time_trials == options.TimeTrials.option_disable and (item.item_type == items.ItemType.TT_COURSE or item.name == items.PROGRESSIVE_TIME_TRIAL_ITEM):
                 continue
+            if self.options.cup_unlocks != options.CupUnlocks.option_shared and item.item_type == items.ItemType.CUP and item.name in game_data.NORMAL_CUPS:
+                continue
             if item.classification != ItemClassification.filler:
                 count = item.count
                 count -= precollected.count(item.name)
                 for i in range(count):
                     item_pool.append(self.create_item(item.name))
+
+        # Cup unlocks per class / progressive cups.
+        if self.options.cup_unlocks == options.CupUnlocks.option_progressive:
+            for cup in game_data.NORMAL_CUPS:
+                name = items.get_item_name_cup_progressive(cup)
+                item_pool += [self.create_item(name) for _ in range(4 - precollected.count(name))]
+        elif self.options.cup_unlocks == options.CupUnlocks.option_per_class:
+            for cup in game_data.NORMAL_CUPS:
+                for vehicle_class in range(4):
+                    name = items.get_item_name_cup_class(cup, vehicle_class)
+                    if name not in precollected:
+                        item_pool.append(self.create_item(name))
         
         for i in range(self.options.shuffle_extra_trophies):
             item_pool.append(self.create_item(items.TROPHY))

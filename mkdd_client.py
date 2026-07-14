@@ -261,6 +261,16 @@ def give_item(ctx: MkddContext, item: MkddItemData) -> None:
         ctx.game_state.engine_upgrade_level += 1
     elif item.item_type == ItemType.CUP:
         ctx.game_state.unlocked_cups.append(item.address)
+        ctx.game_state.unlocked_cup_classes.setdefault(item.address, set()).update(range(4))
+    elif item.item_type == ItemType.CUP_CLASS:
+        if item.address not in ctx.game_state.unlocked_cups:
+            ctx.game_state.unlocked_cups.append(item.address)
+        ctx.game_state.unlocked_cup_classes.setdefault(item.address, set()).add(item.meta)
+    elif item.item_type == ItemType.CUP_PROGRESSIVE:
+        if item.address not in ctx.game_state.unlocked_cups:
+            ctx.game_state.unlocked_cups.append(item.address)
+        classes = ctx.game_state.unlocked_cup_classes.setdefault(item.address, set())
+        classes.add(min(4 - 1, len(classes)))
     elif item.item_type == ItemType.TT_COURSE:
         ctx.game_state.unlocked_courses.append(item.address)
     elif item.name == items.PROGRESSIVE_CLASS:

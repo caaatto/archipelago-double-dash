@@ -113,6 +113,13 @@ Mario Kart Double Dash:
     # In that case finishing a cup only counts for the played vehicle class.
     # Possible values: vanilla, shuffle_once, shuffle_per_class
 
+  cup_unlocks: shared
+    # How cups are unlocked.
+    # Shared: one item per cup unlocks it for every vehicle class.
+    # Progressive: each cup has 4 progressive items, every one unlocks the next class (50cc first).
+    # Per Class: every cup and class combination is its own item (e.g. Flower Cup 100cc).
+    # Possible values: shared, progressive, per_class
+
   #########
   # Items #
   #########

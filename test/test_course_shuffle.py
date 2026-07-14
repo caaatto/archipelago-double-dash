@@ -79,7 +79,7 @@ class TestCourseShufflePerClass(MkddTestBase):
             for vehicle_class in range(4):
                 for course_id in self.world.cups_courses[vehicle_class][cup_no]:
                     self.assertIn(course_id, course_classes)
-                    self.assertLessEqual(course_classes[course_id], vehicle_class)
+                    self.assertIn(vehicle_class, course_classes[course_id])
 
 
 class TestCupsCoursesSlotDataCompatibility(MkddTestBase):

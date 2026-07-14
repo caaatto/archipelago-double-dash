@@ -73,21 +73,46 @@ class MkddRules:
                             calculate_player_level(state, self.player, kart, character_1, character_2) +
                             self.world.options.logic_difficulty >= difficulty)
  
+        cup_unlocks = self.world.options.cup_unlocks
         for cup in game_data.CUPS:
-            self.set_ent_rule(f"Menu -> {cup}",
-                    lambda state, cup = cup: state.has(cup, self.player))
+            if cup == game_data.CUPS[game_data.CUP_ALL_CUP_TOUR] or cup_unlocks == options.CupUnlocks.option_shared:
+                self.set_ent_rule(f"Menu -> {cup}",
+                        lambda state, cup = cup: state.has(cup, self.player))
+            elif cup_unlocks == options.CupUnlocks.option_progressive:
+                self.set_ent_rule(f"Menu -> {cup}",
+                        lambda state, item = items.get_item_name_cup_progressive(cup): state.has(item, self.player))
+            else:
+                self.set_ent_rule(f"Menu -> {cup}",
+                        lambda state, cup_items = [items.get_item_name_cup_class(cup, c) for c in range(4)]:
+                            state.has_any(cup_items, self.player))
 
-        # With course shuffle per class, a course inside a cup may only be raced
-        # once a high enough vehicle class is unlocked.
+        # Cup locations of a specific vehicle class need the cup unlocked for that class.
+        if cup_unlocks != options.CupUnlocks.option_shared:
+            for cup in game_data.NORMAL_CUPS:
+                for vehicle_class in range(4):
+                    loc_names = [locations.get_loc_name_cup(cup, ranking, vehicle_class) for ranking in range(3)]
+                    if self.world.options.grand_prix_trophies:
+                        loc_names.append(locations.get_loc_name_trophy(cup, vehicle_class))
+                    for loc_name in loc_names:
+                        self.add_loc_rule(loc_name,
+                                self.make_cup_class_rule(cup, vehicle_class))
+
+        # With course shuffle per class, a course inside a cup may only be raced once a high
+        # enough vehicle class (and with separate cup unlocks, the cup for that class) is unlocked.
         for cup, course_classes in self.world.cup_course_classes.items():
-            for course_id, min_class in course_classes.items():
-                if min_class > 0:
+            for course_id, classes in course_classes.items():
+                if cup_unlocks == options.CupUnlocks.option_shared:
+                    if classes[0] > 0:
+                        self.set_ent_rule(f"{cup} -> {game_data.RACE_COURSES[course_id].name} GP",
+                                lambda state, min_class = classes[0]: state.has(items.PROGRESSIVE_CLASS, self.player, min_class))
+                else:
+                    class_rules = [self.make_cup_class_rule(cup, c) for c in classes]
                     self.set_ent_rule(f"{cup} -> {game_data.RACE_COURSES[course_id].name} GP",
-                            lambda state, min_class = min_class: state.has(items.PROGRESSIVE_CLASS, self.player, min_class))
-        
+                            lambda state, class_rules = class_rules: any(rule(state) for rule in class_rules))
+
         self.set_loc_rule(locations.TROPHY_GOAL,
                 lambda state: state.has(items.TROPHY, self.player, self.world.trophy_requirement))
-        
+
         if self.world.options.goal == options.Goal.option_all_cup_tour:
             self.set_loc_rule(locations.WIN_ALL_CUP_TOUR,
                     lambda state: state.has(items.PROGRESSIVE_CLASS, self.player, self.world.options.all_cup_tour_min_cc))
@@ -102,6 +127,16 @@ class MkddRules:
             lambda state: calculate_player_level(state, self.player, 1) + self.world.options.logic_difficulty >= 50)
         self.add_loc_rule(locations.GOLD_HEAVY,
             lambda state: calculate_player_level(state, self.player, 2) + self.world.options.logic_difficulty >= 50)
+
+    def make_cup_class_rule(self, cup: str, vehicle_class: int) -> CollectionRule:
+        """Returns a rule for having a cup unlocked at a specific vehicle class, including the class itself."""
+        if self.world.options.cup_unlocks == options.CupUnlocks.option_progressive:
+            cup_rule = lambda state, item = items.get_item_name_cup_progressive(cup), count = vehicle_class + 1: state.has(item, self.player, count)
+        else:
+            cup_rule = lambda state, item = items.get_item_name_cup_class(cup, vehicle_class): state.has(item, self.player)
+        if vehicle_class == 0:
+            return cup_rule
+        return lambda state: cup_rule(state) and state.has(items.PROGRESSIVE_CLASS, self.player, vehicle_class)
 
 
 class MkddState(LogicMixin):

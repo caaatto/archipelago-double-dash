@@ -16,6 +16,8 @@ class MkddGameState():
         self.unlocked_characters: list[int] = []
         self.unlocked_karts: list[int] = []
         self.unlocked_cups: list[int] = []
+        self.unlocked_cup_classes: dict[int, set[int]] = {}
+        """Unlocked vehicle classes per cup. With shared cup unlocks a cup item unlocks all classes."""
         self.engine_upgrade_level = 0
         self.kart_upgrades: dict[int, list[game_data.KartUpgrade]] = {i:[] for i, _ in enumerate(game_data.KARTS)}
         self.unlocked_cup_skips: int = 0
@@ -408,8 +410,11 @@ class MkddGameState():
             for r in range(2, self.total_ranking - 1, -1):
                 for c in range(self.vehicle_class + 1):
                     # With course shuffle per class, lower classes only count if the
-                    # cup holds the same courses there.
+                    # cup holds the same courses there. With separate cup unlocks the
+                    # cup must also be unlocked for that class.
                     if self.cups_courses[c][self.selected_cup] != played_courses:
+                        continue
+                    if c != self.vehicle_class and c not in self.unlocked_cup_classes.get(self.selected_cup, set()):
                         continue
                     new_locations.add(locations.get_loc_name_cup(cup_name, r, c))
                     if r == 0:
@@ -795,7 +800,7 @@ class MkddGameState():
             for i_cup in self.unlocked_cups:
                 if i_cup == game_data.CUP_ALL_CUP_TOUR:
                     available_cups_courses[i_cup] = [0]
-                else:
+                elif self.vehicle_class in self.unlocked_cup_classes.get(i_cup, set()):
                     available_cups_courses[i_cup] = gp_selectable_courses
 
         # Force cup and course selection.

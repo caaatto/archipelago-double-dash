@@ -105,7 +105,13 @@ class MkddCommandProcessor(ClientCommandProcessor):
         pr(_msg("Speed upgrades: ", f"{gs.engine_upgrade_level} ({int(gs.calculate_speed_multiplier() * 100)} % speed)"))
         pr(_msg("Max vehicle class: ", ["50cc", "100cc", "150cc", "Mirror"][gs.unlocked_vehicle_class]))
         pr(_msg("Starting position: ", gs.starting_position + 1))
-        pr(_msg("Unlocked cups: ", ", ".join([game_data.CUPS[c] for c in gs.unlocked_cups])))
+        def _cup_text(cup: int) -> str:
+            classes = gs.unlocked_cup_classes.get(cup, set())
+            if cup == game_data.CUP_ALL_CUP_TOUR or classes == set(range(4)):
+                return game_data.CUPS[cup]
+            class_names = [["50cc", "100cc", "150cc", "Mirror"][c] for c in sorted(classes)]
+            return f"{game_data.CUPS[cup]} ({', '.join(class_names)})"
+        pr(_msg("Unlocked cups: ", ", ".join([_cup_text(c) for c in gs.unlocked_cups])))
         pr(_msg("Unlocked time trial courses: ", ", ".join([game_data.COURSES[c].name for c in gs.unlocked_courses])))
         item_box_msg = (_msg("Unlocked item box items", ""))
         if len(gs.global_items) > 0:

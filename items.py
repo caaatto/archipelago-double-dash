@@ -31,6 +31,8 @@ class ItemType(Enum):
     ITEM_UNLOCK = 5
     KART_UPGRADE = 6
     RAIN_TRAP = 7
+    CUP_CLASS = 8
+    CUP_PROGRESSIVE = 9
 
 class MkddItem(Item):
     game = version.get_game_name()
@@ -64,6 +66,13 @@ DRIVER_SWITCH_TRAP = "Driver Switch Trap"
 
 def get_item_name_tt_course(course: str) -> str:
     return f"{course} Time Trial"
+
+def get_item_name_cup_class(cup: str, vehicle_class: int) -> str:
+    class_name = ["50cc", "100cc", "150cc", "Mirror"][vehicle_class]
+    return f"{cup} {class_name}"
+
+def get_item_name_cup_progressive(cup: str) -> str:
+    return f"Progressive {cup}"
 
 def get_item_name_character_item(character: str|None, item: str) -> str:
     if character != None:
@@ -123,6 +132,15 @@ data_table.append(MkddItemData(SKIP_DIFFICULTY, PROG, count = 0))
 
 # New items must be appended at the end to keep existing item ids stable.
 data_table.append(MkddItemData(DRIVER_SWITCH_TRAP, TRAP, count=0, tags={TAG_TRAPS, TAG_SYNC_ONLY}))
+
+# Cup unlocks per vehicle class / progressive cups. Counts depend on the cup_unlocks option.
+for id, name in enumerate(game_data.NORMAL_CUPS):
+    for vehicle_class in range(4):
+        data_table.append(MkddItemData(
+            get_item_name_cup_class(name, vehicle_class), PROG, ItemType.CUP_CLASS, id,
+            count = 0, meta = vehicle_class, tags = {TAG_CUPS}))
+for id, name in enumerate(game_data.NORMAL_CUPS):
+    data_table.append(MkddItemData(get_item_name_cup_progressive(name), PROG, ItemType.CUP_PROGRESSIVE, id, count = 0, tags = {TAG_CUPS}))
 
 name_to_id: dict[str, int] = {item.name:id for (id, item) in enumerate(data_table) if id > 0}
 
