@@ -49,6 +49,8 @@ class MkddGameState():
         """Obstacle hit events processed so far, -1 = not synced yet."""
         self.cpu_upgraded_karts: set[int] = set()
         """Kart numbers of CPUs that get upgrades this race (cpu_upgrades: some)."""
+        self.cpu_upgraded_karts_course: int = 0
+        """Course id the CPU upgrade selection was rolled for."""
         self.queued_items: int = 0
         self.state_valid: bool = False
 
@@ -1101,11 +1103,16 @@ class MkddGameState():
             dolphin.write_float(kart_address + self.memory_addresses.kart_roll_f_offset, stats.roll)
             dolphin.write_float(kart_address + self.memory_addresses.kart_steer_f_offset, stats.steer)
 
+        # Instance writes only while a race runs: in the menus the kart pointers
+        # can point into reused memory.
+        if not self.in_game:
+            return
         if time_trial or not rival_mode:
             self.apply_player_kart_body_stats()
         if not time_trial and self.options.cpu_upgrades in (options.CpuUpgrades.option_some, options.CpuUpgrades.option_all):
-            if self.course_changed:
+            if self.current_course.id != self.cpu_upgraded_karts_course:
                 self.cpu_upgraded_karts = {k for k in range(1, 8) if random.random() < .5}
+                self.cpu_upgraded_karts_course = self.current_course.id
             self.apply_cpu_kart_body_stats()
 
 

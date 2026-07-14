@@ -1,18 +1,22 @@
 # Individual Lap Modifier Enabler [Ralf]
+# With an added null check: in the menus the course data pointer is null and
+# the original code crashed reading the course id from it.
 lap_modifier = [
-    0x04005420, 0x807D0004,
-    0x04005424, 0x88030019,
-    0x04005428, 0x28000020,
-    0x0400542C, 0x40810024,
-    0x04005430, 0x28000034,
-    0x04005434, 0x4080001C,
-    0x04005438, 0x3C808000,
-    0x0400543C, 0x6084543F,
-    0x04005440, 0x7C0400AE,
-    0x04005444, 0x28000000,
-    0x04005448, 0x41820008,
-    0x0400544C, 0x98030018,
-    0x04005450, 0x48182754,
+    0x04005420, 0x807D0004,  # lwz r3, 4(r29)     course data pointer
+    0x04005424, 0x28030000,  # cmplwi r3, 0       no course loaded?
+    0x04005428, 0x41820030,  # beq exit
+    0x0400542C, 0x88030019,  # lbz r0, 0x19(r3)   course id
+    0x04005430, 0x28000020,
+    0x04005434, 0x40810024,
+    0x04005438, 0x28000034,
+    0x0400543C, 0x4080001C,
+    0x04005440, 0x3C808000,
+    0x04005444, 0x6084543F,  # lap table base (entries at 0x80005460+)
+    0x04005448, 0x7C0400AE,
+    0x0400544C, 0x28000000,
+    0x04005450, 0x41820008,
+    0x04005454, 0x98030018,  # stb r0, 0x18(r3)   total laps
+    0x04005458, 0x4818274C,  # exit: back to 0x80187BA4
     0x04187BA0, 0x4BE7D880,
 ]
 
