@@ -983,6 +983,12 @@ class MkddGameState():
             self.print_ingame(304, 436, f"Race skips unlocked: {self.unlocked_cup_skips}", 0)
             self.print_ingame(304, 448, f"You can start from {["2nd", "3rd", "4th"][min(2, self.unlocked_cup_skips - 1)]} race.", 0)
 
+        # Warn before the race starts: the cursor can rest on a locked cup when
+        # nothing is unlocked for the selected class, and confirm isn't gated.
+        if self.vehicle_class not in self.unlocked_cup_classes.get(self.selected_cup, set()):
+            class_name = ["50cc", "100cc", "150cc", "Mirror"][min(3, max(0, self.vehicle_class))]
+            self.print_ingame(304, 168, f"Not unlocked for {class_name}!", 0)
+
 
     def add_pause_texts(self) -> None:
         if self.pause_state != 1:
