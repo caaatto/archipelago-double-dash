@@ -35,6 +35,7 @@ TAG_CHAIN_CHOMP = "*Requires Chain Chomp"
 TAG_REQUIRES_STAR = "*Requires Star"
 TAG_NO_SLOW_KARTS = "*Requires 100cc"
 TAG_ITEM_HIT = "Item Hit"
+TAG_OBSTACLE = "Obstacle"
 
 
 class MkddLocation(Location):
@@ -102,6 +103,9 @@ def get_loc_name_custom_time(course: str, number: int) -> str:
 
 def get_loc_name_item_hit(hit: game_data.ItemHit) -> str:
     return f"Hit an Opponent With {hit.name}"
+
+def get_loc_name_obstacle(obstacle: game_data.Obstacle) -> str:
+    return f"Defeat {obstacle.name}"
 
 
 data_table: list[MkddLocationData] = [MkddLocationData("", 0)] # Id 0 is reserved.
@@ -215,6 +219,12 @@ ITEM_HIT_LOCATIONS: dict[str, game_data.ItemHit] = {get_loc_name_item_hit(hit): 
 for name in ITEM_HIT_LOCATIONS:
     data_table.append(MkddLocationData(name, 0, "Menu", tags = {TAG_ITEM_HIT}))
 data_table.append(MkddLocationData(HIT_YOURSELF, 0, "Menu", tags = {TAG_ITEM_HIT}))
+
+# Obstacle defeats (issue #14). Reaching a course with the obstacle and having
+# a star (the one thing that defeats all of them) is handled in rules.
+OBSTACLE_LOCATIONS: dict[str, game_data.Obstacle] = {get_loc_name_obstacle(o): o for o in game_data.OBSTACLES}
+for name, obstacle in OBSTACLE_LOCATIONS.items():
+    data_table.append(MkddLocationData(name, 0, "Menu", tags = {TAG_OBSTACLE} | set(obstacle.courses)))
 
 name_to_id: dict[str, int] = {data.name:id for (id, data) in enumerate(data_table) if id > 0}
 

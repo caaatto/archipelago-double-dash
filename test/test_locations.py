@@ -187,3 +187,35 @@ class TestItemHitLocationsDisabled(MkddTestBase):
         for hit in game_data.ITEM_HITS:
             self.assertNotIn(mkdd_locs.get_loc_name_item_hit(hit), location_names)
         self.assertNotIn(mkdd_locs.HIT_YOURSELF, location_names)
+
+
+class TestObstacleLocations(MkddTestBase):
+    # No item unlocks configured, the star has to be forced into the pool.
+    options = {**BASE_OPTIONS, "time_trials": "disable", "item_hits_as_locations": False}
+
+    def test_all_obstacle_locations_exist(self) -> None:
+        location_names = _location_names(self)
+        for obstacle in game_data.OBSTACLES:
+            self.assertIn(mkdd_locs.get_loc_name_obstacle(obstacle), location_names)
+
+    def test_star_unlock_is_in_the_pool(self) -> None:
+        star_names = {mkdd_items.get_item_name_character_item(None, game_data.ITEM_STAR.name)}
+        star_names.update(mkdd_items.get_item_name_character_item(c.name, game_data.ITEM_STAR.name)
+                          for c in game_data.CHARACTERS)
+        pool_names = {item.name for item in self.multiworld.itempool}
+        self.assertTrue(star_names & pool_names, "No star unlock in the pool")
+
+    def test_obstacle_courses_exist(self) -> None:
+        for obstacle in game_data.OBSTACLES:
+            for course in obstacle.courses:
+                self.assertTrue(any(c.name == course for c in game_data.RACE_COURSES),
+                                f"Unknown course {course} for obstacle {obstacle.name}")
+
+
+class TestObstacleLocationsDisabled(MkddTestBase):
+    options = {**BASE_OPTIONS, "time_trials": "disable", "obstacles_as_locations": False}
+
+    def test_no_obstacle_locations(self) -> None:
+        location_names = _location_names(self)
+        for obstacle in game_data.OBSTACLES:
+            self.assertNotIn(mkdd_locs.get_loc_name_obstacle(obstacle), location_names)

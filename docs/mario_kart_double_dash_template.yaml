@@ -111,6 +111,11 @@ Mario Kart Double Dash:
     # An unlock for every needed item is guaranteed to be in the pool.
     # Possible values: true, false
 
+  obstacles_as_locations: true
+    # Grants checks for defeating course obstacles (goombas, pokeys, cataquacks and friends).
+    # Logic expects a star for these, though some also go down with other items.
+    # Possible values: true, false
+
   item_box_unlocks: false
     # Adds an Item Boxes unlock for every course to the pool.
     # Item boxes on a course give nothing until its unlock is received.

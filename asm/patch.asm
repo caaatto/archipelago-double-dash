@@ -663,6 +663,8 @@ Invalidate 0x802ab000   # Driver switch (driver_switch region below)
 Invalidate 0x8017c3dc   # Course bgm (music_shuffle region below)
 Invalidate 0x8017c53c   # Final lap bgm (music_shuffle region below)
 Invalidate 0x802aec2c   # Item hit watch (item_hit_watch region below)
+Invalidate 0x8020aaf8   # Item vs object hit (obstacle_watch region below)
+Invalidate 0x8029b168   # Star kart vs object (obstacle_watch region below)
 Invalidate 0x80005420   # Lap modifier 1 (AR CODES)
 Invalidate 0x80187BA0   # Lap modifier 2
 Invalidate 0x801CD680   # Unlock everything
@@ -821,4 +823,56 @@ Return
 
 # Start with a zeroed counter and buffer.
 WriteTo item_hit_count_w
+    .long 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+
+
+REGION obstacle_watch
+# Records karts hitting course objects into a second ring buffer (issue #14).
+# Event word: object id (u16), kart number, cause byte (item kind, 0xfe = star).
+.set obstacle_hit_count_w, 0x800010f8
+.set obstacle_hit_events_x, 0x800010fc # Size 64 (16 events x 4 bytes)
+
+# Item vs object: the collision loop in ItemObjMgr just decided on a hit and
+# stores the item into the object's mColItemObj. r0 = ItemObj, r3 = GeographyObj.
+.set code_obstacle_item, 0x8020aaf8
+InsertAt code_obstacle_item, 16
+    stw     r0, 0x114 (r3)      # Default code (mColItemObj).
+    lwz     r4, 0xe8 (r3)       # Course object data.
+    lhz     r4, 0x24 (r4)       # Object id.
+    mr      r12, r0             # r0 can't be a base register (reads as 0).
+    lwz     r5, 0x120 (r12)     # Item owner kart.
+    lwz     r6, 0x7c (r12)      # Item kind.
+    slwi    r4, r4, 16
+    rlwimi  r4, r5, 8, 16, 23
+    rlwimi  r4, r6, 0, 24, 31
+    lis     r12, obstacle_hit_count_w@ha
+    lwz     r6, obstacle_hit_count_w@l (r12)
+    rlwinm  r5, r6, 2, 26, 29   # (count % 16) * 4
+    addi    r5, r5, obstacle_hit_events_x@l
+    stwx    r4, r12, r5
+    addi    r6, r6, 1
+    stw     r6, obstacle_hit_count_w@l (r12)
+Return
+
+# Star kart vs object: KartBody::StarReact right after the star status check
+# passed. r31 = KartBody, r4 = GeographyObj, r3/r5/r6/r12 are free here.
+.set code_obstacle_star, 0x8029b168
+InsertAt code_obstacle_star, 13
+    lbz     r0, 0x5b3 (r31)     # Default code (kart number).
+    lwz     r3, 0xe8 (r4)       # Course object data.
+    lhz     r3, 0x24 (r3)       # Object id.
+    slwi    r3, r3, 16
+    rlwimi  r3, r0, 8, 16, 23
+    ori     r3, r3, 0xfe        # Cause: star.
+    lis     r12, obstacle_hit_count_w@ha
+    lwz     r6, obstacle_hit_count_w@l (r12)
+    rlwinm  r5, r6, 2, 26, 29   # (count % 16) * 4
+    addi    r5, r5, obstacle_hit_events_x@l
+    stwx    r3, r12, r5
+    addi    r6, r6, 1
+    stw     r6, obstacle_hit_count_w@l (r12)
+Return
+
+# Start with a zeroed counter and buffer.
+WriteTo obstacle_hit_count_w
     .long 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0

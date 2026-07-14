@@ -45,6 +45,8 @@ class MkddGameState():
         """Course ids whose item boxes give items (item_box_unlocks option)."""
         self.last_item_hit_counter: int = -1
         """Item hit events processed so far, -1 = not synced yet."""
+        self.last_obstacle_hit_counter: int = -1
+        """Obstacle hit events processed so far, -1 = not synced yet."""
         self.queued_items: int = 0
         self.state_valid: bool = False
 
@@ -517,6 +519,38 @@ class MkddGameState():
                     break
             else:
                 logger.debug(f"Item hit with unmapped item kind {kind}")
+        return new_locations
+
+
+    def check_obstacle_locations(self) -> set[str]:
+        """Checks for defeating course obstacles, read from an event buffer the
+        obstacle_watch patch fills (issue #14)."""
+        new_locations: set[str] = set()
+        counter: int = dolphin.read_word(self.memory_addresses.obstacle_hit_count_w)
+        if counter == self.last_obstacle_hit_counter:
+            return new_locations
+        if counter < self.last_obstacle_hit_counter or self.last_obstacle_hit_counter < 0:
+            # First sync or the game was rebooted, skip any backlog.
+            self.last_obstacle_hit_counter = counter
+            return new_locations
+        # Only the last 16 events are still in the buffer.
+        start: int = max(self.last_obstacle_hit_counter, counter - 16)
+        self.last_obstacle_hit_counter = counter
+        if not self.in_game or self.mode not in (game_data.Modes.GRANDPRIX, game_data.Modes.TIMETRIAL):
+            return new_locations
+        for i in range(start, counter):
+            event: int = dolphin.read_word(self.memory_addresses.obstacle_hit_events_x + (i % 16) * 4)
+            obj_id: int = event >> 16
+            kart: int = (event >> 8) & 0xff
+            cause: int = event & 0xff
+            if kart != 0:
+                continue
+            if cause != game_data.OBSTACLE_STAR_CAUSE and cause not in game_data.OBSTACLE_WEAPON_KINDS:
+                continue
+            for obstacle in game_data.OBSTACLES:
+                if obj_id == obstacle.obj_id:
+                    new_locations.add(locations.get_loc_name_obstacle(obstacle))
+                    break
         return new_locations
 
 

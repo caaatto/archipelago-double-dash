@@ -742,6 +742,14 @@ invalidate_cache: dict[int, list[int]] = {
         0x398cec2c,
         0x7c00606c,
         0x7c0067ac,
+        0x3d808021,
+        0x398caaf8,
+        0x7c00606c,
+        0x7c0067ac,
+        0x3d80802a,
+        0x398cb168,
+        0x7c00606c,
+        0x7c0067ac,
         0x3d808000,
         0x398c5420,
         0x7c00606c,
@@ -769,16 +777,16 @@ invalidate_cache: dict[int, list[int]] = {
     0x8011510c: [
         0x4beed1cc,
     ],
-    0x800026b8: [
+    0x800026d8: [
         0x4c00012c,
         0x4e800020,
     ],
 }
 course_selection: dict[int, list[int]] = {
     0x8016af84: [
-        0x4be9773c,
+        0x4be9775c,
     ],
-    0x800026c0: [
+    0x800026e0: [
         0x806da38c,
         0x808da388,
         0x5484103a,
@@ -795,12 +803,12 @@ course_selection: dict[int, list[int]] = {
         0x4181ffe8,
         0x906da38c,
         0xc002a00c,
-        0x481688a8,
+        0x48168888,
     ],
     0x8016afdc: [
-        0x4be97728,
+        0x4be97748,
     ],
-    0x80002704: [
+    0x80002724: [
         0x806da38c,
         0x808da388,
         0x5484103a,
@@ -817,14 +825,14 @@ course_selection: dict[int, list[int]] = {
         0x4181ffe8,
         0x906da38c,
         0xc002a00c,
-        0x481688bc,
+        0x4816889c,
     ],
 }
 driver_switch: dict[int, list[int]] = {
     0x802ab000: [
-        0x4bd57748,
+        0x4bd57768,
     ],
-    0x80002748: [
+    0x80002768: [
         0x3cc08000,
         0x80a6109c,
         0x7c600039,
@@ -837,14 +845,14 @@ driver_switch: dict[int, list[int]] = {
         0x90a6109c,
         0x48000008,
         0x7c1bd800,
-        0x482a888c,
+        0x482a886c,
     ],
 }
 music_shuffle: dict[int, list[int]] = {
     0x8017c3dc: [
-        0x4be863a0,
+        0x4be863c0,
     ],
-    0x8000277c: [
+    0x8000279c: [
         0x80c30000,
         0x3ca08000,
         0x38a510a0,
@@ -856,12 +864,12 @@ music_shuffle: dict[int, list[int]] = {
         0x4182000c,
         0x64a30200,
         0x4e800020,
-        0x48179c38,
+        0x48179c18,
     ],
     0x8017c53c: [
-        0x4be86270,
+        0x4be86290,
     ],
-    0x800027ac: [
+    0x800027cc: [
         0x80830000,
         0x3ca08000,
         0x38a510a0,
@@ -874,14 +882,14 @@ music_shuffle: dict[int, list[int]] = {
         0x38a50010,
         0x64a30200,
         0x4e800020,
-        0x48179d64,
+        0x48179d44,
     ],
 }
 item_hit_watch: dict[int, list[int]] = {
     0x802aec2c: [
-        0x4bd53bb4,
+        0x4bd53bd4,
     ],
-    0x800027e0: [
+    0x80002800: [
         0x9421ffe0,
         0x28040000,
         0x41820040,
@@ -900,9 +908,71 @@ item_hit_watch: dict[int, list[int]] = {
         0x7cab512e,
         0x39290001,
         0x912810b4,
-        0x482ac408,
+        0x482ac3e8,
     ],
     0x800010b4: [
+        0x00000000,
+        0x00000000,
+        0x00000000,
+        0x00000000,
+        0x00000000,
+        0x00000000,
+        0x00000000,
+        0x00000000,
+        0x00000000,
+        0x00000000,
+        0x00000000,
+        0x00000000,
+        0x00000000,
+        0x00000000,
+        0x00000000,
+        0x00000000,
+        0x00000000,
+    ],
+}
+obstacle_watch: dict[int, list[int]] = {
+    0x8020aaf8: [
+        0x4bdf7d54,
+    ],
+    0x8000284c: [
+        0x90030114,
+        0x808300e8,
+        0xa0840024,
+        0x7c0c0378,
+        0x80ac0120,
+        0x80cc007c,
+        0x5484801e,
+        0x50a4442e,
+        0x50c4063e,
+        0x3d808000,
+        0x80cc10f8,
+        0x54c516ba,
+        0x38a510fc,
+        0x7c8c292e,
+        0x38c60001,
+        0x90cc10f8,
+        0x48208270,
+    ],
+    0x8029b168: [
+        0x4bd67728,
+    ],
+    0x80002890: [
+        0x881f05b3,
+        0x806400e8,
+        0xa0630024,
+        0x5463801e,
+        0x5003442e,
+        0x606300fe,
+        0x3d808000,
+        0x80cc10f8,
+        0x54c516ba,
+        0x38a510fc,
+        0x7c6c292e,
+        0x38c60001,
+        0x90cc10f8,
+        0x482988a8,
+    ],
+    0x800010f8: [
         0x00000000,
         0x00000000,
         0x00000000,

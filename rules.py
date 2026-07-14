@@ -46,6 +46,18 @@ class MkddRules:
                 self.add_loc_rule(location.name, lambda state, tt_course = items.get_item_name_tt_course(location.region), gp_course = f"{location.region} GP":
                                   (has_star(state, self.player) and state.can_reach_region(gp_course, self.player))
                                   or state.has_all_counts({tt_course: 1, items.PROGRESSIVE_TIME_TRIAL_ITEM: 3}, self.player))
+            if locations.TAG_OBSTACLE in location.tags:
+                # A star defeats every obstacle: either on one of the obstacle's courses
+                # in grand prix, or in a time trial with all time trial items unlocked.
+                obstacle = locations.OBSTACLE_LOCATIONS[location.name]
+                gp_regions = [f"{course} GP" for course in obstacle.courses]
+                tt_requirements = [{items.get_item_name_tt_course(course): 1, items.PROGRESSIVE_TIME_TRIAL_ITEM: 3}
+                                   for course in obstacle.courses]
+                self.add_loc_rule(location.name,
+                        lambda state, gp_regions = gp_regions, tt_requirements = tt_requirements:
+                            (has_star(state, self.player)
+                                and any(state.can_reach_region(region, self.player) for region in gp_regions))
+                            or any(state.has_all_counts(requirement, self.player) for requirement in tt_requirements))
             if locations.TAG_ITEM_HIT in location.tags:
                 if location.name in locations.ITEM_HIT_LOCATIONS:
                     hits = [locations.ITEM_HIT_LOCATIONS[location.name]]

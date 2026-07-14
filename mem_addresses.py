@@ -140,6 +140,10 @@ class MkddMemAddresses():
     """Number of item hit events written by the game so far."""
     item_hit_events_x: int
     """Ring buffer of 16 item hit events (4 bytes each): victim kart, owner kart, item kind, 1."""
+    obstacle_hit_count_w: int
+    """Number of obstacle hit events written by the game so far."""
+    obstacle_hit_events_x: int
+    """Ring buffer of 16 obstacle hit events (4 bytes each): object id (u16), kart, cause (item kind or 0xfe for star)."""
     text_sx: int
     """Text to print."""
     text_size: int
@@ -265,6 +269,8 @@ class MkddMemAddressesUsa(MkddMemAddresses):
     course_music_bx = 0x800010a0
     item_hit_count_w = 0x800010b4
     item_hit_events_x = 0x800010b8
+    obstacle_hit_count_w = 0x800010f8
+    obstacle_hit_events_x = 0x800010fc
 
     text_sx = 0x80000da4
     text_size = 0x30

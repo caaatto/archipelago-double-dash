@@ -231,6 +231,7 @@ def apply_patch():
     apply_dict_patch(patches.menu_lockout)
     apply_dict_patch(patches.skip_credits)
     apply_dict_patch(patches.item_hit_watch)
+    apply_dict_patch(patches.obstacle_watch)
     apply_dict_patch(patches.spawn_item)
     apply_dict_patch(patches.draw_string)
     apply_dict_patch(patches.invalidate_cache)
@@ -356,6 +357,7 @@ async def check_locations(ctx: MkddContext) -> None:
         new_location_names |= ctx.game_state.check_all_cup_tour_locations()
         new_location_names |= ctx.game_state.check_tt_locations()
         new_location_names |= ctx.game_state.check_item_hit_locations()
+        new_location_names |= ctx.game_state.check_obstacle_locations()
 
     new_locations = {locations.name_to_id.get(loc_name) for loc_name in new_location_names}
     new_locations.discard(None)

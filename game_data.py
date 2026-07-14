@@ -277,6 +277,31 @@ ITEM_HITS = [
 ]
 
 
+class Obstacle(NamedTuple):
+    """A course obstacle that can be defeated (obstacle locations)."""
+    name: str
+    """Obstacle name with an article, used in the location name."""
+    obj_id: int
+    """Course object id (from the BOL object data)."""
+    courses: list[str]
+    """Names of the courses the obstacle appears on."""
+
+# Item kinds that defeat obstacles. Taken from the goomba's item hit check,
+# the same set is assumed for the other obstacles until tested.
+OBSTACLE_WEAPON_KINDS = [0, 1, 2, 7, 8, 9, 11, 13, 17, 19, 21]
+OBSTACLE_STAR_CAUSE = 0xfe
+"""Cause byte for running an obstacle over with a star."""
+
+OBSTACLES = [
+    Obstacle("a Goomba", 0x0e7f, ["Mario Circuit"]),
+    Obstacle("a Piranha Plant", 0x0e80, ["Mario Circuit", "Yoshi Circuit"]),
+    Obstacle("a Chain Chomp", 0x0e78, ["Luigi Circuit", "Mario Circuit"]),
+    Obstacle("a Cataquack", 0x0d4a, ["Peach Beach"]),
+    Obstacle("a Pokey", 0x1389, ["Dry Dry Desert"]),
+    Obstacle("a Shy Guy", 0x13ee, ["Sherbet Land"]),
+]
+
+
 class KartUpgrade(NamedTuple):
     id: int
     name: str

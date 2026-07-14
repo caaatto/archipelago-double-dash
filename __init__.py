@@ -160,6 +160,8 @@ class MkddWorld(World):
                     continue
                 if not self.options.item_hits_as_locations and locations.TAG_ITEM_HIT in location_data.tags:
                     continue
+                if not self.options.obstacles_as_locations and locations.TAG_OBSTACLE in location_data.tags:
+                    continue
                 if locations.TAG_TT_CUSTOM in location_data.tags:
                     course_name = location_data.region.removesuffix(" TT")
                     number = int(location_data.name.rsplit(" ", 1)[1]) - 1
@@ -335,7 +337,7 @@ class MkddWorld(World):
         # Item unlocks which need to be in the pool for all locations to be reachable.
         # Each group needs at least one of its items.
         required_item_groups: list[list[game_data.Item]] = []
-        if self.options.shortcuts_as_locations:
+        if self.options.shortcuts_as_locations or self.options.obstacles_as_locations:
             required_item_groups.append([game_data.ITEM_STAR])
         if self.options.item_hits_as_locations:
             required_item_groups.extend([list(hit.items) for hit in game_data.ITEM_HITS])

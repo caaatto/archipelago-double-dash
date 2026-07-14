@@ -104,6 +104,11 @@ class ItemHitsAsLocations(DefaultOnToggle):
     An unlock for every needed item is guaranteed to be in the pool."""
     display_name = "Item Hits as Locations"
 
+class ObstaclesAsLocations(DefaultOnToggle):
+    """Grants checks for defeating course obstacles (goombas, pokeys, cataquacks and friends).
+    Logic expects a star for these, though some also go down with other items."""
+    display_name = "Obstacles as Locations"
+
 class ItemBoxUnlocks(Toggle):
     """Adds an Item Boxes unlock for every course to the pool.
     Item boxes on a course give nothing until its unlock is received.
@@ -346,6 +351,7 @@ class MkddOptions(PerGameCommonOptions):
     add_custom_item_boxes: AddCustomItemBoxes
     shortcuts_as_locations: ShortcutsAsLocations
     item_hits_as_locations: ItemHitsAsLocations
+    obstacles_as_locations: ObstaclesAsLocations
     item_box_unlocks: ItemBoxUnlocks
     course_shuffle: CourseShuffle
     cup_unlocks: CupUnlocks
@@ -390,6 +396,7 @@ class MkddOptions(PerGameCommonOptions):
             "add_custom_item_boxes",
             "shortcuts_as_locations",
             "item_hits_as_locations",
+            "obstacles_as_locations",
             "item_box_unlocks",
             "frantic_items",
             "guaranteed_items",
@@ -430,6 +437,7 @@ option_groups: list[OptionGroup] = [
         AddCustomItemBoxes,
         ShortcutsAsLocations,
         ItemHitsAsLocations,
+        ObstaclesAsLocations,
         CourseShuffle,
         CustomTimeTrialTimes,
     ]),
