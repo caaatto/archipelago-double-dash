@@ -431,7 +431,10 @@ class MkddOptions(PerGameCommonOptions):
         """Sets options that are relayed in slot data."""
         for key, val in slot_data.items():
             if key in MkddOptions.type_hints: # Filter non-option data.
-                setattr(self, key, val)
+                # Wrap the raw slot data values in their option classes, so that
+                # code using .value (e.g. create_regions during the Universal
+                # Tracker regen) sees real options instead of bare ints/dicts.
+                setattr(self, key, MkddOptions.type_hints[key].from_any(val))
 
 def init_options() -> MkddOptions:
     """Initializes options object with default values."""
