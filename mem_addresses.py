@@ -84,8 +84,10 @@ class MkddMemAddresses():
     """Kart instance mass, copied from stat table at race init."""
     kart_body_steer_f_offset: int
     """Kart instance steer, copied from stat table at race init."""
-    kart_body_kart_id_w_offset: int
-    """Kart id (0-20) of the kart instance."""
+    kart_body_setting_ptr_offset: int
+    """Pointer to the kart's row in the shared stat table. The only reliable way
+    to tell which kart a body drives; the id-looking word at +0x5a8 is a different
+    index space and does not match the stat table order in grand prix."""
     kart_body_mynum_b_offset: int
     """Kart number of the kart instance (0 = player)."""
     kart_body_crash_timer_h_offset: int
@@ -243,7 +245,7 @@ class MkddMemAddressesUsa(MkddMemAddresses):
     kart_body_mini_turbo_max_h_offset = 0x5a0
     kart_body_mass_f_offset = 0x420
     kart_body_steer_f_offset = 0x484
-    kart_body_kart_id_w_offset = 0x5a8
+    kart_body_setting_ptr_offset = 0x100
     kart_body_mynum_b_offset = 0x5b3
     kart_body_crash_type_w_offset = 0x584
     kart_body_class_b_offset = 0x5c4

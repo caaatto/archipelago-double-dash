@@ -1156,6 +1156,21 @@ class MkddGameState():
             self.apply_cpu_kart_body_stats()
 
 
+    def get_kart_body_kart_id(self, kart_address: int) -> int:
+        """Returns the kart id (stat table row) a kart body drives, or -1 if the
+        body isn't initialized. Derived from the body's stat table pointer; the
+        id-looking word at +0x5a8 is a different index space and reads garbage
+        for grand prix rosters."""
+        setting_ptr: int = dolphin.read_word(kart_address + self.memory_addresses.kart_body_setting_ptr_offset)
+        offset: int = setting_ptr - self.memory_addresses.kart_stats_pointer
+        if offset < 0 or offset % self.memory_addresses.kart_struct_size != 0:
+            return -1
+        kart_id: int = offset // self.memory_addresses.kart_struct_size
+        if kart_id >= len(game_data.KARTS):
+            return -1
+        return kart_id
+
+
     def apply_player_kart_body_stats(self) -> None:
         """Applies upgraded stats directly to the player's kart instance.
 
@@ -1172,7 +1187,7 @@ class MkddGameState():
         if kart_address == 0:
             return
         # Make sure the kart instance is initialized and drives the kart we think it does.
-        if dolphin.read_word(kart_address + self.memory_addresses.kart_body_kart_id_w_offset) != self.active_kart.id:
+        if self.get_kart_body_kart_id(kart_address) != self.active_kart.id:
             return
         # During race init the pointer slot can briefly hold another kart's body.
         # If it drives the same kart model the id check won't catch it, which gave
@@ -1199,8 +1214,8 @@ class MkddGameState():
             # Never write the player's body through a CPU slot (see above).
             if dolphin.read_byte(kart_address + self.memory_addresses.kart_body_mynum_b_offset) == 0:
                 continue
-            kart_id: int = dolphin.read_word(kart_address + self.memory_addresses.kart_body_kart_id_w_offset)
-            if not 0 <= kart_id < len(game_data.KARTS):
+            kart_id: int = self.get_kart_body_kart_id(kart_address)
+            if kart_id < 0:
                 continue
             if len(self.kart_upgrades[kart_id]) == 0:
                 continue
