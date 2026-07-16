@@ -928,12 +928,12 @@ class MkddGameState():
         fields are copied from the stat table at race init, so they can be
         overwritten at any point after that.
         """
+        # Outside a race the kart pointers hold stale or garbage values, reading
+        # through them gives invalid addresses.
+        if not self.in_game:
+            return
         kart_ctrl: int = dolphin.read_word(self.memory_addresses.kart_control_pointer)
-        if kart_ctrl == 0:
-            return
         kart_address: int = dolphin.read_word(kart_ctrl + self.memory_addresses.kart_control_kart_pointers_offset)
-        if kart_address == 0:
-            return
         # Make sure the kart instance is initialized and drives the kart we think it does.
         if dolphin.read_word(kart_address + self.memory_addresses.kart_body_kart_id_w_offset) != self.active_kart.id:
             return
