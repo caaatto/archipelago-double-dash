@@ -1180,12 +1180,12 @@ class MkddGameState():
         copied from the stat table at race init, so they can be overwritten at any
         point after that.
         """
+        # Outside a race the kart pointers hold stale or garbage values (not 0),
+        # reading through them gives invalid addresses.
+        if not self.in_game:
+            return
         kart_ctrl: int = dolphin.read_word(self.memory_addresses.kart_control_pointer)
-        if kart_ctrl == 0:
-            return
         kart_address: int = dolphin.read_word(kart_ctrl + self.memory_addresses.kart_control_kart_pointers_offset)
-        if kart_address == 0:
-            return
         # Make sure the kart instance is initialized and drives the kart we think it does.
         if self.get_kart_body_kart_id(kart_address) != self.active_kart.id:
             return
@@ -1200,9 +1200,10 @@ class MkddGameState():
     def apply_cpu_kart_body_stats(self) -> None:
         """Applies the upgrades unlocked for each kart to the CPU kart instances
         (cpu_upgrades option, issue #42)."""
-        kart_ctrl: int = dolphin.read_word(self.memory_addresses.kart_control_pointer)
-        if kart_ctrl == 0:
+        # See apply_player_kart_body_stats, the pointers are garbage outside races.
+        if not self.in_game:
             return
+        kart_ctrl: int = dolphin.read_word(self.memory_addresses.kart_control_pointer)
         random_mode: bool = self.options.cpu_upgrades == options.CpuUpgrades.option_some
         for kart_no in range(1, 8):
             if random_mode and kart_no not in self.cpu_upgraded_karts:
