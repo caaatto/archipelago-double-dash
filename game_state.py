@@ -937,6 +937,11 @@ class MkddGameState():
         # Make sure the kart instance is initialized and drives the kart we think it does.
         if dolphin.read_word(kart_address + self.memory_addresses.kart_body_kart_id_w_offset) != self.active_kart.id:
             return
+        # During race init the pointer slot can briefly hold another kart's body.
+        # If it drives the same kart model the id check won't catch it, which gave
+        # the player's upgrades to same-kart time trial ghosts (issue #41 again).
+        if dolphin.read_byte(kart_address + self.memory_addresses.kart_body_mynum_b_offset) != 0:
+            return
 
         stats = self.get_modified_kart_stats(self.active_kart.id, True)
         # The instance speeds include the vehicle class multiplier.
