@@ -123,12 +123,17 @@ class MkddContext(CommonContext):
                     self.disconnect()
                     return
                 
-                if "death_link" in slot_data:
-                    Utils.async_start(self.update_death_link(bool(args["slot_data"]["death_link"])))
-
+                # Set both link tags first and send a single ConnectUpdate.
+                # Two separate updates can arrive out of order and drop a tag again.
+                if slot_data.get("death_link"):
+                    self.tags.add("DeathLink")
+                else:
+                    self.tags.discard("DeathLink")
                 if slot_data.get("damage_link"):
                     self.tags.add("DamageLink")
-                    Utils.async_start(self.send_msgs([{"cmd": "ConnectUpdate", "tags": list(self.tags)}]))
+                else:
+                    self.tags.discard("DamageLink")
+                Utils.async_start(self.send_msgs([{"cmd": "ConnectUpdate", "tags": list(self.tags)}]))
                 
                 self.options.update_from_slot_data(slot_data)
                 self.trophy_requirement = slot_data["trophy_requirement"]
