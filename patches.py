@@ -777,7 +777,7 @@ invalidate_cache: dict[int, list[int]] = {
         0x7c00606c,
         0x7c0067ac,
         0x3d80802b,
-        0x398ced5c,
+        0x398ced10,
         0x7c00606c,
         0x7c0067ac,
         0x3d808000,
@@ -1090,24 +1090,24 @@ class_cursor_mirror: dict[int, list[int]] = {
     ],
 }
 death_link: dict[int, list[int]] = {
-    0x802aed5c: [
-        0x4bd53c68,
+    0x802aed10: [
+        0x4bd53cb4,
     ],
     0x800029c4: [
         0x3c608000,
         0x80031140,
-        0x28000000,
-        0x4182001c,
-        0x881b05b3,
-        0x28000000,
-        0x40820010,
+        0x2b800000,
+        0x419e0018,
+        0x2b9a0000,
+        0x409e0010,
         0x38000000,
         0x90031140,
-        0x482ac38c,
+        0x482ac390,
     ],
-    0x800029ec: [
-        0x801c0060,
-        0x482ac370,
+    0x800029e8: [
+        0x41820008,
+        0x482ac3a0,
+        0x482ac324,
     ],
     0x80001140: [
         0x00000000,
