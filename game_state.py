@@ -848,55 +848,129 @@ class MkddGameState():
                 return 1.0
 
 
+    def get_modified_kart_stats(self, kart_id: int, apply_upgrades: bool) -> game_data.KartStats:
+        """Returns kart stats, with speed modifiers and unlocked upgrades applied if requested."""
+        stats = game_data.KARTS[kart_id].stats
+        if not apply_upgrades:
+            return stats
+
+        speed_1_multiplier = self.calculate_speed_multiplier()
+        speed_2_multiplier = 1.0
+        speed_3_multiplier = 1.0
+        speed_4_multiplier = 1.0
+        acceleration_1_addition = 0.0
+        acceleration_2_addition = 0.0
+        mini_turbo_addition = 0.0
+        weight_addition = 0.0
+        steer_addition = 0.0
+        for upgrade in self.kart_upgrades[kart_id]:
+            if upgrade == game_data.KART_UPGRADE_ACC:
+                acceleration_1_addition += 1
+                acceleration_2_addition += .1
+            elif upgrade == game_data.KART_UPGRADE_OFFROAD:
+                speed_2_multiplier *= 1.1
+                speed_3_multiplier *= 1.2
+                speed_4_multiplier *= 3
+            elif upgrade == game_data.KART_UPGRADE_WEIGHT:
+                weight_addition += 2
+            elif upgrade == game_data.KART_UPGRADE_TURBO:
+                mini_turbo_addition += 30
+            elif upgrade == game_data.KART_UPGRADE_STEER:
+                steer_addition += 1
+        # Speed 1 (on road) is also general speed multiplier.
+        return game_data.KartStats(
+            speed_on_road = stats.speed_on_road * speed_1_multiplier,
+            speed_off_road_sand = stats.speed_off_road_sand * speed_2_multiplier * speed_1_multiplier,
+            speed_off_road_grass = stats.speed_off_road_grass * speed_3_multiplier * speed_1_multiplier,
+            speed_off_road_mud = stats.speed_off_road_mud * speed_4_multiplier * speed_1_multiplier,
+            acceleration_1 = stats.acceleration_1 + acceleration_1_addition,
+            acceleration_2 = stats.acceleration_2 + acceleration_2_addition,
+            mini_turbo = stats.mini_turbo + mini_turbo_addition,
+            mass = stats.mass + weight_addition,
+            roll = stats.roll,
+            steer = stats.steer + steer_addition,
+        )
+
+
     def apply_kart_stats(self) -> None:
         """Writes custom kart stats into game."""
+        # In time trials the shared stat table is kept vanilla, so that ghost karts
+        # initialize with the stats they were recorded with (issue #41). The player's
+        # upgrades are applied directly to the kart instance instead.
+        time_trial: bool = self.mode == game_data.Modes.TIMETRIAL
         kart_stats_pointer = self.memory_addresses.kart_stats_pointer
         for i in range(len(game_data.KARTS)):
-            kart: game_data.Kart = game_data.KARTS[i]
             kart_address = kart_stats_pointer + i * self.memory_addresses.kart_struct_size
-
-            speed_1_multiplier = 1.0
-            speed_2_multiplier = 1.0
-            speed_3_multiplier = 1.0
-            speed_4_multiplier = 1.0
-            acceleration_1_addition = 0.0
-            acceleration_2_addition = 0.0
-            mini_turbo_addition = 0.0
-            weight_addition = 0.0
-            steer_addition = 0.0
             # Upgrades apply to the player only (by side-effect also bots using the same kart).
-            if kart == self.active_kart:
-                speed_1_multiplier = self.calculate_speed_multiplier()
-                for upgrade in self.kart_upgrades[i]:
-                    if upgrade == game_data.KART_UPGRADE_ACC:
-                        acceleration_1_addition += 1
-                        acceleration_2_addition += .1
-                    elif upgrade == game_data.KART_UPGRADE_OFFROAD:
-                        speed_2_multiplier *= 1.1
-                        speed_3_multiplier *= 1.2
-                        speed_4_multiplier *= 3
-                    elif upgrade == game_data.KART_UPGRADE_WEIGHT:
-                        weight_addition += 2
-                    elif upgrade == game_data.KART_UPGRADE_TURBO:
-                        mini_turbo_addition += 30
-                    elif upgrade == game_data.KART_UPGRADE_STEER:
-                        steer_addition += 1
-            # Speed 1 (on road) is also general speed multiplier.
-            speed_2_multiplier *= speed_1_multiplier
-            speed_3_multiplier *= speed_1_multiplier
-            speed_4_multiplier *= speed_1_multiplier
-            stats = kart.stats
-            
-            dolphin.write_float(kart_address + self.memory_addresses.kart_speed_on_road_f_offset, stats.speed_on_road * speed_1_multiplier)
-            dolphin.write_float(kart_address + self.memory_addresses.kart_speed_off_road_sand_f_offset, stats.speed_off_road_sand * speed_2_multiplier)
-            dolphin.write_float(kart_address + self.memory_addresses.kart_speed_off_road_grass_f_offset, stats.speed_off_road_grass * speed_3_multiplier)
-            dolphin.write_float(kart_address + self.memory_addresses.kart_speed_off_road_mud_f_offset, stats.speed_off_road_mud * speed_4_multiplier)
-            dolphin.write_float(kart_address + self.memory_addresses.kart_acceleration_1_f_offset, stats.acceleration_1 + acceleration_1_addition)
-            dolphin.write_float(kart_address + self.memory_addresses.kart_acceleration_2_f_offset, stats.acceleration_2 + acceleration_2_addition)
-            dolphin.write_float(kart_address + self.memory_addresses.kart_mini_turbo_f_offset, stats.mini_turbo + mini_turbo_addition)
-            dolphin.write_float(kart_address + self.memory_addresses.kart_mass_f_offset, stats.mass + weight_addition)
+            apply_upgrades: bool = game_data.KARTS[i] == self.active_kart and not time_trial
+            stats = self.get_modified_kart_stats(i, apply_upgrades)
+
+            dolphin.write_float(kart_address + self.memory_addresses.kart_speed_on_road_f_offset, stats.speed_on_road)
+            dolphin.write_float(kart_address + self.memory_addresses.kart_speed_off_road_sand_f_offset, stats.speed_off_road_sand)
+            dolphin.write_float(kart_address + self.memory_addresses.kart_speed_off_road_grass_f_offset, stats.speed_off_road_grass)
+            dolphin.write_float(kart_address + self.memory_addresses.kart_speed_off_road_mud_f_offset, stats.speed_off_road_mud)
+            dolphin.write_float(kart_address + self.memory_addresses.kart_acceleration_1_f_offset, stats.acceleration_1)
+            dolphin.write_float(kart_address + self.memory_addresses.kart_acceleration_2_f_offset, stats.acceleration_2)
+            dolphin.write_float(kart_address + self.memory_addresses.kart_mini_turbo_f_offset, stats.mini_turbo)
+            dolphin.write_float(kart_address + self.memory_addresses.kart_mass_f_offset, stats.mass)
             dolphin.write_float(kart_address + self.memory_addresses.kart_roll_f_offset, stats.roll)
-            dolphin.write_float(kart_address + self.memory_addresses.kart_steer_f_offset, stats.steer + steer_addition)
+            dolphin.write_float(kart_address + self.memory_addresses.kart_steer_f_offset, stats.steer)
+
+        if time_trial:
+            self.apply_player_kart_body_stats()
+
+
+    def get_kart_body_kart_id(self, kart_address: int) -> int:
+        """Returns the kart id (stat table row) a kart body drives, or -1 if the
+        body isn't initialized. Derived from the body's stat table pointer; the
+        id-looking word at +0x5a8 is a different index space and reads garbage
+        for grand prix rosters."""
+        setting_ptr: int = dolphin.read_word(kart_address + self.memory_addresses.kart_body_setting_ptr_offset)
+        offset: int = setting_ptr - self.memory_addresses.kart_stats_pointer
+        if offset < 0 or offset % self.memory_addresses.kart_struct_size != 0:
+            return -1
+        kart_id: int = offset // self.memory_addresses.kart_struct_size
+        if kart_id >= len(game_data.KARTS):
+            return -1
+        return kart_id
+
+
+    def apply_player_kart_body_stats(self) -> None:
+        """Applies upgraded stats directly to the player's kart instance.
+
+        Used in time trials, where the shared stat table must stay vanilla so that
+        ghost karts don't pick up the player's upgrades (issue #41). The instance
+        fields are copied from the stat table at race init, so they can be
+        overwritten at any point after that.
+        """
+        # Outside a race the kart pointers hold stale or garbage values, reading
+        # through them gives invalid addresses.
+        if not self.in_game:
+            return
+        kart_ctrl: int = dolphin.read_word(self.memory_addresses.kart_control_pointer)
+        kart_address: int = dolphin.read_word(kart_ctrl + self.memory_addresses.kart_control_kart_pointers_offset)
+        # Make sure the kart instance is initialized and drives the kart we think it does.
+        if self.get_kart_body_kart_id(kart_address) != self.active_kart.id:
+            return
+        # During race init the pointer slot can briefly hold another kart's body.
+        # If it drives the same kart model the id check won't catch it, which gave
+        # the player's upgrades to same-kart time trial ghosts (issue #41 again).
+        if dolphin.read_byte(kart_address + self.memory_addresses.kart_body_mynum_b_offset) != 0:
+            return
+
+        stats = self.get_modified_kart_stats(self.active_kart.id, True)
+        # The instance speeds include the vehicle class multiplier.
+        vehicle_class: int = min(2, dolphin.read_byte(kart_address + self.memory_addresses.kart_body_class_b_offset))
+        class_multiplier: float = dolphin.read_float(self.memory_addresses.class_speed_multipliers_fx + vehicle_class * 4)
+        speeds = [stats.speed_on_road, stats.speed_off_road_sand, stats.speed_off_road_grass, stats.speed_off_road_mud]
+        for idx, speed in enumerate(speeds):
+            dolphin.write_float(kart_address + self.memory_addresses.kart_body_speeds_fx_offset + idx * 4, speed * class_multiplier)
+        dolphin.write_float(kart_address + self.memory_addresses.kart_body_acceleration_1_f_offset, stats.acceleration_1)
+        dolphin.write_float(kart_address + self.memory_addresses.kart_body_acceleration_2_f_offset, stats.acceleration_2)
+        # Mini-turbo boost duration is a halfword, 1 + stat table value.
+        dolphin.write_bytes(kart_address + self.memory_addresses.kart_body_mini_turbo_max_h_offset, int(1 + stats.mini_turbo).to_bytes(2, "big"))
+        dolphin.write_float(kart_address + self.memory_addresses.kart_body_mass_f_offset, stats.mass)
+        dolphin.write_float(kart_address + self.memory_addresses.kart_body_steer_f_offset, stats.steer)
 
 
     def calculate_speed_multiplier(self) -> float:
